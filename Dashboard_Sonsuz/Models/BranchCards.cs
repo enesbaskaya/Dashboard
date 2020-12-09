@@ -14,5 +14,14 @@ namespace Dashboard_Sonsuz.Models
         public Branch branch { get; set; }
 
 
+        public BranchCards(long cardId, string iban, string cardOwner, string bankName, long branchId)
+        {
+            this.cardId = cardId;
+            this.iban = iban;
+            this.cardOwner = cardOwner;
+            this.bankName = bankName;
+            this.branchId = branchId;
+        }
+
     }
 }

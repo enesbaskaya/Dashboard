@@ -55,7 +55,6 @@ namespace Dashboard_Sonsuz
             services.AddTransient<MySqlConnection>(_ => new MySqlConnection(Configuration["ConnectionStrings:DefaultConnection"]));
             services.AddDbContext<Context>(options =>
                options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddControllersWithViews();
         }
 

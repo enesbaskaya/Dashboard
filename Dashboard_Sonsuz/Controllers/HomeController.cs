@@ -10,9 +10,9 @@ namespace Dashboard_Sonsuz.Controllers
 {
     public class HomeController : Controller
     {
-        Admin admin;
-        List<Dictionary<string, long>> list = new List<Dictionary<string, long>>();
-        List<long> dateList = new List<long>();
+        private Admin admin;
+        private List<Dictionary<string, long>> list = new List<Dictionary<string, long>>();
+        private List<long> dateList = new List<long>();
 
         private readonly Context _context;
 
@@ -25,6 +25,7 @@ namespace Dashboard_Sonsuz.Controllers
         public async System.Threading.Tasks.Task<IActionResult> IndexAsync()
         {
             this.admin = await _context.admin.FirstOrDefaultAsync(x => x.username == HttpContext.Session.GetString("admin"));
+            ViewBag.admin = this.admin;
 
             DateTime time = DateTime.Now;
             for (int i=1;i<=14;i++)
@@ -64,8 +65,20 @@ namespace Dashboard_Sonsuz.Controllers
             ViewBag.areaCount = _context.areaInfo.Count();
 
 
-
-            return View(this.admin);
+            var result = (from a in _context.transActions
+                         join c in _context.branchCards on a.cardId equals c.cardId
+                         where !a.checkActive
+                         select new TransActions
+                          {
+                              transId = a.transId,
+                              cardId = a.cardId,
+                              date = a.date,
+                              amount = a.amount,
+                              checkActive = a.checkActive,
+                              card = new BranchCards(c.cardId, c.iban, c.cardOwner,  c.bankName,c.branchId)
+                          }).OrderByDescending(x => x.transId).Take(5).ToList();
+            ViewBag.transActions = result;
+            return View();
         }
 
 

@@ -19,6 +19,10 @@ namespace Dashboard_Sonsuz.Models
 
         public bool checkActive { get; set; }
 
+        public TransActions()
+        {
+
+        }
 
 
     }
