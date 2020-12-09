@@ -1,0 +1,63 @@
+﻿@using Dashboard_Sonsuz.Resources
+@inject LocServices SharedLocalizer
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
+    <link rel="stylesheet" href="~/css/simplebar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/feather.css">
+    <link rel="stylesheet" href="~/css/daterangepicker.css">
+    <link rel="stylesheet" href="~/css/app-light.css" id="lightTheme" disabled>
+    <link rel="stylesheet" href="~/css/app-dark.css" id="darkTheme">
+</head>
+<body class="dark">
+    <div class="wrapper vh-100">
+        <div class="row align-items-center h-100">
+            <div class="col-lg-3 col-md-4 col-10 mx-auto text-center">
+                <img src="~/images/bmv.png"/>
+
+                <h1 class="h6 mb-3">@SharedLocalizer.GetLocalizedHtmlString("Login")</h1>
+
+                <label for="inputEmail" class="sr-only">@SharedLocalizer.GetLocalizedHtmlString("Username")</label>
+
+                @using (Html.BeginForm())
+                {<div class="form-group">
+                        <label for="inputMail" class="sr-only">@SharedLocalizer.GetLocalizedHtmlString("Username")</label>
+                        <input name="inputMail" id="inputEmail" type="text" class="form-control form-control-lg" placeholder=@SharedLocalizer.GetLocalizedHtmlString("Username") required="" autofocus="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPassword" class="sr-only">@SharedLocalizer.GetLocalizedHtmlString("Password")</label>
+                        <input name="inputPassword" type="password" id="inputPassword" class="form-control form-control-lg" placeholder="@SharedLocalizer.GetLocalizedHtmlString("Password")" required="">
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">@SharedLocalizer.GetLocalizedHtmlString("Login")</button>
+                    <p class="mt-6 mb-2 text-muted">@SharedLocalizer.GetLocalizedHtmlString("ARS")</p>
+                }
+            </div>
+        </div>
+    </div>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/moment.min.js"></script>
+    @if (null != TempData["alertMessage"])
+    {
+        <script type="text/javascript">
+       alert('@TempData["alertMessage"]');
+        </script>
+    }
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/simplebar.min.js"></script>
+    <script src='~/js/daterangepicker.js'></script>
+    <script src='~/js/jquery.stickOnScroll.js'></script>
+    <script src="~/js/tinycolor-min.js"></script>
+    <script src="~/js/config.js"></script>
+    <script src="~/js/apps.js"></script>
+</body>
+</html>
