@@ -1,4 +1,4 @@
-﻿using Dashboard_Sonsuz.Models;
+﻿using Dashboard.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

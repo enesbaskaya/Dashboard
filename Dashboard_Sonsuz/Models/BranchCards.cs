@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Dashboard_Sonsuz.Models
+namespace Dashboard.Models
 {
     public class BranchCards
     {

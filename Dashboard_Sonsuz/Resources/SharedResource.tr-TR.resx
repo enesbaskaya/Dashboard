@@ -117,16 +117,121 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountOwner" xml:space="preserve">
+    <value>Hesap Sahibi</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Miktar (₺)</value>
+  </data>
+  <data name="AreaApplications" xml:space="preserve">
+    <value>Saha Başvuruları</value>
+  </data>
+  <data name="AreaCount" xml:space="preserve">
+    <value>Saha Sayısı</value>
+  </data>
   <data name="ARS" xml:space="preserve">
     <value>Tüm Hakları Saklıdır</value>
+  </data>
+  <data name="BankName" xml:space="preserve">
+    <value>Banka Adı</value>
+  </data>
+  <data name="BranchApplications" xml:space="preserve">
+    <value>Şube Başvuruları</value>
+  </data>
+  <data name="Branches" xml:space="preserve">
+    <value>İşletmeler</value>
+  </data>
+  <data name="BranchesCount" xml:space="preserve">
+    <value>Şube Sayısı</value>
+  </data>
+  <data name="ClearAll" xml:space="preserve">
+    <value>Hepsini Temizle</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Tarih</value>
+  </data>
+  <data name="DeleteAreaRequests" xml:space="preserve">
+    <value>Saha Silme Talepleri</value>
+  </data>
+  <data name="Expense" xml:space="preserve">
+    <value>Gider</value>
+  </data>
+  <data name="HistoryMatches" xml:space="preserve">
+    <value>Maç Geçmişi</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Ana Sayfa</value>
+  </data>
+  <data name="IbanText" xml:space="preserve">
+    <value>IBAN</value>
+  </data>
+  <data name="IdText" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Income" xml:space="preserve">
+    <value>Gelir</value>
+  </data>
+  <data name="Leagues" xml:space="preserve">
+    <value>Ligler</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Giriş Yap</value>
   </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Bildirimler</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Şifre</value>
   </data>
+  <data name="PaymentHistory" xml:space="preserve">
+    <value>Ödeme geçmişi</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>Ödemeler</value>
+  </data>
+  <data name="Receiver" xml:space="preserve">
+    <value>Alıcı</value>
+  </data>
+  <data name="Sender" xml:space="preserve">
+    <value>Gönderen</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="TeamData" xml:space="preserve">
+    <value>Takım Verileri</value>
+  </data>
+  <data name="Teams" xml:space="preserve">
+    <value>Takımlar</value>
+  </data>
+  <data name="Tickets" xml:space="preserve">
+    <value>Destek Talepleri</value>
+  </data>
+  <data name="Tournament" xml:space="preserve">
+    <value>Turnuva</value>
+  </data>
+  <data name="UserCount" xml:space="preserve">
+    <value>Kullanıcı Sayısı</value>
+  </data>
+  <data name="UserData" xml:space="preserve">
+    <value>Kullanıcı Verileri</value>
+  </data>
   <data name="Username" xml:space="preserve">
     <value>Kullanıcı Adı</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Kullanıcılar</value>
+  </data>
+  <data name="ViewAll" xml:space="preserve">
+    <value>Hepsini Gör</value>
+  </data>
+  <data name="WeeklyStats" xml:space="preserve">
+    <value>Haftalık İstatistik</value>
+  </data>
+  <data name="WelcomeText" xml:space="preserve">
+    <value>Tekrardan Hoşgeldiniz</value>
+  </data>
+  <data name="Worth" xml:space="preserve">
+    <value>Kâr</value>
   </data>
 </root>

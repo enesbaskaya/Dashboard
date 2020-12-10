@@ -1,4 +1,4 @@
-﻿using Dashboard_Sonsuz.Models;
+﻿using Dashboard.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Dashboard_Sonsuz.Controllers
+namespace Dashboard.Controllers
 {
     public class AdminController : Controller
     {

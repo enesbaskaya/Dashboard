@@ -5,7 +5,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Dashboard_Sonsuz
+namespace Dashboard
 {
     public class Program
     {

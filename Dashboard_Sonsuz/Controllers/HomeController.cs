@@ -1,4 +1,4 @@
-﻿using Dashboard_Sonsuz.Models;
+﻿using Dashboard.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Dashboard_Sonsuz.Controllers
+namespace Dashboard.Controllers
 {
     public class HomeController : Controller
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Localization;
 using System.Reflection;
 
-namespace Dashboard_Sonsuz.Resources
+namespace Dashboard.Resources
 {
     public class LocServices
     {

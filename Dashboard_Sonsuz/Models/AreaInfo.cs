@@ -1,11 +1,11 @@
-﻿using Dashboard_Sonsuz.Models.Database;
+﻿using Dashboard.Models.Database;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dashboard_Sonsuz.Models
+namespace Dashboard.Models
 {
     public class AreaInfo
     {

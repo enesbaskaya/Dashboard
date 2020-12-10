@@ -117,16 +117,121 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountOwner" xml:space="preserve">
+    <value>Account Owner</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount (₺)</value>
+  </data>
+  <data name="AreaApplications" xml:space="preserve">
+    <value>Area Applications</value>
+  </data>
+  <data name="AreaCount" xml:space="preserve">
+    <value>Area Count</value>
+  </data>
   <data name="ARS" xml:space="preserve">
     <value>All Rights Reserved</value>
+  </data>
+  <data name="BankName" xml:space="preserve">
+    <value>Bank Name</value>
+  </data>
+  <data name="BranchApplications" xml:space="preserve">
+    <value>Branch Applications</value>
+  </data>
+  <data name="Branches" xml:space="preserve">
+    <value>Branches</value>
+  </data>
+  <data name="BranchesCount" xml:space="preserve">
+    <value>Branches Count</value>
+  </data>
+  <data name="ClearAll" xml:space="preserve">
+    <value>Clear All</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="DeleteAreaRequests" xml:space="preserve">
+    <value>Delete Area Requests</value>
+  </data>
+  <data name="Expense" xml:space="preserve">
+    <value>Expense</value>
+  </data>
+  <data name="HistoryMatches" xml:space="preserve">
+    <value>History Matches</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="IbanText" xml:space="preserve">
+    <value>IBAN</value>
+  </data>
+  <data name="IdText" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Income" xml:space="preserve">
+    <value>Income</value>
+  </data>
+  <data name="Leagues" xml:space="preserve">
+    <value>Leagues</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Log In</value>
   </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="PaymentHistory" xml:space="preserve">
+    <value>Payment History</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>Payments</value>
+  </data>
+  <data name="Receiver" xml:space="preserve">
+    <value>Receiver</value>
+  </data>
+  <data name="Sender" xml:space="preserve">
+    <value>Sender</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TeamData" xml:space="preserve">
+    <value>Team Data</value>
+  </data>
+  <data name="Teams" xml:space="preserve">
+    <value>Teams</value>
+  </data>
+  <data name="Tickets" xml:space="preserve">
+    <value>Tickets</value>
+  </data>
+  <data name="Tournament" xml:space="preserve">
+    <value>Tournament</value>
+  </data>
+  <data name="UserCount" xml:space="preserve">
+    <value>User Count</value>
+  </data>
+  <data name="UserData" xml:space="preserve">
+    <value>User Data</value>
+  </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="ViewAll" xml:space="preserve">
+    <value>View All</value>
+  </data>
+  <data name="WeeklyStats" xml:space="preserve">
+    <value>Weekly Statistics</value>
+  </data>
+  <data name="WelcomeText" xml:space="preserve">
+    <value>Welcome back!</value>
+  </data>
+  <data name="Worth" xml:space="preserve">
+    <value>Worth</value>
   </data>
 </root>

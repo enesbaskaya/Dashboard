@@ -1,4 +1,4 @@
-﻿namespace Dashboard_Sonsuz.Resources
+﻿namespace Dashboard.Resources
 {
     public class SharedResource
     {

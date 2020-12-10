@@ -1,5 +1,5 @@
-using Dashboard_Sonsuz.Models;
-using Dashboard_Sonsuz.Resources;
+using Dashboard.Models;
+using Dashboard.Resources;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,7 +14,7 @@ using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace Dashboard_Sonsuz
+namespace Dashboard
 {
     public class Startup
     {
@@ -35,24 +35,25 @@ namespace Dashboard_Sonsuz
             services.AddSession();
             services.AddSingleton<LocServices>();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().AddViewLocalization(options => options.ResourcesPath = "Resources");
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.Configure<RequestLocalizationOptions>(
             options =>
             {
                 var supportedCultures = new List<CultureInfo>
                     {
+                        new CultureInfo("tr-TR"),
                         new CultureInfo("en-US"),
-                        new CultureInfo("tr-TR")
+                        
                     };
 
-                options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
+                options.DefaultRequestCulture = new RequestCulture(supportedCultures[0]);
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
 
                 options.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
             });
-            services.AddTransient<MySqlConnection>(_ => new MySqlConnection(Configuration["ConnectionStrings:DefaultConnection"]));
             services.AddDbContext<Context>(options =>
                options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
@@ -62,6 +63,7 @@ namespace Dashboard_Sonsuz
         {
             var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(locOptions.Value);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -75,6 +77,8 @@ namespace Dashboard_Sonsuz
             app.UseStaticFiles();
 
             app.UseRouting();
+
+           
 
             app.UseAuthorization();
             app.UseAuthentication();

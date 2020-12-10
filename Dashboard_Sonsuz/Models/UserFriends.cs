@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-namespace Dashboard_Sonsuz.Models
+namespace Dashboard.Models
 {
     public class UserFriends
     {

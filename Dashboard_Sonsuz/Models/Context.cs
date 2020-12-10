@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Dashboard_Sonsuz.Models
+namespace Dashboard.Models
 {
     public class Context : DbContext
     {
