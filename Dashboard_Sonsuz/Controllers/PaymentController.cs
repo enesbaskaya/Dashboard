@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -40,6 +41,15 @@ namespace Dashboard.Controllers
 
             PagedList<TransActions> model = new PagedList<TransActions>(result, page, pageSize);
 
+
+            double transSendData = await _context.transActions.Where(x => x.amount > 0).SumAsync(x => x.amount);
+            double transReceiveData = -(await _context.transActions.Where(x => x.amount < 0).SumAsync(x => x.amount));
+
+            ViewBag.sendData = transSendData;
+            ViewBag.receiveData = transReceiveData;
+            ViewBag.worth = transReceiveData - transSendData;
+
+
             return View(model);
         }
 
@@ -47,9 +57,45 @@ namespace Dashboard.Controllers
         public async Task<IActionResult> Update(long transId)
         {
             TransActions updatedData = await _context.transActions.FindAsync(transId);
-            updatedData.checkActive = true;
-            _context.transActions.Update(updatedData);
-            await _context.SaveChangesAsync();
+            if (!updatedData.checkActive)
+            {
+                updatedData.checkActive = true;
+                _context.transActions.Update(updatedData);
+
+                var result = (from a in _context.transActions
+                              join c in _context.branchCards on a.cardId equals c.cardId
+                              join b in _context.branch on c.branchId equals b.branchId
+                              select new Branch
+                              {
+                                  branchId = b.branchId,
+                                  admin = b.admin,
+                              }).ToList();
+                Branch branch = result[0];
+
+                //true = sender is BMV else sender is Branch.
+                bool moneySender = (updatedData.amount > 0);
+
+                string paymentSuccessSendContent = "Sayın, " + branch.admin + "\n'" + updatedData.transId + "' numaralı ödeme talimatınız başarılı bir şekilde " +
+                    " belirttiğiniz banka hesabınıza aktarılmıştır. Cüzdan sayfanızdan gerekli takibatı yapabilirsiniz.\n\nSaygılarımızla, BiMaçVar!";
+
+                string paymentSuccesReceiveContent = "Sayın, " + branch.admin + "\n'" + updatedData.transId + "' numaralı ödeme gerçekleşti ve para başarılı bir şekilde hesabımıza ulaştı." +
+                    " Cüzdan sayfanızdan gerekli takibatı yapabilirsiniz.\n\nSaygılarımızla, BiMaçVar!";
+
+                string paymentSuccessHeader = "Ödeme Bildirimi";
+                DateTime time = DateTime.Now;
+                string format = "dd/M/yyyy";
+                var insertNotification = await _context.branchNotifications.AddAsync(
+                    new BranchNotifications
+                    {
+                        branchId = branch.branchId,
+                        content = moneySender ? paymentSuccessSendContent : paymentSuccesReceiveContent,
+                        date = time.ToString(format),
+                        header = paymentSuccessHeader,
+                        isRead = false,
+                        sender = "BiMaçVar!"
+                    });
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction("Index");
         }
 

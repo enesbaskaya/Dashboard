@@ -53,6 +53,9 @@
                                         <th>Hesap Sahibi</th>
                                         <th>Banka Adı</th>
                                         <th>IBAN</th>
+                                        <th>Miktar (₺)</th>
+                                        <th>Alıcı</th>
+                                        <th>Gönderen</th>
                                         <th>Tarih</th>
                                         <th>Durum</th>
                                     </tr>
@@ -64,11 +67,14 @@
                                         {
                                             <tr>
                                                 <td>@transAction.transId</td>
-                                                <th scope="col">@transAction.card.cardOwner</th>
-                                                <td>@transAction.card.bankName</td>
-                                                <td>@transAction.card.iban</td>
+                                                <td scope="col">@(transAction.amount < 0 ? "BiMaçVar!":transAction.card.cardOwner)</td>
+                                                <td>@(transAction.amount < 0 ? "BiMaçVar!": transAction.card.bankName)</td>
+                                                <td>@(transAction.amount < 0 ? "BiMaçVar!":transAction.card.iban)</td>
+                                                <td style="color: @(transAction.amount < 0 ? "forestgreen" :  "orange")">@(transAction.amount < 0 ? -transAction.amount : transAction.amount)₺</td>
+                                                <td>@((transAction.amount > 0) ? transAction.card.cardOwner : "BiMaçVar!")</td>
+                                                <td>@((transAction.amount < 0) ? transAction.card.cardOwner : "BiMaçVar!")</td>
                                                 <td>@transAction.date</td>
-                                                <td><i class="@(transAction.checkActive ? "fa fa-check" : "fa fa-times")"></i></td>
+                                                <td><i style="color: @(transAction.checkActive ? "lawngreen" :  "orangered")" class="@(transAction.checkActive ? "fa fa-check" : "fa fa-times")"></i></td>
                                             </tr>
 
                                         }
