@@ -1,6 +1,4 @@
 ﻿using Dashboard.Models.Database;
-using MySql.Data.MySqlClient;
-using MySqlConnector;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 

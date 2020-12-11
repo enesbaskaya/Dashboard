@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 namespace Dashboard.Models
 {
-    public class TransActions
+    public class BranchTransActions
     {
         [Key]
         public long transId { get; set; }
@@ -18,11 +18,6 @@ namespace Dashboard.Models
         public double amount { get; set; }
 
         public bool checkActive { get; set; }
-
-        public TransActions()
-        {
-
-        }
 
 
     }

@@ -43,7 +43,7 @@
                 <div class="col-md-12 col-lg-12">
                     <div class="card shadow">
                         <div class="card-header">
-                            <strong class="card-title">@SharedLocalizer.GetLocalizedHtmlString("PaymentHistory")</strong>
+                            <strong class="card-title">@SharedLocalizer.GetLocalizedHtmlString("ExpenseHistory")</strong>
                             <a class="float-right small text-muted" href="@Url.Action("Index", "Payment")">@SharedLocalizer.GetLocalizedHtmlString("ViewAll")</a>
                         </div>
                         <div class="card-body my-n2">
@@ -56,24 +56,21 @@
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("IbanText")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Amount")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Receiver")</th>
-                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Sender")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Date")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Status")</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @{
-                                        var actions = ViewBag.transActions;
-                                        foreach (TransActions transAction in actions)
+                                        foreach (BranchTransActions transAction in Model)
                                         {
                                             <tr>
                                                 <td>@transAction.transId</td>
-                                                <td scope="col">@(transAction.amount < 0 ? "BiMaçVar!":transAction.card.cardOwner)</td>
-                                                <td>@(transAction.amount < 0 ? "BiMaçVar!": transAction.card.bankName)</td>
-                                                <td>@(transAction.amount < 0 ? "BiMaçVar!":transAction.card.iban)</td>
-                                                <td style="color: @(transAction.amount < 0 ? "forestgreen" :  "orange")">@(transAction.amount < 0 ? -transAction.amount : transAction.amount)₺</td>
-                                                <td>@((transAction.amount > 0) ? transAction.card.cardOwner : "BiMaçVar!")</td>
-                                                <td>@((transAction.amount < 0) ? transAction.card.cardOwner : "BiMaçVar!")</td>
+                                                <td scope="col">@transAction.card.cardOwner</td>
+                                                <td>@transAction.card.bankName</td>
+                                                <td>@transAction.card.iban</td>
+                                                <td style="color: orange">@transAction.amount ₺</td>
+                                                <td>@transAction.card.cardOwner</td>
                                                 <td>@transAction.date</td>
                                                 <td><i style="color: @(transAction.checkActive ? "lawngreen" :  "orangered")" class="@(transAction.checkActive ? "fa fa-check" : "fa fa-times")"></i></td>
                                             </tr>

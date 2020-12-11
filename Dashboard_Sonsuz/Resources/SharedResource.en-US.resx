@@ -144,6 +144,9 @@
   <data name="BranchesCount" xml:space="preserve">
     <value>Branches Count</value>
   </data>
+  <data name="BranchName" xml:space="preserve">
+    <value>Branch Name</value>
+  </data>
   <data name="ClearAll" xml:space="preserve">
     <value>Clear All</value>
   </data>
@@ -153,8 +156,14 @@
   <data name="DeleteAreaRequests" xml:space="preserve">
     <value>Delete Area Requests</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
   <data name="Expense" xml:space="preserve">
     <value>Expense</value>
+  </data>
+  <data name="ExpenseHistory" xml:space="preserve">
+    <value>Expense History</value>
   </data>
   <data name="HistoryMatches" xml:space="preserve">
     <value>History Matches</value>
@@ -171,6 +180,9 @@
   <data name="Income" xml:space="preserve">
     <value>Income</value>
   </data>
+  <data name="IncomeHistory" xml:space="preserve">
+    <value>Income History</value>
+  </data>
   <data name="Leagues" xml:space="preserve">
     <value>Leagues</value>
   </data>
@@ -183,11 +195,11 @@
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
-  <data name="PaymentHistory" xml:space="preserve">
-    <value>Payment History</value>
-  </data>
   <data name="Payments" xml:space="preserve">
     <value>Payments</value>
+  </data>
+  <data name="Profit" xml:space="preserve">
+    <value>Profit</value>
   </data>
   <data name="Receiver" xml:space="preserve">
     <value>Receiver</value>
@@ -230,8 +242,5 @@
   </data>
   <data name="WelcomeText" xml:space="preserve">
     <value>Welcome back!</value>
-  </data>
-  <data name="Worth" xml:space="preserve">
-    <value>Worth</value>
   </data>
 </root>

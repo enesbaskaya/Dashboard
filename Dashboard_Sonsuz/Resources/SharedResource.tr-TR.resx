@@ -144,6 +144,9 @@
   <data name="BranchesCount" xml:space="preserve">
     <value>Şube Sayısı</value>
   </data>
+  <data name="BranchName" xml:space="preserve">
+    <value>Şube İsmi</value>
+  </data>
   <data name="ClearAll" xml:space="preserve">
     <value>Hepsini Temizle</value>
   </data>
@@ -153,8 +156,14 @@
   <data name="DeleteAreaRequests" xml:space="preserve">
     <value>Saha Silme Talepleri</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>Seçenekler</value>
+  </data>
   <data name="Expense" xml:space="preserve">
     <value>Gider</value>
+  </data>
+  <data name="ExpenseHistory" xml:space="preserve">
+    <value>Gider Geçmişi</value>
   </data>
   <data name="HistoryMatches" xml:space="preserve">
     <value>Maç Geçmişi</value>
@@ -171,6 +180,9 @@
   <data name="Income" xml:space="preserve">
     <value>Gelir</value>
   </data>
+  <data name="IncomeHistory" xml:space="preserve">
+    <value>Gelir Geçmişi</value>
+  </data>
   <data name="Leagues" xml:space="preserve">
     <value>Ligler</value>
   </data>
@@ -183,11 +195,11 @@
   <data name="Password" xml:space="preserve">
     <value>Şifre</value>
   </data>
-  <data name="PaymentHistory" xml:space="preserve">
-    <value>Ödeme geçmişi</value>
-  </data>
   <data name="Payments" xml:space="preserve">
     <value>Ödemeler</value>
+  </data>
+  <data name="Profit" xml:space="preserve">
+    <value>Kâr</value>
   </data>
   <data name="Receiver" xml:space="preserve">
     <value>Alıcı</value>
@@ -230,8 +242,5 @@
   </data>
   <data name="WelcomeText" xml:space="preserve">
     <value>Tekrardan Hoşgeldiniz</value>
-  </data>
-  <data name="Worth" xml:space="preserve">
-    <value>Kâr</value>
   </data>
 </root>

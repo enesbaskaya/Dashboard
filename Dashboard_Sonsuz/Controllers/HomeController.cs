@@ -65,20 +65,19 @@ namespace Dashboard.Controllers
             ViewBag.areaCount = _context.areaInfo.Count();
 
 
-            var result = (from a in _context.transActions
-                         join c in _context.branchCards on a.cardId equals c.cardId
+            var result = (from a in _context.branchTransActions
+                          join c in _context.branchCards on a.cardId equals c.cardId
                          where !a.checkActive
-                         select new TransActions
+                         select new BranchTransActions
                           {
                               transId = a.transId,
                               cardId = a.cardId,
                               date = a.date,
                               amount = a.amount,
                               checkActive = a.checkActive,
-                              card = new BranchCards(c.cardId, c.iban, c.cardOwner,  c.bankName,c.branchId)
+                              card = new BranchCards { cardId= c.cardId, iban = c.iban, cardOwner = c.cardOwner, bankName=c.bankName, branchId = c.branchId }
                           }).OrderByDescending(x => x.transId).Take(5).ToList();
-            ViewBag.transActions = result;
-            return View();
+            return View(result);
         }
 
 
