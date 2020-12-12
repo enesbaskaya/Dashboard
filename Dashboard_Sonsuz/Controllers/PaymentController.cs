@@ -57,8 +57,8 @@ namespace Dashboard.Controllers
             PagedList<DepositTransActions> depositTransActionModel = new PagedList<DepositTransActions>(depositTransActionResult, page, pageSize);
 
 
-            double sendData = await _context.branchTransActions.Where(x => x.amount > 0).SumAsync(x => x.amount);
-            double depositData = (await _context.depositTransActions.Where(x => x.amount > 0).SumAsync(x => x.amount));
+            double sendData = await _context.branchTransActions.Where(x => x.checkActive).SumAsync(x => x.amount);
+            double depositData = (await _context.depositTransActions.Where(x => x.checkActive).SumAsync(x => x.amount));
 
             ViewBag.sendData = sendData;
             ViewBag.receiveData = depositData;
@@ -72,6 +72,7 @@ namespace Dashboard.Controllers
 
         public async Task<IActionResult> UpdateTransAction(long transId)
         {
+
             BranchTransActions updatedData = await _context.branchTransActions.FindAsync(transId);
             if (!updatedData.checkActive)
             {
@@ -170,38 +171,36 @@ namespace Dashboard.Controllers
         public async Task<IActionResult> DeleteDepositTransAction(long transId)
         {
             DepositTransActions updatedData = await _context.depositTransActions.FindAsync(transId);
-            if (!updatedData.checkActive)
-            {
-                updatedData.checkActive = true;
-                _context.depositTransActions.Update(updatedData);
+            _context.depositTransActions.Remove(updatedData);
 
-                var result = (from a in _context.depositTransActions
-                              join b in _context.branch on a.branchId equals b.branchId
-                              select new Branch
-                              {
-                                  branchId = b.branchId,
-                                  admin = b.admin,
-                              }).ToList();
-                Branch branch = result[0];
+            var result = (from a in _context.depositTransActions
+                          join b in _context.branch on a.branchId equals b.branchId
+                          select new Branch
+                          {
+                              branchId = b.branchId,
+                              admin = b.admin,
+                          }).ToList();
+            Branch branch = result[0];
 
-                string paymentSuccesReceiveContent = "Sayın, " + branch.admin + "\n'" + updatedData.transId + "' numaralı ödeme talimatınız başarıyla gerçekleştirildi." +
-                    " Cüzdan sayfanızdan gerekli takibatı yapabilirsiniz.\n\nSaygılarımızla, BiMaçVar!";
+            string paymentFailedReceiveContent = "Sayın, " + branch.admin + "\n'" + updatedData.transId + "' numaralı ödeme talimatınız iptal edilmiştir." +
+                " Lütfen ödeme bilgilerini kontrol edip işlemi tekrar ediniz." +
+                "\n\nSaygılarımızla, BiMaçVar!";
 
-                string paymentSuccessHeader = "Ödeme Bildirimi";
-                DateTime time = DateTime.Now;
-                string format = "dd/M/yyyy";
-                var insertNotification = await _context.branchNotifications.AddAsync(
-                    new BranchNotifications
-                    {
-                        branchId = branch.branchId,
-                        content = paymentSuccesReceiveContent,
-                        date = time.ToString(format),
-                        header = paymentSuccessHeader,
-                        isRead = false,
-                        sender = "BiMaçVar!"
-                    });
-                await _context.SaveChangesAsync();
-            }
+            string paymentSuccessHeader = "Ödeme Bildirimi";
+            DateTime time = DateTime.Now;
+            string format = "dd/M/yyyy";
+            var insertNotification = await _context.branchNotifications.AddAsync(
+                new BranchNotifications
+                {
+                    branchId = branch.branchId,
+                    content = paymentFailedReceiveContent,
+                    date = time.ToString(format),
+                    header = paymentSuccessHeader,
+                    isRead = false,
+                    sender = "BiMaçVar!"
+                });
+            await _context.SaveChangesAsync();
+
             return RedirectToAction("Index");
         }
 

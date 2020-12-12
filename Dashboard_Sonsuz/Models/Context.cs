@@ -25,6 +25,7 @@ namespace Dashboard.Models
         public DbSet<MatchHistory> matchHistory { get; set; }
         public DbSet<Regions> regions { get; set; }
         public DbSet<Team> team { get; set; }
+        public DbSet<TeamData> teamData { get; set; }
         public DbSet<BranchTransActions> branchTransActions { get; set; }
         public DbSet<DepositTransActions> depositTransActions { get; set; }
         public DbSet<User> user { get; set; }

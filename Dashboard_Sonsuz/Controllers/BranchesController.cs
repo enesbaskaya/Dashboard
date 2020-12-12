@@ -1,0 +1,192 @@
+﻿using Dashboard.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using MailKit.Net.Smtp;
+using MimeKit;
+using Microsoft.Extensions.Configuration;
+using MimeKit.Text;
+using MailKit.Security;
+
+namespace Dashboard.Controllers
+{
+    public class BranchesController : Controller
+    {
+        private Admin admin;
+
+        private readonly Context _context;
+
+        public BranchesController(Context context)
+        {
+            _context = context;
+        }
+
+        public async Task<IActionResult> IndexAsync()
+        {
+            this.admin = await _context.admin.FirstOrDefaultAsync(x => x.username == HttpContext.Session.GetString("admin"));
+            ViewBag.admin = this.admin;
+
+            var activeBranches = (from b in _context.branch
+                                  join c in _context.contactInfo on b.contactId equals c.contactId
+                                  join d in _context.districts on c.districtId equals d.districtId
+                                  join ct in _context.city on d.cityId equals ct.cityId
+                                  where b.isActive
+                                  select new Branch
+                                  {
+                                      branchId = b.branchId,
+                                      admin = b.admin,
+                                      identityNumber = b.identityNumber,
+                                      name = b.name,
+                                      isActive = b.isActive,
+                                      taxNumber = b.taxNumber,
+                                      registerDate = b.registerDate,
+                                      contact = new ContactInfo
+                                      {
+                                          mail = c.mail,
+                                          telephone = c.telephone,
+                                          district = new Districts
+                                          {
+                                              districtName = d.districtName,
+                                              city = new City
+                                              {
+                                                  cityName = ct.cityName,
+                                              }
+                                          }
+                                      }
+                                  }).ToList();
+
+            var waitingBranches = (from b in _context.branch
+                                   join c in _context.contactInfo on b.contactId equals c.contactId
+                                   join d in _context.districts on c.districtId equals d.districtId
+                                   join ct in _context.city on d.cityId equals ct.cityId
+                                   where !b.isActive
+                                   select new Branch
+                                   {
+                                       branchId = b.branchId,
+                                       admin = b.admin,
+                                       identityNumber = b.identityNumber,
+                                       name = b.name,
+                                       isActive = b.isActive,
+                                       taxNumber = b.taxNumber,
+                                       registerDate = b.registerDate,
+                                       contact = new ContactInfo
+                                       {
+                                           mail = c.mail,
+                                           telephone = c.telephone,
+                                           district = new Districts
+                                           {
+                                               districtName = d.districtName,
+                                               city = new City
+                                               {
+                                                   cityName = ct.cityName,
+                                               }
+                                           }
+                                       }
+                                   }).ToList();
+
+            ViewBag.activeBranches = activeBranches;
+            ViewBag.waitingBranches = waitingBranches;
+
+            return View();
+        }
+
+
+        public async Task<IActionResult> ApproveBranch(long branchId)
+        {
+
+            Branch updatedData = await _context.branch.FindAsync(branchId);
+
+            updatedData.isActive = true;
+            _context.branch.Update(updatedData);
+
+
+            string content = "Sayın, " + updatedData.admin + "\n'BiMaçVar! ailesine hoşgeldiniz! BiMaçVar! olarak müşterilerinize daha kolay erişebilecek ve onlarla" +
+            " çok daha rahat etkileşimde bulunabileceksiniz! Ayrıca rekabeti artıran bir çok sistemin mevcut olması sebebiyle potansiyelinizi burada keşfetmenize ve en iyi halısaha olma yolunda" +
+            "sizlerin yanında olacağız!";
+
+            string header = "Aramıza Hoşgeldiniz!";
+            DateTime time = DateTime.Now;
+            string format = "dd/M/yyyy";
+            var insertNotification = await _context.branchNotifications.AddAsync(
+                new BranchNotifications
+                {
+                    branchId = updatedData.branchId,
+                    content = content,
+                    date = time.ToString(format),
+                    header = header,
+                    isRead = false,
+                    sender = "BiMaçVar!"
+                });
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> DeleteBranch(long branchId)
+        {
+
+            Branch updatedData = await _context.branch.FindAsync(branchId);
+            var contactInfo = _context.contactInfo.FirstOrDefault(x => x.contactId == updatedData.contactId);
+            _context.branch.Remove(updatedData);
+            await _context.SaveChangesAsync();
+
+            // create email message
+            var email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse("support@bimacvar.com"));
+            email.To.Add(MailboxAddress.Parse(contactInfo.mail));
+            email.Subject = "Hesap Silinmesi - BiMaçVar!";
+            email.Body = new TextPart(TextFormat.Plain)
+            {
+                Text = "Sevgili " + updatedData.admin + ",\nHesabınız silinmiştir. Eğer bir yanlışlık olduğunu" +
+                " düşünüyorsanız support@bimacvar.com adresinden ya da diğer iletişim araçlarını kullanarak bize ulaşabilirsiniz."
+            };
+
+            // send email
+            using var smtp = new SmtpClient();
+            smtp.Connect("mail.bimacvar.com", 587, false);
+            smtp.Authenticate("support@bimacvar.com", "Jl785*wh");
+            smtp.Send(email);
+            smtp.Disconnect(true);
+
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> DeactiveBranch(long branchId)
+        {
+
+            Branch updatedData = await _context.branch.FindAsync(branchId);
+            updatedData.isActive = false;
+            _context.branch.Update(updatedData);
+
+            var contactInfo = _context.contactInfo.FirstOrDefault(x => x.contactId == updatedData.contactId);
+
+
+
+            // create email message
+            var email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse("support@bimacvar.com"));
+            email.To.Add(MailboxAddress.Parse(contactInfo.mail));
+            email.Subject = "Hesap Deaktivasyonu - BiMaçVar!";
+            email.Body = new TextPart(TextFormat.Plain) { Text = "Sevgili " + updatedData.admin + ",\nHesabınız pasif hale getirilmiştir. Eğer bir yanlışlık olduğunu" +
+                " düşünüyorsanız support@bimacvar.com adresinden ya da diğer iletişim araçlarını kullanarak bize ulaşabilirsiniz." };
+
+            // send email
+            using var smtp = new SmtpClient();
+            smtp.Connect("mail.bimacvar.com", 587, false);
+            smtp.Authenticate("support@bimacvar.com", "Jl785*wh");
+            smtp.Send(email);
+            smtp.Disconnect(true);
+
+
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+    }
+}

@@ -3,14 +3,16 @@ using System;
 using Dashboard.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dashboard.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20201212191114_m_1")]
+    partial class m_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -546,34 +548,6 @@ namespace Dashboard.Migrations
                     b.ToTable("team");
                 });
 
-            modelBuilder.Entity("Dashboard.Models.TeamData", b =>
-                {
-                    b.Property<long>("dataId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("draws")
-                        .HasColumnType("int");
-
-                    b.Property<int>("loses")
-                        .HasColumnType("int");
-
-                    b.Property<long>("teamId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("wins")
-                        .HasColumnType("int");
-
-                    b.Property<string>("year")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.HasKey("dataId");
-
-                    b.HasIndex("teamId");
-
-                    b.ToTable("teamData");
-                });
-
             modelBuilder.Entity("Dashboard.Models.User", b =>
                 {
                     b.Property<long>("userId")
@@ -832,15 +806,6 @@ namespace Dashboard.Migrations
                     b.HasOne("Dashboard.Models.User", "user")
                         .WithMany()
                         .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Dashboard.Models.TeamData", b =>
-                {
-                    b.HasOne("Dashboard.Models.Team", "team")
-                        .WithMany()
-                        .HasForeignKey("teamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
