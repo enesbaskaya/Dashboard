@@ -1,0 +1,189 @@
+﻿@{
+    Layout = "~/Views/Shared/_LeftLayout.cshtml";
+}
+@RenderBody()
+
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/popper.min.js"></script>
+<script src="~/js/moment.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/simplebar.min.js"></script>
+<script src='~/js/daterangepicker.js'></script>
+<script src='~/js/jquery.stickOnScroll.js'></script>
+<script src="~/js/tinycolor-min.js"></script>
+<script src="~/js/config.js"></script>
+<script src="~/js/d3.min.js"></script>
+<script src="~/js/topojson.min.js"></script>
+<script src="~/js/datamaps.all.min.js"></script>
+<script src="~/js/datamaps-zoomto.js"></script>
+<script src="~/js/datamaps.custom.js"></script>
+<script src="~/js/Chart.min.js"></script>
+<script>
+    Chart.defaults.global.defaultFontFamily = base.defaultFontFamily;
+    Chart.defaults.global.defaultFontColor = colors.mutedColor;
+</script>
+<script src="~/js/gauge.min.js"></script>
+<script src="~/js/jquery.sparkline.min.js"></script>
+<script src="~/js/apexcharts.min.js"></script>
+<script src="~/js/apexcharts.custom.js"></script>
+<script src='~/js/jquery.mask.min.js'></script>
+<script src='~/js/select2.min.js'></script>
+<script src='~/js/jquery.steps.min.js'></script>
+<script src='~/js/jquery.validate.min.js'></script>
+<script src='~/js/jquery.timepicker.js'></script>
+<script src='~/js/dropzone.min.js'></script>
+<script src='~/js/uppy.min.js'></script>
+<script src='~/js/quill.min.js'></script>
+<script src="~/js/apps.js"></script>
+<script>
+        @{
+        List<Dictionary<string, long>> list = ViewBag.chartData != null ? ViewBag.chartData : new List<Dictionary<string, long>>();
+        string dateList = ViewBag.dateData;}
+        var barChart, barChartoptions = {
+            series: [{
+                name: "Şubeler",
+                data: [@{ for (int i = 0; i < list.Count; i++) {  @list[i]["B"]; @((i != (list.Count - 1)) ? "," : ""); } }]
+            }, {
+                name: "Kullanıcılar",
+                data: [@{ for (int i = 0; i < list.Count; i++) {  @list[i]["U"]; @((i != (list.Count - 1)) ? "," : ""); } }]
+            }, {
+                name: "Sahalar",
+                data: [@{ for (int i = 0; i < list.Count; i++) {  @list[i]["A"]; @((i != (list.Count - 1)) ? "," : ""); } }]
+            }],
+            chart: {
+                type: "bar",
+                height: 415,
+                stacked: !0,
+                columnWidth: "70%",
+                zoom: {
+                    enabled: !1
+                },
+                toolbar: {
+                    enabled: !1
+                }
+            },
+            theme: {
+                mode: colors.chartTheme
+            },
+            dataLabels: {
+                enabled: !0
+            },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    legend: {
+                        position: "bottom",
+                        offsetX: -10,
+                        offsetY: 0
+                    }
+                }
+            }],
+            plotOptions: {
+                bar: {
+                    horizontal: !0,
+                    columnWidth: "30%"
+                }
+            },
+            xaxis: {
+                categories: @dateList,
+                labels: {
+                    show: !0,
+                    trim: !1,
+                    minHeight: void 0,
+                    maxHeight: 250,
+                    style: {
+                        colors: colors.mutedColor,
+                        cssClass: "text-muted",
+                        fontFamily: base.defaultFontFamily
+                    }
+                },
+                axisBorder: {
+                    show: !1
+                }
+            },
+            yaxis: {
+                labels: {
+                    show: !0,
+                    trim: !1,
+                    offsetX: -5,
+                    minHeight: void 0,
+                    maxHeight: 120,
+                    style: {
+                        colors: colors.mutedColor,
+                        cssClass: "text-muted",
+                        fontFamily: base.defaultFontFamily
+                    }
+                }
+            },
+            legend: {
+                position: "bottom",
+                fontFamily: base.defaultFontFamily,
+                height: 50,
+                fontWeight: 400,
+                labels: {
+                    colors: colors.mutedColor,
+                    useSeriesColors: !1
+                },
+                offsetY: 10,
+                markers: {
+                    width: 10,
+                    height: 10,
+                    strokeWidth: 0,
+                    strokeColor: colors.borderColor,
+                    fillColors: chartColors,
+                    radius: 6,
+                    customHTML: void 0,
+                    onClick: void 0,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                itemMargin: {
+                    horizontal: 10,
+                    vertical: 0
+                },
+                onItemClick: {
+                    toggleDataSeries: !0
+                },
+                onItemHover: {
+                    highlightDataSeries: !0
+                }
+            },
+            fill: {
+                opacity: 1,
+                colors: chartColors
+            },
+            grid: {
+                show: !0,
+                borderColor: colors.borderColor,
+                strokeDashArray: 0,
+                position: "back",
+                xaxis: {
+                    lines: {
+                        show: !0
+                    }
+                },
+                yaxis: {
+                    lines: {
+                        show: !1
+                    }
+                },
+                row: {
+                    colors: void 0,
+                    opacity: .5
+                },
+                column: {
+                    colors: void 0,
+                    opacity: .5
+                },
+                padding: {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 10
+                }
+            }
+        },
+        barChartCtn = document.querySelector("#areaChart");
+        barChartCtn && (barChart = new ApexCharts(barChartCtn, barChartoptions)).render();
+
+</script>

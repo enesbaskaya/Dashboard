@@ -1,0 +1,333 @@
+﻿@using Dashboard.Resources
+@using Dashboard.Models
+@using Dashboard
+
+@inject LocServices SharedLocalizer
+@{
+    Layout = "~/Views/Shared/_BranchProfileLayout.cshtml";
+    Branch branch = ViewBag.branch;
+
+    BranchWallet wallet = ViewBag.walletData;
+    BranchStars stars = ViewBag.branchStars;
+
+    List<BranchCards> cards = ViewBag.branchCards;
+    List<BranchMatchWorth> worths = ViewBag.matchWorths;
+    List<BranchEconomy> economy = ViewBag.branchEconomies;
+    List<BranchTransActions> transActions = ViewBag.branchTransActions;
+
+
+    String starPoint = Math.Round(((double)stars.point / (double)stars.count), 1).ToString().Replace(",", ".");
+
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8">
+            <h2 class="h3 mb-4 page-title">Şube Bilgisi</h2>
+            <div class="my-4">
+                <form>
+                    <div class="row mt-5 align-items-center">
+                        <div class="col-md-3 text-center mb-5">
+                            <div class="avatar avatar-xl">
+                                <img src="https://www.gravatar.com/avatar/@Program.MD5Hash(branch.contact.mail)" alt="..." class="avatar-img rounded-circle">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row align-items-center">
+                                <div class="col-md-7">
+                                    <h4 class="mb-1">@branch.name (@branch.admin)</h4>
+                                    <p class="mb-3">@branch.registerDate</p>
+                                    <p class="mb-3"><span class="badge badge-dark">@starPoint @branch.contact.district.districtName,@branch.contact.district.city.cityName,@branch.contact.district.city.region.regionName</span></p>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-12">
+                                    <p class="text-muted">@branch.contact.address</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="firstname">@SharedLocalizer.GetLocalizedHtmlString("BranchOwner")</label>
+                            <input type="text" id="firstname" class="form-control" value="@branch.admin" placeholder="Brown">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="lastname">@SharedLocalizer.GetLocalizedHtmlString("BranchName")</label>
+                            <input type="text" id="lastname" class="form-control" value="@branch.name" placeholder="Asher">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="firstname">@SharedLocalizer.GetLocalizedHtmlString("TaxNumber")</label>
+                            <input type="text" id="firstname" class="form-control" value="@branch.taxNumber" placeholder="Brown">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="lastname">@SharedLocalizer.GetLocalizedHtmlString("Telephone")</label>
+                            <input type="text" id="lastname" class="form-control" value="@branch.contact.telephone" placeholder="Asher">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">@SharedLocalizer.GetLocalizedHtmlString("Address")</label>
+                            <input type="text" class="form-control" id="inputEmail4" value="@branch.contact.address" placeholder="brown@asher.me">
+                        </div><div class="form-group col-md-6">
+                            <label for="inputEmail4">@SharedLocalizer.GetLocalizedHtmlString("Mail")</label>
+                            <input type="email" class="form-control" id="inputEmail4" value="@branch.contact.mail" placeholder="brown@asher.me">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">@SharedLocalizer.GetLocalizedHtmlString("Debt")</label>
+                            <input type="text" class="form-control" id="inputEmail4" value="@wallet.debt" placeholder="brown@asher.me">
+                        </div><div class="form-group col-md-6">
+                            <label for="inputEmail4">@SharedLocalizer.GetLocalizedHtmlString("Balance")</label>
+                            <input type="text" class="form-control" id="inputEmail4" value="@wallet.balance" placeholder="brown@asher.me">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="custom-select">@SharedLocalizer.GetLocalizedHtmlString("City")</label>
+                            <select class="custom-select" id="il" name="iller">
+                                <option value="@branch.contact.district.city.cityId" selected>@branch.contact.district.city.cityName</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="custom-select">@SharedLocalizer.GetLocalizedHtmlString("District")</label>
+                            <select class="custom-select" id="ilce" name="ilceler">
+                                <option value="@branch.contact.district.districtId" selected>@branch.contact.district.districtName</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="custom-select">@SharedLocalizer.GetLocalizedHtmlString("ShoesRent")</label>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="custom-select">@SharedLocalizer.GetLocalizedHtmlString("Market")</label>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="custom-select">@SharedLocalizer.GetLocalizedHtmlString("Catering")</label>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="custom-select">@SharedLocalizer.GetLocalizedHtmlString("Shower")</label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <div class="custom-control custom-checkbox">
+                                <input value="true" type="checkbox" id="shoesrent" @(branch.shoesRent ? "checked" : "")>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" id="market" @(branch.market ? "checked" : "")>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" id="catering" @(branch.catering ? "checked" : "")>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" id="shower" @(branch.shower ? "checked" : "")>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <button type="submit" class="btn btn-primary">Save Change</button>
+
+                    <hr class="my-4">
+
+
+
+                    <h2 class="mb-2 page-title">Şube Banka Hesapları</h2>
+                    <div class="row my-4">
+                        <!-- Small table -->
+                        <div class="col-md-12">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <!-- table -->
+                                    <table class="table datatables" id="dataTable-1">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Kart Sahibi</th>
+                                                <th>IBAN</th>
+                                                <th>Banka Adı</th>
+                                                <th>İşlemler</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{foreach (BranchCards b in cards)
+                                                {
+                                                    <tr>
+                                                        <td>@b.cardId</td>
+                                                        <td>@b.cardOwner</td>
+                                                        <td>@b.iban</td>
+                                                        <td>@b.bankName</td>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <span class="text-muted sr-only">Action</span>
+                                                                </button>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    @{ if (true)
+                                                                        {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeactiveBranch", "Branches", new { branchId = b.branchId })">Deaktive Et</a>}}
+                                                                    <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeleteBranch", "Branches", new { branchId = b.branchId })">Sil</a>
+                                                                    <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = b.branchId})">İşletmeye Git</a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }; }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> <!-- simple table -->
+                    </div> <!-- end section -->
+
+                    <hr class="my-4">
+
+
+                    <h2 class="mb-2 page-title">Şube Ekonomi Verileri</h2>
+                    <div class="row my-4">
+                        <!-- Small table -->
+                        <div class="col-md-12">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <!-- table -->
+                                    <table class="table datatables" id="dataTable-2">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Yıl</th>
+                                                <th>Ay</th>
+                                                <th>Ciro</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{foreach (BranchEconomy b in economy)
+                                                {
+                                                    <tr>
+                                                        <td>@b.branchEconomyId</td>
+                                                        <td>@b.year</td>
+                                                        <td>@b.month</td>
+                                                        <td>@b.giro</td>
+                                                    </tr>
+                                                }; }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> <!-- simple table -->
+                    </div> <!-- end section -->
+
+
+                    <hr class="my-4">
+                    <h2 class="mb-2 page-title">Şube Transfer Verileri</h2>
+                    <div class="row my-4">
+                        <!-- Small table -->
+                        <div class="col-md-12">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <!-- table -->
+                                    <table class="table datatables" id="dataTable-3">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Tarih</th>
+                                                <th>Miktar</th>
+                                                <th>IBAN</th>
+                                                <th>Kart Sahibi</th>
+                                                <th>Durum</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{foreach (BranchTransActions b in transActions)
+                                                {
+                                                    <tr>
+                                                        <td>@b.transId</td>
+                                                        <td>@b.date</td>
+                                                        <td>@b.amount</td>
+                                                        <td>@b.card.iban</td>
+                                                        <td>@b.card.cardOwner</td>
+                                                        <td><span class="dot dot-lg bg-@(b.checkActive ? "success" : "warning") mr-2"></span></td>
+                                                    </tr>
+                                                }; }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> <!-- simple table -->
+                    </div> <!-- end section -->
+
+                    <hr class="my-4">
+
+                    <h2 class="mb-2 page-title">Şube Maç Verileri</h2>
+                    <div class="row my-4">
+                        <!-- Small table -->
+                        <div class="col-md-12">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <!-- table -->
+                                    <table class="table datatables" id="dataTable-4">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Kazanç</th>
+                                                <th>Ödeme</th>
+                                                <th>Kazanan Takım</th>
+                                                <th>Kaybeden Takım</th>
+                                                <th>Tarih</th>
+                                                <th>Skor</th>
+                                                <th>Saat</th>
+                                                <th>Saha Adı</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{foreach (BranchMatchWorth b in worths)
+                                                {
+                                                    <tr>
+                                                        <td>@b.worthId</td>
+                                                        <td>@b.amount</td>
+                                                        <td>@b.paymentType</td>
+                                                        <td>@b.match.winnerTeam.name</td>
+                                                        <td>@b.match.loserTeam.name</td>
+                                                        <td>@b.match.date</td>
+                                                        <td>@b.match.score</td>
+                                                        <td>@b.match.clock</td>
+                                                        <td>@b.match.area.areaName</td>
+                                                    </tr>
+                                                }; }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> <!-- simple table -->
+                    </div> <!-- end section -->
+
+                    <hr class="my-4">
+
+
+
+
+
+                </form>
+            </div> <!-- /.card-body -->
+        </div> <!-- /.col-12 -->
+    </div> <!-- .row -->
+</div> <!-- .container-fluid -->

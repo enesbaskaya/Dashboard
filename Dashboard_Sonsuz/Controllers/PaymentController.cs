@@ -21,7 +21,7 @@ namespace Dashboard.Controllers
 
             _context = context;
         }
-        public async Task<IActionResult> IndexAsync(int page = 1, int pageSize = 15)
+        public async Task<IActionResult> IndexAsync()
         {
             this.admin = await _context.admin.FirstOrDefaultAsync(x => x.username == HttpContext.Session.GetString("admin"));
             ViewBag.admin = this.admin;
@@ -37,9 +37,8 @@ namespace Dashboard.Controllers
                                                amount = a.amount,
                                                checkActive = a.checkActive,
                                                card = new BranchCards { cardId = c.cardId, iban = c.iban, cardOwner = c.cardOwner, bankName = c.bankName, branchId = c.branchId, branch = new Branch { name = b.name } }
-                                           }).OrderByDescending(x => x.transId);
+                                           }).OrderByDescending(x => x.transId).ToList();
 
-            PagedList<BranchTransActions> branchTransActionModel = new PagedList<BranchTransActions>(branchTransActionResult, page, pageSize);
 
 
             var depositTransActionResult = (from d in _context.depositTransActions
@@ -52,9 +51,9 @@ namespace Dashboard.Controllers
                                                 checkActive = d.checkActive,
                                                 branchId = d.branchId,
                                                 branch = new Branch { name = b.name, admin = b.admin }
-                                            }).OrderByDescending(x => x.transId);
+                                            }).OrderByDescending(x => x.transId).ToList();
 
-            PagedList<DepositTransActions> depositTransActionModel = new PagedList<DepositTransActions>(depositTransActionResult, page, pageSize);
+           
 
 
             double sendData = await _context.branchTransActions.Where(x => x.checkActive).SumAsync(x => x.amount);
@@ -64,8 +63,8 @@ namespace Dashboard.Controllers
             ViewBag.receiveData = depositData;
             ViewBag.profit = (depositData - sendData);
 
-            ViewBag.branchTransActions = branchTransActionModel;
-            ViewBag.depositTransActions = depositTransActionModel;
+            ViewBag.branchTransActions = branchTransActionResult;
+            ViewBag.depositTransActions = depositTransActionResult;
             return View();
         }
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Dashboard.Models
 {
@@ -11,11 +7,11 @@ namespace Dashboard.Models
         [Key]
         public long matchId { get; set; }
 
-        public long winnerTeam { get; set; }
-        public Team winner { get; set; }
+        public long winnerTeamId { get; set; }
+        public Team winnerTeam { get; set; }
 
-        public long loserTeam { get; set; }
-        public Team loser { get; set; }
+        public long loserTeamId { get; set; }
+        public Team loserTeam { get; set; }
 
         public long areaId { get; set; }
         public AreaInfo area { get; set; }

@@ -1,12 +1,16 @@
-﻿@using Dashboard.Models
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_BranchApplicationLayout.cshtml";
+}
+
+@using Dashboard.Models
 @using System.Collections.Generic
 @using Dashboard.Resources
 @inject LocServices SharedLocalizer
 @{
     @model List<Branch>
     Layout = "~/Views/Shared/_BranchesLayout.cshtml";
-    int waitingBranches = ViewBag.waitingBranches;
-    int totalBranches = waitingBranches + Model.Count;
 }
 
 
@@ -54,10 +58,9 @@
                                                             <span class="text-muted sr-only">Action</span>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            @{ if (b.isActive)
-                                                                {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeactiveBranch", "Branches", new { branchId = b.branchId })">Deaktive Et</a>}}
-                                                            <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeleteBranch", "Branches", new { branchId = b.branchId })">Sil</a>
-                                                            <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = b.branchId})">İşletmeye Git</a>
+                                                            @{ if (!b.isActive)
+                                                                {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("ApproveBranch", "BranchApplication", new { branchId = b.branchId })">Onayla</a>}}
+                                                            <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = b.branchId})">Detay Gör</a>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -80,4 +83,6 @@
         return c;
     }
 </script>
+
+
 
