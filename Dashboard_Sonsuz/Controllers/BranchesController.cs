@@ -8,18 +8,21 @@ using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using MimeKit;
 using MimeKit.Text;
+using Microsoft.Extensions.Configuration;
+using System;
 
 namespace Dashboard.Controllers
 {
     public class BranchesController : Controller
     {
         private Admin admin;
-
+        private readonly IConfiguration _config;
         private readonly Context _context;
 
-        public BranchesController(Context context)
+        public BranchesController(Context context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
 
         public async Task<IActionResult> IndexAsync()
@@ -28,32 +31,32 @@ namespace Dashboard.Controllers
             ViewBag.admin = this.admin;
 
             List<Branch> activeBranches = (from b in _context.branch
-                                  join c in _context.contactInfo on b.contactId equals c.contactId
-                                  join d in _context.districts on c.districtId equals d.districtId
-                                  join ct in _context.city on d.cityId equals ct.cityId
-                                  where b.isActive
-                                  select new Branch
-                                  {
-                                      branchId = b.branchId,
-                                      admin = b.admin,
-                                      name = b.name,
-                                      isActive = b.isActive,
-                                      taxNumber = b.taxNumber,
-                                      registerDate = b.registerDate,
-                                      contact = new ContactInfo
-                                      {
-                                          mail = c.mail,
-                                          telephone = c.telephone,
-                                          district = new Districts
-                                          {
-                                              districtName = d.districtName,
-                                              city = new City
-                                              {
-                                                  cityName = ct.cityName,
-                                              }
-                                          }
-                                      }
-                                  }).ToList();
+                                           join c in _context.contactInfo on b.contactId equals c.contactId
+                                           join d in _context.districts on c.districtId equals d.districtId
+                                           join ct in _context.city on d.cityId equals ct.cityId
+                                           where b.isActive
+                                           select new Branch
+                                           {
+                                               branchId = b.branchId,
+                                               admin = b.admin,
+                                               name = b.name,
+                                               isActive = b.isActive,
+                                               taxNumber = b.taxNumber,
+                                               registerDate = b.registerDate,
+                                               contact = new ContactInfo
+                                               {
+                                                   mail = c.mail,
+                                                   telephone = c.telephone,
+                                                   district = new Districts
+                                                   {
+                                                       districtName = d.districtName,
+                                                       city = new City
+                                                       {
+                                                           cityName = ct.cityName,
+                                                       }
+                                                   }
+                                               }
+                                           }).ToList();
 
             int waitingBranches = _context.branch.Where(x => !x.isActive).Count();
 
@@ -72,7 +75,7 @@ namespace Dashboard.Controllers
 
             // create email message
             var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse("support@bimacvar.com"));
+            email.From.Add(MailboxAddress.Parse(_config.GetValue<String>("SMTP:Username")));
             email.To.Add(MailboxAddress.Parse(contactInfo.mail));
             email.Subject = "Hesap Silinmesi - BiMaçVar!";
             email.Body = new TextPart(TextFormat.Plain)
@@ -83,8 +86,8 @@ namespace Dashboard.Controllers
 
             // send email
             using var smtp = new SmtpClient();
-            smtp.Connect("mail.bimacvar.com", 587, false);
-            smtp.Authenticate("support@bimacvar.com", "Jl785*wh");
+            smtp.Connect(_config.GetValue<String>("SMTP:Host"), _config.GetValue<int>("SMTP:Port"), false);
+            smtp.Authenticate(_config.GetValue<String>("SMTP:Username"), _config.GetValue<String>("SMTP:Password"));
             smtp.Send(email);
             smtp.Disconnect(true);
 
@@ -105,16 +108,19 @@ namespace Dashboard.Controllers
 
             // create email message
             var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse("support@bimacvar.com"));
+            email.From.Add(MailboxAddress.Parse(_config.GetValue<String>("SMTP:Username")));
             email.To.Add(MailboxAddress.Parse(contactInfo.mail));
             email.Subject = "Hesap Deaktivasyonu - BiMaçVar!";
-            email.Body = new TextPart(TextFormat.Plain) { Text = "Sevgili " + updatedData.admin + ",\nHesabınız pasif hale getirilmiştir. Eğer bir yanlışlık olduğunu" +
-                " düşünüyorsanız support@bimacvar.com adresinden ya da diğer iletişim araçlarını kullanarak bize ulaşabilirsiniz." };
+            email.Body = new TextPart(TextFormat.Plain)
+            {
+                Text = "Sevgili " + updatedData.admin + ",\nHesabınız pasif hale getirilmiştir. Eğer bir yanlışlık olduğunu" +
+                " düşünüyorsanız support@bimacvar.com adresinden ya da diğer iletişim araçlarını kullanarak bize ulaşabilirsiniz."
+            };
 
             // send email
             using var smtp = new SmtpClient();
-            smtp.Connect("mail.bimacvar.com", 587, false);
-            smtp.Authenticate("support@bimacvar.com", "Jl785*wh");
+            smtp.Connect(_config.GetValue<String>("SMTP:Host"), _config.GetValue<int>("SMTP:Port"), false);
+            smtp.Authenticate(_config.GetValue<String>("SMTP:Username"), _config.GetValue<String>("SMTP:Password"));
             smtp.Send(email);
             smtp.Disconnect(true);
 

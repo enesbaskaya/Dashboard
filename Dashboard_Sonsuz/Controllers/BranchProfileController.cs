@@ -9,6 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MimeKit;
+using MimeKit.Text;
+using MailKit.Net.Smtp;
+using Microsoft.Extensions.Configuration;
 
 namespace Dashboard.Controllers
 {
@@ -18,17 +22,22 @@ namespace Dashboard.Controllers
         LocServices locServices;
         private readonly Context _context;
         private Admin admin;
+        private readonly IConfiguration _config;
 
-        Branch branch;
+        private Branch branch;
 
-        public BranchProfileController(LocServices services, Context context)
+        public BranchProfileController(LocServices services, Context context, IConfiguration config)
         {
             this.locServices = services;
             this._context = context;
+            this._config = config;
         }
+
+
 
         public List<String> openDays()
         {
+
             List<String> days = new List<String>() { locServices.GetLocalizedHtmlString("Sunday"),
                 locServices.GetLocalizedHtmlString("Monday"),
                 locServices.GetLocalizedHtmlString("Tuesday"),
@@ -52,8 +61,57 @@ namespace Dashboard.Controllers
             return openDays;
         }
 
+        [HttpPost]
+        public IActionResult UpdateBranch(string branchOwner,
+            string branchName,
+            string taxNumber,
+            string telephone,
+            string address,
+            string mail,
+            string debt,
+            string balance,
+            bool shoesRent,
+            bool market,
+            bool catering,
+            bool shower,
+            long branchId
+            )
+        {
+
+            Branch b = _context.branch.Where(x => x.branchId == branchId)
+                .Include(x => x.contact)
+                .Include(x => x.contact.district)
+                .Include(x => x.contact.district.city)
+                .Include(x => x.contact.district.city.region).ToList()[0];
+
+            BranchWallet wallet = _context.branchWallet.Where(x => x.branchId == branchId).ToList()[0];
+
+            b.name = branchName;
+            b.taxNumber = taxNumber;
+            b.contact.address = address;
+            b.contact.telephone = telephone;
+            b.contact.mail = mail;
+            b.shoesRent = shoesRent;
+            b.market = market;
+            b.catering = catering;
+            b.shower = shower;
+            wallet.debt = double.Parse(debt);
+            wallet.balance = double.Parse(balance);
+
+            _context.branch.Update(b);
+            _context.contactInfo.Update(b.contact);
+            _context.branchWallet.Update(wallet);
+
+            _context.SaveChanges();
+
+
+            return RedirectToAction("Index", new { branchId = branchId });
+        }
+
         public async Task<IActionResult> IndexAsync(long branchId)
         {
+            Debug.Write("Girdi: " + branchId.ToString());
+
             this.admin = await _context.admin.FirstOrDefaultAsync(x => x.username == HttpContext.Session.GetString("admin"));
             ViewBag.admin = this.admin;
             DateTime time = DateTime.Now;
@@ -84,7 +142,7 @@ namespace Dashboard.Controllers
             List<City> allCities = _context.city.ToList();
             List<Districts> allDistricts = _context.districts.ToList();
 
-            
+
 
             ViewBag.walletData = wallet;
             ViewBag.branch = branch;
@@ -152,7 +210,36 @@ namespace Dashboard.Controllers
             //Oluşturduğum sonucları json olarak geriye gönderiyorum
             return Json(new { ok = basariliMi, text = sonuc });
         }
+        public async Task<IActionResult> DeleteCard(long branchId, long cardId)
+        {
 
+            BranchCards deletedData = await _context.branchCards.FindAsync(cardId);
+            _context.branchCards.Remove(deletedData);
+            await _context.SaveChangesAsync();
+
+            Branch b = _context.branch.Where(x => x.branchId == branchId).Include(x => x.contact).ToList()[0];
+
+            // create email message
+            var email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse(_config.GetValue<String>("SMTP:Username")));
+            email.To.Add(MailboxAddress.Parse(b.contact.mail));
+            email.Subject = "Kart Silinmesi - BiMaçVar!";
+            email.Body = new TextPart(TextFormat.Plain)
+            {
+                Text = "Sevgili " + b.admin + ",\n'" + deletedData.iban + "' numaralı banka hesabınız hesabınızdan kaldırılmıştır. Eğer bir yanlışlık olduğunu" +
+                " düşünüyorsanız support@bimacvar.com adresinden ya da diğer iletişim araçlarını kullanarak bize ulaşabilirsiniz."
+            };
+
+            // send email
+            using var smtp = new SmtpClient();
+            smtp.Connect(_config.GetValue<String>("SMTP:Host"), _config.GetValue<int>("SMTP:Port"), false);
+            smtp.Authenticate(_config.GetValue<String>("SMTP:Username"), _config.GetValue<String>("SMTP:Password"));
+            smtp.Send(email);
+            smtp.Disconnect(true);
+
+
+            return RedirectToAction("Index", new { branchId = branchId });
+        }
 
     }
 }
