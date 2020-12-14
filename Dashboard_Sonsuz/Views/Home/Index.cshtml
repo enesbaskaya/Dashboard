@@ -62,7 +62,7 @@
                                 </thead>
                                 <tbody>
                                     @{
-                                        foreach (BranchTransActions transAction in Model)
+                                        foreach (BranchTransActions transAction in ViewBag.transActionsData)
                                         {
                                             <tr>
                                                 <td>@transAction.transId</td>
@@ -73,6 +73,45 @@
                                                 <td>@transAction.card.cardOwner</td>
                                                 <td>@transAction.date</td>
                                                 <td><i style="color: @(transAction.checkActive ? "lawngreen" :  "orangered")" class="@(transAction.checkActive ? "fa fa-check" : "fa fa-times")"></i></td>
+                                            </tr>
+
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> <!-- Striped rows -->
+                <div class="col-md-12 col-lg-12 mt-4">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <strong class="card-title">@SharedLocalizer.GetLocalizedHtmlString("IncomeHistory")</strong>
+                            <a class="float-right small text-muted" href="@Url.Action("Index", "Payment")">@SharedLocalizer.GetLocalizedHtmlString("ViewAll")</a>
+                        </div>
+                        <div class="card-body my-n2">
+                            <table class="table table-striped table-hover table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("IdText")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Sender")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("BranchName")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Amount")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Date")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Status")</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        foreach (DepositTransActions depositTransActions in ViewBag.depositTransActions)
+                                        {
+                                            <tr>
+                                                <td>@depositTransActions.transId</td>
+                                                <td scope="col">@depositTransActions.branch.admin</td>
+                                                <td>@depositTransActions.branch.name</td>
+                                                <td>@depositTransActions.amount ₺</td>
+                                                <td style="color: orange">@depositTransActions.date</td>
+                                                <td><i style="color: @(depositTransActions.checkActive ? "lawngreen" :  "orangered")" class="@(depositTransActions.checkActive ? "fa fa-check" : "fa fa-times")"></i></td>
                                             </tr>
 
                                         }

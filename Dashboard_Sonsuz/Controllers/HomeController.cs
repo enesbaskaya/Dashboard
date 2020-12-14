@@ -18,7 +18,7 @@ namespace Dashboard.Controllers
 
         public HomeController(Context context)
         {
-       
+
             _context = context;
         }
 
@@ -28,7 +28,7 @@ namespace Dashboard.Controllers
             ViewBag.admin = this.admin;
 
             DateTime time = DateTime.Now;
-            for (int i=1;i<=14;i++)
+            for (int i = 1; i <= 14; i++)
             {
                 string dayStr = time.Year + "-" + time.Month + "-" + time.Day;
 
@@ -40,19 +40,19 @@ namespace Dashboard.Controllers
                 d.Add("U", userCount);
                 d.Add("A", areaCount);
                 TimeSpan t = time - new DateTime(1970, 1, 1);
-                long secondsSinceEpoch = (long) t.TotalMilliseconds;
+                long secondsSinceEpoch = (long)t.TotalMilliseconds;
                 ViewBag.data = secondsSinceEpoch;
                 dateList.Add(secondsSinceEpoch);
                 list.Add(d);
                 time = time.AddDays(-1);
-                
-           }
+
+            }
             ViewBag.chartData = list;
 
             string strDateData = "[";
-            for (int i=0;i<dateList.Count;i++)
+            for (int i = 0; i < dateList.Count; i++)
             {
-                if(i != dateList.Count -1) strDateData += "new Date(" + getNewEpoch(dateList[i].ToString()) + ")" + ",";
+                if (i != dateList.Count - 1) strDateData += "new Date(" + getNewEpoch(dateList[i].ToString()) + ")" + ",";
                 else strDateData += "new Date(" + getNewEpoch(dateList[i].ToString()) + ")";
             }
             strDateData += "]";
@@ -65,28 +65,21 @@ namespace Dashboard.Controllers
             ViewBag.areaCount = _context.areaInfo.Count();
 
 
-            var result = (from a in _context.branchTransActions
-                          join c in _context.branchCards on a.cardId equals c.cardId
-                         where !a.checkActive
-                         select new BranchTransActions
-                          {
-                              transId = a.transId,
-                              cardId = a.cardId,
-                              date = a.date,
-                              amount = a.amount,
-                              checkActive = a.checkActive,
-                              card = new BranchCards { cardId= c.cardId, iban = c.iban, cardOwner = c.cardOwner, bankName=c.bankName, branchId = c.branchId }
-                          }).OrderByDescending(x => x.transId).Take(5).ToList();
-            return View(result);
+            List<BranchTransActions> transActionsData = _context.branchTransActions.Where(x => !x.checkActive).Include(x => x.card).OrderByDescending(x => x.transId).Take(5).ToList();
+            ViewBag.transActionsData = transActionsData;
+            List<DepositTransActions> depositTransActions = _context.depositTransActions.Where(x => !x.checkActive).Include(x => x.branch).OrderByDescending(x => x.transId).Take(5).ToList();
+            ViewBag.depositTransActions = depositTransActions;
+
+            return View();
         }
 
 
         private string getNewEpoch(string getValue)
         {
-            string rtValue="";
+            string rtValue = "";
             int i = 0;
             int j = 0;
-            foreach(char c in getValue)
+            foreach (char c in getValue)
             {
                 if (i < 7)
                     rtValue += c.ToString();

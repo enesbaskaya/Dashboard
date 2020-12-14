@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dashboard.Models
 {
@@ -20,7 +21,6 @@ namespace Dashboard.Models
         public bool market { get; set; }
         public bool catering { get; set; }
         public bool shower { get; set; }
-        public string paymentMethods { get; set; }
         public bool isActive { get; set; }
         public string registerDate { get; set; }
         public long contactId { get; set; }

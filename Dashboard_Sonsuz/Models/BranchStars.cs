@@ -16,8 +16,6 @@ namespace Dashboard.Models
 
         public int point { get; set; }
 
-        public string year { get; set; }
-
         public int count { get; set; }
 
     }

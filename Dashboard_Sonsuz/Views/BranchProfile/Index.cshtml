@@ -23,9 +23,12 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12 col-lg-10 col-xl-8">
-            <h2 class="h3 mb-4 page-title">Şube Bilgisi</h2>
+            <h2 class="h3 mb-4 page-title">@SharedLocalizer.GetLocalizedHtmlString("BranchData")</h2>
             <div class="my-4">
-                <form>
+                @using (Html.BeginForm("UpdateBranch", "BranchProfile", FormMethod.Post))
+                {
+
+                    <input type="hidden" id="branchId" name="branchId" value="@branch.branchId">
                     <div class="row mt-5 align-items-center">
                         <div class="col-md-3 text-center mb-5">
                             <div class="avatar avatar-xl">
@@ -52,282 +55,288 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="firstname">@SharedLocalizer.GetLocalizedHtmlString("BranchOwner")</label>
-                            <input type="text" id="firstname" class="form-control" value="@branch.admin" placeholder="Brown">
+                            <input type="text" name="branchOwner" id="branchOwner" class="form-control" value="@branch.admin" placeholder="Brown">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="lastname">@SharedLocalizer.GetLocalizedHtmlString("BranchName")</label>
-                            <input type="text" id="lastname" class="form-control" value="@branch.name" placeholder="Asher">
+                            <input type="text" name="branchName" id="branchName" class="form-control" value="@branch.name" placeholder="Asher">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="firstname">@SharedLocalizer.GetLocalizedHtmlString("TaxNumber")</label>
-                            <input type="text" id="firstname" class="form-control" value="@branch.taxNumber" placeholder="Brown">
+                            <input type="text" name="taxNumber" id="taxNumber" class="form-control" value="@branch.taxNumber" placeholder="Brown">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="lastname">@SharedLocalizer.GetLocalizedHtmlString("Telephone")</label>
-                            <input type="text" id="lastname" class="form-control" value="@branch.contact.telephone" placeholder="Asher">
+                            <input type="text" name="telephone" id="telephone" class="form-control" value="@branch.contact.telephone" placeholder="Asher">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4">@SharedLocalizer.GetLocalizedHtmlString("Address")</label>
-                            <input type="text" class="form-control" id="inputEmail4" value="@branch.contact.address" placeholder="brown@asher.me">
+                            <input type="text" class="form-control" name="address" id="address" value="@branch.contact.address" placeholder="brown@asher.me">
                         </div><div class="form-group col-md-6">
                             <label for="inputEmail4">@SharedLocalizer.GetLocalizedHtmlString("Mail")</label>
-                            <input type="email" class="form-control" id="inputEmail4" value="@branch.contact.mail" placeholder="brown@asher.me">
+                            <input type="email" class="form-control" name="mail" id="mail" value="@branch.contact.mail" placeholder="brown@asher.me">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4">@SharedLocalizer.GetLocalizedHtmlString("Debt")</label>
-                            <input type="text" class="form-control" id="inputEmail4" value="@wallet.debt" placeholder="brown@asher.me">
+                            <input type="text" class="form-control" name="debt" id="debt" value="@wallet.debt" placeholder="brown@asher.me">
                         </div><div class="form-group col-md-6">
                             <label for="inputEmail4">@SharedLocalizer.GetLocalizedHtmlString("Balance")</label>
-                            <input type="text" class="form-control" id="inputEmail4" value="@wallet.balance" placeholder="brown@asher.me">
+                            <input type="text" class="form-control" name="balance" id="balance" value="@wallet.balance" placeholder="brown@asher.me">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="custom-select">@SharedLocalizer.GetLocalizedHtmlString("City")</label>
-                            <select class="custom-select" id="il" name="iller">
+                            <select class="custom-select" id="il" name="iller" disabled>
                                 <option value="@branch.contact.district.city.cityId" selected>@branch.contact.district.city.cityName</option>
                             </select>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="custom-select">@SharedLocalizer.GetLocalizedHtmlString("District")</label>
-                            <select class="custom-select" id="ilce" name="ilceler">
+                            <select class="custom-select" id="ilce" name="ilceler" disabled>
                                 <option value="@branch.contact.district.districtId" selected>@branch.contact.district.districtName</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-3 col-sm-12">
                             <label for="custom-select">@SharedLocalizer.GetLocalizedHtmlString("ShoesRent")</label>
+                            <input value="true" type="checkbox" name="shoesRent" id="shoesRent" @(branch.shoesRent ? "checked" : "")>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-3 col-sm-12">
                             <label for="custom-select">@SharedLocalizer.GetLocalizedHtmlString("Market")</label>
+                            <input value="true" type="checkbox" name="market" id="market" @(branch.market ? "checked" : "")>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-3 col-sm-12">
                             <label for="custom-select">@SharedLocalizer.GetLocalizedHtmlString("Catering")</label>
+                            <input value="true" type="checkbox" name="catering" id="catering" @(branch.catering ? "checked" : "")>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-3 col-sm-12">
                             <label for="custom-select">@SharedLocalizer.GetLocalizedHtmlString("Shower")</label>
+                            <input value="true" type="checkbox" name="shower" id="shower" @(branch.shower ? "checked" : "")>
                         </div>
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <div class="custom-control custom-checkbox">
-                                <input value="true" type="checkbox" id="shoesrent" @(branch.shoesRent ? "checked" : "")>
+                        @foreach (PaymentMethods m in ViewBag.paymentMethods)
+                        {
+
+                            bool func(PaymentMethods method)
+                            {
+                                List<BranchPaymentMethods> methods = ViewBag.branchPaymentMethods;
+                                foreach (BranchPaymentMethods inMethod in methods)
+                                {
+                                    if (inMethod.paymentMethodId == method.paymentMethodId)
+                                    {
+                                        return true;
+                                    }
+                                }
+                                return false;
+                            }
+
+
+                            <div class="form-group col-md-@(12 / (ViewBag.paymentMethods.Count))">
+                                <label for="custom-select">@m.paymentMethodName</label>
+                                <input value="true" type="checkbox" name="pm_@m.paymentMethodId" id="pm_@m.paymentMethodId" @(func(m) ? "checked" : "")>
                             </div>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" id="market" @(branch.market ? "checked" : "")>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" id="catering" @(branch.catering ? "checked" : "")>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" id="shower" @(branch.shower ? "checked" : "")>
-                            </div>
-                        </div>
+
+                        }
                     </div>
 
                     <hr class="my-4">
+                    <div class="form-group col-md-12">
+                        <button onclick="return confirmDialog()" type="submit" class="btn btn-primary">@SharedLocalizer.GetLocalizedHtmlString("Save")</button>
+                    </div>
 
-                    <button type="submit" class="btn btn-primary">Save Change</button>
+                }
+                <hr class="my-4">
+                <h2 class="mb-2 page-title">@SharedLocalizer.GetLocalizedHtmlString("BranchCards")</h2>
+                <div class="row my-4">
+                    <!-- Small table -->
+                    <div class="col-md-12">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <!-- table -->
+                                <table class="table datatables" id="dataTable-1">
+                                    <thead>
+                                        <tr>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("IdText")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("CardOwner")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("IBAN")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("BankName")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("Operations")</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{foreach (BranchCards b in cards)
+                                            {
+                                                <tr>
+                                                    <td>@b.cardId</td>
+                                                    <td>@b.cardOwner</td>
+                                                    <td>@b.iban</td>
+                                                    <td>@b.bankName</td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <span class="text-muted sr-only">Action</span>
+                                                            </button>
+                                                            <div class="dropdown-menu dropdown-menu-right">
 
-                    <hr class="my-4">
+                                                                <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeleteCard", "BranchProfile", new { branchId = b.branchId, cardId = b.cardId })">Sil</a>
+                                                                <a class="dropdown-item" href="@Url.Action("EditCardPage", "BranchProfile", new { cardId = b.cardId })">Düzenle</a>
 
-
-
-                    <h2 class="mb-2 page-title">Şube Banka Hesapları</h2>
-                    <div class="row my-4">
-                        <!-- Small table -->
-                        <div class="col-md-12">
-                            <div class="card shadow">
-                                <div class="card-body">
-                                    <!-- table -->
-                                    <table class="table datatables" id="dataTable-1">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Kart Sahibi</th>
-                                                <th>IBAN</th>
-                                                <th>Banka Adı</th>
-                                                <th>İşlemler</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @{foreach (BranchCards b in cards)
-                                                {
-                                                    <tr>
-                                                        <td>@b.cardId</td>
-                                                        <td>@b.cardOwner</td>
-                                                        <td>@b.iban</td>
-                                                        <td>@b.bankName</td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    <span class="text-muted sr-only">Action</span>
-                                                                </button>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    @{ if (true)
-                                                                        {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeactiveBranch", "Branches", new { branchId = b.branchId })">Deaktive Et</a>}}
-                                                                    <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeleteBranch", "Branches", new { branchId = b.branchId })">Sil</a>
-                                                                    <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = b.branchId})">İşletmeye Git</a>
-                                                                </div>
                                                             </div>
-                                                        </td>
-                                                    </tr>
-                                                }; }
-                                        </tbody>
-                                    </table>
-                                </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                            }; }
+                                    </tbody>
+                                </table>
                             </div>
-                        </div> <!-- simple table -->
-                    </div> <!-- end section -->
+                        </div>
+                    </div> <!-- simple table -->
+                </div>  <!-- end section -->
 
-                    <hr class="my-4">
+                <hr class="my-4">
 
+                <h2 class="mb-2 page-title">@SharedLocalizer.GetLocalizedHtmlString("BranchEconomyData")</h2>
+                <div class="row my-4">
+                    <!-- Small table -->
+                    <div class="col-md-12">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <!-- table -->
+                                <table class="table datatables" id="dataTable-2">
+                                    <thead>
+                                        <tr>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("IdText")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("Year")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("Month")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("Giro")</th>
 
-                    <h2 class="mb-2 page-title">Şube Ekonomi Verileri</h2>
-                    <div class="row my-4">
-                        <!-- Small table -->
-                        <div class="col-md-12">
-                            <div class="card shadow">
-                                <div class="card-body">
-                                    <!-- table -->
-                                    <table class="table datatables" id="dataTable-2">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Yıl</th>
-                                                <th>Ay</th>
-                                                <th>Ciro</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @{foreach (BranchEconomy b in economy)
-                                                {
-                                                    <tr>
-                                                        <td>@b.branchEconomyId</td>
-                                                        <td>@b.year</td>
-                                                        <td>@b.month</td>
-                                                        <td>@b.giro</td>
-                                                    </tr>
-                                                }; }
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{foreach (BranchEconomy b in economy)
+                                            {
+                                                <tr>
+                                                    <td>@b.branchEconomyId</td>
+                                                    <td>@b.year</td>
+                                                    <td>@b.month</td>
+                                                    <td>@b.giro</td>
+                                                </tr>
+                                            }; }
+                                    </tbody>
+                                </table>
                             </div>
-                        </div> <!-- simple table -->
-                    </div> <!-- end section -->
+                        </div>
+                    </div> <!-- simple table -->
+                </div>  <!-- end section -->
 
 
-                    <hr class="my-4">
-                    <h2 class="mb-2 page-title">Şube Transfer Verileri</h2>
-                    <div class="row my-4">
-                        <!-- Small table -->
-                        <div class="col-md-12">
-                            <div class="card shadow">
-                                <div class="card-body">
-                                    <!-- table -->
-                                    <table class="table datatables" id="dataTable-3">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Tarih</th>
-                                                <th>Miktar</th>
-                                                <th>IBAN</th>
-                                                <th>Kart Sahibi</th>
-                                                <th>Durum</th>
+                <hr class="my-4">
+                <h2 class="mb-2 page-title">@SharedLocalizer.GetLocalizedHtmlString("BranchTransActionsData")</h2>
+                <div class="row my-4">
+                    <!-- Small table -->
+                    <div class="col-md-12">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <!-- table -->
+                                <table class="table datatables" id="dataTable-3">
+                                    <thead>
+                                        <tr>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("IdText")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("Date")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("Amount")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("IBAN")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("CardOwner")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("Status")</th>
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @{foreach (BranchTransActions b in transActions)
-                                                {
-                                                    <tr>
-                                                        <td>@b.transId</td>
-                                                        <td>@b.date</td>
-                                                        <td>@b.amount</td>
-                                                        <td>@b.card.iban</td>
-                                                        <td>@b.card.cardOwner</td>
-                                                        <td><span class="dot dot-lg bg-@(b.checkActive ? "success" : "warning") mr-2"></span></td>
-                                                    </tr>
-                                                }; }
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{foreach (BranchTransActions b in transActions)
+                                            {
+                                                <tr>
+                                                    <td>@b.transId</td>
+                                                    <td>@b.date</td>
+                                                    <td>@b.amount</td>
+                                                    <td>@b.card.iban</td>
+                                                    <td>@b.card.cardOwner</td>
+                                                    <td><span class="dot dot-lg bg-@(b.checkActive ? "success" : "warning") mr-2"></span></td>
+                                                </tr>
+                                            }; }
+                                    </tbody>
+                                </table>
                             </div>
-                        </div> <!-- simple table -->
-                    </div> <!-- end section -->
+                        </div>
+                    </div> <!-- simple table -->
+                </div>  <!-- end section -->
 
-                    <hr class="my-4">
+                <hr class="my-4">
 
-                    <h2 class="mb-2 page-title">Şube Maç Verileri</h2>
-                    <div class="row my-4">
-                        <!-- Small table -->
-                        <div class="col-md-12">
-                            <div class="card shadow">
-                                <div class="card-body">
-                                    <!-- table -->
-                                    <table class="table datatables" id="dataTable-4">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Kazanç</th>
-                                                <th>Ödeme</th>
-                                                <th>Kazanan Takım</th>
-                                                <th>Kaybeden Takım</th>
-                                                <th>Tarih</th>
-                                                <th>Skor</th>
-                                                <th>Saat</th>
-                                                <th>Saha Adı</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @{foreach (BranchMatchWorth b in worths)
-                                                {
-                                                    <tr>
-                                                        <td>@b.worthId</td>
-                                                        <td>@b.amount</td>
-                                                        <td>@b.paymentType</td>
-                                                        <td>@b.match.winnerTeam.name</td>
-                                                        <td>@b.match.loserTeam.name</td>
-                                                        <td>@b.match.date</td>
-                                                        <td>@b.match.score</td>
-                                                        <td>@b.match.clock</td>
-                                                        <td>@b.match.area.areaName</td>
-                                                    </tr>
-                                                }; }
-                                        </tbody>
-                                    </table>
-                                </div>
+                <h2 class="mb-2 page-title">@SharedLocalizer.GetLocalizedHtmlString("BranchMatchData")</h2>
+                <div class="row my-4">
+                    <!-- Small table -->
+                    <div class="col-md-12">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <!-- table -->
+                                <table class="table datatables" id="dataTable-4">
+                                    <thead>
+                                        <tr>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("IdText")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("Profit")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("PaymentType")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("WinnerTean")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("LoserTeam")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("Date")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("Score")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("Clock")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("AreaName")</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{foreach (BranchMatchWorth b in worths)
+                                            {
+                                                <tr>
+                                                    <td>@b.worthId</td>
+                                                    <td>@b.amount</td>
+                                                    <td>@b.paymentType</td>
+                                                    <td>@b.match.winnerTeam.name</td>
+                                                    <td>@b.match.loserTeam.name</td>
+                                                    <td>@b.match.date</td>
+                                                    <td>@b.match.score</td>
+                                                    <td>@b.match.clock</td>
+                                                    <td>@b.match.area.areaName</td>
+                                                </tr>
+                                            }; }
+                                    </tbody>
+                                </table>
                             </div>
-                        </div> <!-- simple table -->
-                    </div> <!-- end section -->
-
-                    <hr class="my-4">
-
-
-
-
-
-                </form>
+                        </div>
+                    </div> <!-- simple table -->
+                </div>  <!-- end section -->
+                <hr class="my-4">
             </div> <!-- /.card-body -->
         </div> <!-- /.col-12 -->
     </div> <!-- .row -->
 </div> <!-- .container-fluid -->
+
+<script>
+    function confirmDialog() {
+        var c = confirm("@SharedLocalizer.GetLocalizedHtmlString("AreYouSure")");
+        return c;
+    }
+</script>

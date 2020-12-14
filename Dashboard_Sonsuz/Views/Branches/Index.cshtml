@@ -13,7 +13,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-            <h2 class="mb-2 page-title">Data table</h2>
+            <h2 class="mb-2 page-title">@SharedLocalizer.GetLocalizedHtmlString("Branches")</h2>
             <div class="row my-4">
                 <!-- Small table -->
                 <div class="col-md-12">
@@ -23,16 +23,16 @@
                             <table class="table datatables" id="dataTable-1">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Sahibi</th>
-                                        <th>İşletme İsmi</th>
-                                        <th>Vergi Numarası</th>
-                                        <th>Kayıt Tarihi</th>
-                                        <th>Mail</th>
-                                        <th>Telefon</th>
-                                        <th>İl/İlçe</th>
-                                        <th>Aktiflik</th>
-                                        <th>İşlemler</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("IdText")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("BranchOwner")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("BranchName")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("TaxNumber")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Date")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Mail")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Telephone")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("City") / @SharedLocalizer.GetLocalizedHtmlString("Districts")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Status")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Operations")</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -76,7 +76,7 @@
 
 <script>
     function confirmDialog() {
-        var c = confirm("İşlemi onaylamak istediğinize emin misiniz ?");
+        var c = confirm("@SharedLocalizer.GetLocalizedHtmlString("AreYouSure")");
         return c;
     }
 </script>

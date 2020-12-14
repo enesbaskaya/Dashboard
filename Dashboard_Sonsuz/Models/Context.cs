@@ -11,6 +11,8 @@ namespace Dashboard.Models
         public DbSet<Admin> admin { get; set; }
         public DbSet<AreaInfo> areaInfo { get; set; }
         public DbSet<Branch> branch { get; set; }
+        public DbSet<BranchPaymentMethods> branchPaymentMethods { get; set; }
+        public DbSet<PaymentMethods> paymentMethods { get; set; }
         public DbSet<BranchCards> branchCards { get; set; }
         public DbSet<BranchEconomy> branchEconomy { get; set; }
         public DbSet<BranchMatchWorth> branchMatchWorth { get; set; }

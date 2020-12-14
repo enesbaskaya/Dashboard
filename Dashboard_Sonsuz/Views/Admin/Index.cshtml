@@ -21,9 +21,10 @@
     <div class="wrapper vh-100">
         <div class="row align-items-center h-100">
             <div class="col-lg-3 col-md-4 col-10 mx-auto text-center">
-                <img src="~/images/bmv.png"/>
+                
+                <img src="~/images/bmv.png" width="100%" />
 
-                <h1 class="h6 mb-3">@SharedLocalizer.GetLocalizedHtmlString("Login")</h1>
+                <h1 class="h6 mb-4 mt-3 mt-lg-5">@SharedLocalizer.GetLocalizedHtmlString("Login")</h1>
 
                 <label for="inputEmail" class="sr-only">@SharedLocalizer.GetLocalizedHtmlString("Username")</label>
 
@@ -38,7 +39,7 @@
                         <input name="inputPassword" type="password" id="inputPassword" class="form-control form-control-lg" placeholder="@SharedLocalizer.GetLocalizedHtmlString("Password")" required="">
                     </div>
                     <button class="btn btn-lg btn-primary btn-block" type="submit">@SharedLocalizer.GetLocalizedHtmlString("Login")</button>
-                    <p class="mt-6 mb-2 text-muted">@SharedLocalizer.GetLocalizedHtmlString("ARS")</p>
+                    <p class="mt-5 text-muted">@SharedLocalizer.GetLocalizedHtmlString("ARS")</p>
                 }
             </div>
         </div>
