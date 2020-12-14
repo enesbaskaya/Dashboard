@@ -22,7 +22,13 @@ namespace Dashboard.Models
 
         public double clock { get; set; }
 
-        public int appointmentType { get; set; }
+        public double amount { get; set; }
+
+        public long paymentMethodId { get; set; }
+        public PaymentMethods paymentMethod { get; set; }
+
+        public long appointmentTypeId { get; set; }
+        public AppointmentTypes appointmentType { get; set; }
 
 
     }

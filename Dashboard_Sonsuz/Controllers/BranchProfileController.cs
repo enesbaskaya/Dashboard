@@ -133,12 +133,13 @@ namespace Dashboard.Controllers
 
             List<BranchCards> branchCards = _context.branchCards.Where(x => x.branchId == branchId).ToList();
             List<BranchEconomy> branchEconomies = _context.branchEconomy.Where(x => x.branchId == branchId).ToList();
-            List<BranchMatchWorth> branchMatchWorths = _context.branchMatchWorth.
-                Where(x => x.match.area.branchId == branchId)
-                .Include(x => x.match)
-                .Include(x => x.match.area)
-                .Include(x => x.match.loserTeam)
-                .Include(x => x.match.winnerTeam)
+            List<MatchHistory> matchHistories = _context.matchHistory.
+                Where(x => x.area.branchId == branchId)
+                .Include(x => x.area)
+                .Include(x => x.loserTeam)
+                .Include(x => x.winnerTeam)
+                .Include(x => x.appointmentType)
+                .Include(x => x.paymentMethod)
                 .ToList();
             List<BranchTransActions> branchTransActions = _context.branchTransActions.
                 Where(x => x.card.branchId == branchId)
@@ -150,7 +151,7 @@ namespace Dashboard.Controllers
             ViewBag.branchStars = stars;
 
             ViewBag.branchCards = branchCards;
-            ViewBag.matchWorths = branchMatchWorths;
+            ViewBag.matchHistories = matchHistories;
             ViewBag.branchEconomies = branchEconomies;
             ViewBag.branchTransActions = branchTransActions;
             ViewBag.paymentMethods = paymentMethods;

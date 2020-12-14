@@ -11,7 +11,7 @@
     BranchStars stars = ViewBag.branchStars;
 
     List<BranchCards> cards = ViewBag.branchCards;
-    List<BranchMatchWorth> worths = ViewBag.matchWorths;
+    List<MatchHistory> matchHistories = ViewBag.matchHistories;
     List<BranchEconomy> economy = ViewBag.branchEconomies;
     List<BranchTransActions> transActions = ViewBag.branchTransActions;
 
@@ -299,6 +299,7 @@
                                             <th>@SharedLocalizer.GetLocalizedHtmlString("IdText")</th>
                                             <th>@SharedLocalizer.GetLocalizedHtmlString("Profit")</th>
                                             <th>@SharedLocalizer.GetLocalizedHtmlString("PaymentType")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("AppointmentType")</th>
                                             <th>@SharedLocalizer.GetLocalizedHtmlString("WinnerTean")</th>
                                             <th>@SharedLocalizer.GetLocalizedHtmlString("LoserTeam")</th>
                                             <th>@SharedLocalizer.GetLocalizedHtmlString("Date")</th>
@@ -308,18 +309,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @{foreach (BranchMatchWorth b in worths)
+                                        @{foreach (MatchHistory match in matchHistories)
                                             {
                                                 <tr>
-                                                    <td>@b.worthId</td>
-                                                    <td>@b.amount</td>
-                                                    <td>@b.paymentType</td>
-                                                    <td>@b.match.winnerTeam.name</td>
-                                                    <td>@b.match.loserTeam.name</td>
-                                                    <td>@b.match.date</td>
-                                                    <td>@b.match.score</td>
-                                                    <td>@b.match.clock</td>
-                                                    <td>@b.match.area.areaName</td>
+                                                    <td>@match.matchId</td>
+                                                    <td>@match.amount</td>
+                                                    <td>@match.paymentMethod.paymentMethodName</td>
+                                                    <td>@match.appointmentType.appointmentName</td>
+                                                    <td>@match.winnerTeam.name</td>
+                                                    <td>@match.loserTeam.name</td>
+                                                    <td>@match.date</td>
+                                                    <td>@match.score</td>
+                                                    <td>@match.clock</td>
+                                                    <td>@match.area.areaName</td>
                                                 </tr>
                                             }; }
                                     </tbody>

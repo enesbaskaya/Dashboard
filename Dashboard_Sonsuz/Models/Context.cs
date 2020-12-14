@@ -15,7 +15,6 @@ namespace Dashboard.Models
         public DbSet<PaymentMethods> paymentMethods { get; set; }
         public DbSet<BranchCards> branchCards { get; set; }
         public DbSet<BranchEconomy> branchEconomy { get; set; }
-        public DbSet<BranchMatchWorth> branchMatchWorth { get; set; }
         public DbSet<BranchNotifications> branchNotifications { get; set; }
         public DbSet<BranchStars> branchStars { get; set; }
         public DbSet<BranchWallet> branchWallet { get; set; }
@@ -33,6 +32,7 @@ namespace Dashboard.Models
         public DbSet<User> user { get; set; }
         public DbSet<UserData> userData { get; set; }
         public DbSet<UserFriends> userFriends { get; set; }
+        public DbSet<AppointmentTypes> appointmentTypes { get; set; }
 
     }
 }

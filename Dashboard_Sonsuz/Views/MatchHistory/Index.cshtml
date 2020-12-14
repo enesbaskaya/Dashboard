@@ -1,0 +1,88 @@
+﻿@using Dashboard.Models
+@using Dashboard.Resources
+@inject LocServices SharedLocalizer
+@{
+    Layout = "~/Views/Shared/_MatchHistoryLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row my-4">
+        <div class="col-md-12">
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h4 style="color: orange" class="mb-1 text-center">@SharedLocalizer.GetLocalizedHtmlString("TotalMatch")</h4>
+                            <h3 class="card-title mb-0 text-center">@ViewBag.sendData</h3>
+                        </div>
+                    </div> <!-- /. row -->
+                </div> <!-- /. card-body -->
+            </div> <!-- /. card -->
+        </div> <!-- /. col -->
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <strong class="card-title">@SharedLocalizer.GetLocalizedHtmlString("HistoryMatches")</strong>
+                        </div>
+                        <div class="card-body my-n2">
+                            <table id="dataTable-1" class="table datatables">
+                                <thead>
+                                    <tr>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("IdText")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("BranchName")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("AreaName")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Profit")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("PaymentType")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("AppointmentType")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("WinnerTeam")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("LoserTeam")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Date")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Score")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Clock")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Status")</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+
+                                        bool isPassed(string date)
+                                        {
+                                            DateTime time = DateTime.Parse(date);
+                                            return time.Millisecond > DateTime.Now.Millisecond;
+                                        }
+
+                                        foreach (MatchHistory history in ViewBag.historyMatches)
+                                        {
+                                            <tr>
+                                                <td>@history.matchId</td>
+                                                <td>@history.area.branch.name</td>
+                                                <td>@history.area.areaName</td>
+                                                <td>@history.amount ₺</td>
+                                                <td>@history.paymentMethod.paymentMethodName</td>
+                                                <td>@history.appointmentType.appointmentName</td>
+                                                <td>@history.winnerTeam.name (@history.winnerTeam.user.username)</td>
+                                                <td>@history.loserTeam.name (@history.loserTeam.user.username)</td>
+                                                <td>@history.date</td>
+                                                <td>@history.score</td>
+                                                <td>@history.clock</td>
+                                                <td><span class="dot dot-lg bg-@(isPassed(history.date) ? "success" : "warning") mr-2"></span></td>
+                                            </tr>
+
+                                        }
+                                    }
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

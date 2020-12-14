@@ -26,38 +26,11 @@ namespace Dashboard.Controllers
             this.admin = await _context.admin.FirstOrDefaultAsync(x => x.username == HttpContext.Session.GetString("admin"));
             ViewBag.admin = this.admin;
 
-            var branchTransActionResult = (from a in _context.branchTransActions
-                                           join c in _context.branchCards on a.cardId equals c.cardId
-                                           join b in _context.branch on c.branchId equals b.branchId
-                                           select new BranchTransActions
-                                           {
-                                               transId = a.transId,
-                                               cardId = a.cardId,
-                                               date = a.date,
-                                               amount = a.amount,
-                                               checkActive = a.checkActive,
-                                               card = new BranchCards { cardId = c.cardId, iban = c.iban, cardOwner = c.cardOwner, bankName = c.bankName, branchId = c.branchId, branch = new Branch { name = b.name } }
-                                           }).OrderByDescending(x => x.transId).ToList();
-
-
-
-            var depositTransActionResult = (from d in _context.depositTransActions
-                                            join b in _context.branch on d.branchId equals b.branchId
-                                            select new DepositTransActions
-                                            {
-                                                transId = d.transId,
-                                                date = d.date,
-                                                amount = d.amount,
-                                                checkActive = d.checkActive,
-                                                branchId = d.branchId,
-                                                branch = new Branch { name = b.name, admin = b.admin }
-                                            }).OrderByDescending(x => x.transId).ToList();
-
-           
-
+            var branchTransActionResult = await _context.branchTransActions.Include(x => x.card).Include(x => x.card.branch).ToListAsync();
+            var depositTransActionResult = await _context.depositTransActions.Include(x => x.branch).ToListAsync();
 
             double sendData = await _context.branchTransActions.Where(x => x.checkActive).SumAsync(x => x.amount);
-            double depositData = (await _context.depositTransActions.Where(x => x.checkActive).SumAsync(x => x.amount));
+            double depositData = await _context.depositTransActions.Where(x => x.checkActive).SumAsync(x => x.amount);
 
             ViewBag.sendData = sendData;
             ViewBag.receiveData = depositData;

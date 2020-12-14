@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="~/css/app-light.css" id="lightTheme" disabled>
     <link rel="stylesheet" href="~/css/app-dark.css" id="darkTheme">
 </head>
-<body class="vertical  dark">
+<body class="vertical dark">
     <div class="wrapper">
 
         <nav class="topnav navbar navbar-light">
@@ -72,7 +72,7 @@
             <nav class="vertnav navbar navbar-light">
                 <!-- nav bar -->
                 <div class="w-100 mb-4 d-flex">
-                    <a href="@Url.Action("Index", "Home")"><img class="padding-image" src="~/images/bmv_in.png" /></a>
+                    <a href="@Url.Action("Index", "Home")"><img class="padding-image" src="~/images/bmv_in.png" width="100%" /></a>
                 </div>
                 <ul class="navbar-nav flex-fill w-100 mb-2">
                     <li class="nav-item">
@@ -111,7 +111,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#ui-elements" aria-expanded="false" class="nav-link">
+                        <a href="@Url.Action("Index", "MatchHistory")" aria-expanded="false" class="nav-link">
                             <i class="fa fa-history"></i>
                             <span class="ml-3 item-text">@SharedLocalizer.GetLocalizedHtmlString("HistoryMatches")</span>
                         </a>
