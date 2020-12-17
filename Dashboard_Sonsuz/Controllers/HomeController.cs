@@ -5,17 +5,18 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Dashboard.Controllers
 {
     public class HomeController : Controller
     {
-        private Admin admin;
+       
         private List<Dictionary<string, long>> list = new List<Dictionary<string, long>>();
         private List<long> dateList = new List<long>();
 
         private readonly Context _context;
-
+        private Admin admin;
         public HomeController(Context context)
         {
 

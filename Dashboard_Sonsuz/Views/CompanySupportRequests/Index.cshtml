@@ -2,17 +2,16 @@
 @using System.Collections.Generic
 @using Dashboard.Resources
 @inject LocServices SharedLocalizer
+@model List<CompanySupportRequests>
 @{
-    @model List<Branch>
-    Layout = "~/Views/Shared/_BranchesLayout.cshtml";
-    int waitingBranches = ViewBag.waitingBranches;
-    int totalBranches = waitingBranches + Model.Count;
+    Layout = "~/Views/Shared/_CompanySupportRequestsLayout.cshtml";
 }
+
 
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-            <h2 class="mb-2 page-title">@SharedLocalizer.GetLocalizedHtmlString("Branches")</h2>
+            <h2 class="mb-2 page-title">@SharedLocalizer.GetLocalizedHtmlString("CompanySupportRequests")</h2>
             <div class="row my-4">
                 <!-- Small table -->
                 <div class="col-md-12">
@@ -23,44 +22,41 @@
                                 <thead>
                                     <tr>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("IdText")</th>
-                                        <th>@SharedLocalizer.GetLocalizedHtmlString("BranchOwner")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("BranchName")</th>
-                                        <th>@SharedLocalizer.GetLocalizedHtmlString("TaxNumber")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Header")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Content")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Date")</th>
-                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Mail")</th>
-                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Telephone")</th>
-                                        <th>@SharedLocalizer.GetLocalizedHtmlString("City") / @SharedLocalizer.GetLocalizedHtmlString("Districts")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Status")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Operations")</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @{foreach (Branch b in Model)
+                                    @{foreach (CompanySupportRequests c in Model)
                                         {
                                             <tr>
-                                                <td>@b.branchId</td>
-                                                <td>@b.admin</td>
-                                                <td>@b.name</td>
-                                                <td>@b.taxNumber</td>
-                                                <td>@b.registerDate</td>
-                                                <td>@b.contact.mail</td>
-                                                <td>@b.contact.telephone</td>
-                                                <td>@b.contact.district.districtName / @b.contact.district.city.cityName</td>
-                                                <td><span class="dot dot-lg bg-@(b.isActive ? "success" : "warning") mr-2"></span></td>
+                                                <td>@c.requestId</td>
+                                                <td>@c.branch.name</td>
+                                                <td>@c.header</td>
+                                                <td>@c.content</td>
+                                                <td>@c.date</td>
+                                                <td><span class="dot dot-lg bg-@(c.isActive ? "success" : "warning") mr-2"></span></td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <span class="text-muted sr-only">Action</span>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            @{ if (b.isActive)
-                                                                {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeactiveBranch", "Branches", new { branchId = b.branchId })">Deaktive Et</a>}}
-                                                            <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeleteBranch", "Branches", new { branchId = b.branchId })">Sil</a>
-                                                            <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = b.branchId})">İşletmeye Git</a>
+                                                            @{ if (!c.isActive)
+                                                                {
+                                                                    <a class="dropdown-item view" href="#" data-target="@Url.Action("PartialViewEdit", "CompanySupportRequests", new {requestId = c.requestId})">Onayla</a>
+                                                                }
+                                                            }
+                                                            <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = c.branchId})">İşletmeye Git</a>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
+
                                         }; }
                                 </tbody>
                             </table>
@@ -71,6 +67,24 @@
         </div> <!-- .col-12 -->
     </div> <!-- .row -->
 </div> <!-- .container-fluid -->
+
+
+
+<div class="modal fade" id="modelView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script>

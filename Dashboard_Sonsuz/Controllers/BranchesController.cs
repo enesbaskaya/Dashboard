@@ -106,23 +106,14 @@ namespace Dashboard.Controllers
 
 
 
-            // create email message
-            var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse(_config.GetValue<String>("SMTP:Username")));
-            email.To.Add(MailboxAddress.Parse(contactInfo.mail));
-            email.Subject = "Hesap Deaktivasyonu - BiMaçVar!";
-            email.Body = new TextPart(TextFormat.Plain)
-            {
-                Text = "Sevgili " + updatedData.admin + ",\nHesabınız pasif hale getirilmiştir. Eğer bir yanlışlık olduğunu" +
-                " düşünüyorsanız support@bimacvar.com adresinden ya da diğer iletişim araçlarını kullanarak bize ulaşabilirsiniz."
-            };
 
-            // send email
-            using var smtp = new SmtpClient();
-            smtp.Connect(_config.GetValue<String>("SMTP:Host"), _config.GetValue<int>("SMTP:Port"), false);
-            smtp.Authenticate(_config.GetValue<String>("SMTP:Username"), _config.GetValue<String>("SMTP:Password"));
-            smtp.Send(email);
-            smtp.Disconnect(true);
+            var email = new SMTPMail();
+            email.mailType = MailTypes.WARNING;
+            email.header = "BiMaçVar! İşletme Hesabınız Devredışı Bırakıldı";
+            email.content = "Değerli BiMaçVar! kullanıcısı, hesabınız gayrinizami ölçütleri kullanmanız hasebiyle devredışı bırakılmıştır!" +
+                " Eğer bir sorun olduğunu düşünüyorsanız lütfen iletişim adreslerimiz ile bizlerle bağlantı kurunuz!";
+            email.mail = contactInfo.mail;
+            email.sendAsync(_config);
 
 
 

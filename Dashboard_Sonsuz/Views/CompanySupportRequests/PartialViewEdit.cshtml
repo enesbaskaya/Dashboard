@@ -1,0 +1,17 @@
+﻿@using Dashboard.Models
+@model CompanySupportRequests
+
+
+<h6 class="modal-title">Kullanıcı Mesajı:</h6>
+<span>@Model.content</span>
+
+<form>
+    <div class="form-group">
+        <label for="recipient-name" class="col-form-label">Mesaj:</label>
+        <input type="text" class="form-control" id="message" name="message">
+    </div>
+
+
+    <button type="button" class="btn mb-2 btn-success">Gönder</button>
+
+</form>

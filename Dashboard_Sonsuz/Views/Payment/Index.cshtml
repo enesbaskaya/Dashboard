@@ -1,6 +1,5 @@
 ﻿@using Dashboard.Models
 @using Dashboard.Resources
-@using System;
 @using System.Globalization;
 @inject LocServices SharedLocalizer
 @{
@@ -14,7 +13,7 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <h4 style="color: orange" class="mb-1 text-center">@SharedLocalizer.GetLocalizedHtmlString("Expense")</h4>
-                            <h3 class="card-title mb-0 text-center">@ViewBag.sendData.ToString("C", CultureInfo.CurrentCulture) ₺</h3>
+                            <h3 class="card-title mb-0 text-center">@ViewBag.sendData.ToString("C", CultureInfo.CurrentCulture)</h3>
                         </div>
                     </div> <!-- /. row -->
                 </div> <!-- /. card-body -->
@@ -26,7 +25,7 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <h4 style="color: lawngreen" class="mb-1 text-center">@SharedLocalizer.GetLocalizedHtmlString("Income")</h4>
-                            <h3 class="card-title mb-0 text-center">@ViewBag.receiveData.ToString("C", CultureInfo.CurrentCulture) ₺</h3>
+                            <h3 class="card-title mb-0 text-center">@ViewBag.receiveData.ToString("C", CultureInfo.CurrentCulture)</h3>
 
                         </div>
                     </div> <!-- /. row -->
@@ -39,7 +38,7 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <h4 style="color: green" class="mb-1 text-center">@SharedLocalizer.GetLocalizedHtmlString("Profit")</h4>
-                            <h3 class="card-title mb-0 text-center">@ViewBag.profit.ToString("C", CultureInfo.CurrentCulture) ₺</h3>
+                            <h3 class="card-title mb-0 text-center">@ViewBag.profit.ToString("C", CultureInfo.CurrentCulture)</h3>
                         </div>
                     </div> <!-- /. row -->
                 </div> <!-- /. card-body -->
