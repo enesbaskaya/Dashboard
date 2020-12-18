@@ -88,8 +88,8 @@
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
                                                             @{ if (!transAction.checkActive)
-                                                                {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("UpdateTransAction", "Payment", new { transId = transAction.transId})">Onayla</a>}}
-                                                            <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = transAction.card.branchId})">İşletmeye Git</a>
+                                                                {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("UpdateTransAction", "Payment", new { transId = transAction.transId})">@SharedLocalizer.GetLocalizedHtmlString("Approve")</a>}}
+                                                        <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = transAction.card.branchId})">@SharedLocalizer.GetLocalizedHtmlString("GoToBranch")</a>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -141,10 +141,10 @@
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
                                                             @{ if (!transAction.checkActive)
-                                                                {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("UpdateDepositTransAction", "Payment", new { transId = transAction.transId, amount = transAction.amount })">Onayla</a>}}
+                                                                {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("UpdateDepositTransAction", "Payment", new { transId = transAction.transId, amount = transAction.amount })">@SharedLocalizer.GetLocalizedHtmlString("Approve")</a>}}
                                                             @{ if (!transAction.checkActive)
-                                                                { <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeleteDepositTransAction", "Payment", new { transId = transAction.transId })">Reddet</a>}}
-                                                            <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = transAction.branchId})">İşletmeye Git</a>
+                                                                { <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeleteDepositTransAction", "Payment", new { transId = transAction.transId })">@SharedLocalizer.GetLocalizedHtmlString("Reject")</a>}}
+                                                        <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = transAction.branchId})">@SharedLocalizer.GetLocalizedHtmlString("GoToBranch")</a>
                                                         </div>
                                                     </div>
                                                 </td>

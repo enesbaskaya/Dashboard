@@ -94,8 +94,6 @@ namespace Dashboard.Models
             smtp.Authenticate(_config.GetValue<String>("SMTP:Username"), _config.GetValue<String>("SMTP:Password"));
             smtp.Send(email);
             smtp.Disconnect(true);
-
-
         }
 
 

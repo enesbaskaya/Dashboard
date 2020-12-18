@@ -10,42 +10,41 @@ using System.Threading.Tasks;
 
 namespace Dashboard.Controllers
 {
-    public class CompanySupportRequestsController : Controller
+    public class DeleteAreaRequestsController : Controller
     {
 
         private readonly Context _context;
         private Admin admin;
         private readonly IConfiguration _config;
-        public CompanySupportRequestsController(Context context, IConfiguration config)
+        public DeleteAreaRequestsController(Context context, IConfiguration config)
         {
 
             _context = context;
             _config = config;
         }
 
-        [HttpPost]
-        public ActionResult PartialViewEdit(long requestId)
-        {
-            CompanySupportRequests request = _context.companySupportRequests.Find(requestId);
-            return PartialView("PartialViewEdit", request);
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> SendSupportMessageAsync(string message, long requestId)
+        public async Task<IActionResult> ApproveDeleteArea(long requestId)
         {
-            CompanySupportRequests request = _context.companySupportRequests
-                .Where(x => x.requestId == requestId)
-                .Include(x => x.branch)
-                .Include(x => x.branch.contact).ToList()[0];
+            DeleteAreaRequests deleteArea = _context.deleteAreaRequests
+                .Where(x => x.deleteRequestId == requestId)
+                .Include(x => x.area)
+                .Include(x => x.area.branch)
+                .Include(x => x.area.branch.contact)
+                .ToList()[0];
+
+
+            String message = "Değerli BiMaçVar! üyemiz, talepte bulunduğunuz saha silme talebi gerçekeştirildi ve " + deleteArea.area.areaName + " adlı sahanız kaldırıldı!";
+
             DateTime time = DateTime.Now;
             string format = "dd/M/yyyy";
             _context.branchNotifications.Add(
                new BranchNotifications
                {
-                   branchId = request.branchId,
+                   branchId = deleteArea.area.branchId,
                    content = message,
                    date = time.ToString(format),
-                   header = "Destek Talebi Hakkında",
+                   header = "Saha Silme Talebi",
                    isRead = false,
                    sender = "BiMaçVar!"
                });
@@ -53,26 +52,22 @@ namespace Dashboard.Controllers
 
             var email = new SMTPMail();
             email.mailType = MailTypes.WARNING;
-            email.header = "DESTEK TALEBİNİZ CEVAPLANDI";
+            email.header = "SAHANIZ İSTEĞİNİZ ÜZERE SİLİNDİ";
             email.content = message;
-            email.mail = request.branch.contact.mail;
+            email.mail = deleteArea.area.branch.contact.mail;
             await email.sendAsync(_config);
 
-            _context.SaveChanges();
-
+            _context.areaInfo.Remove(deleteArea.area);
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
-
-
 
         public async Task<IActionResult> IndexAsync()
         {
             this.admin = await _context.admin.FirstOrDefaultAsync(x => x.username == HttpContext.Session.GetString("admin"));
             ViewBag.admin = this.admin;
 
-            List<CompanySupportRequests> requests = _context.companySupportRequests.Include(x => x.branch).ToList();
-
+            List<DeleteAreaRequests> requests = _context.deleteAreaRequests.Include(x => x.area).ToList();
             return View(requests);
         }
     }

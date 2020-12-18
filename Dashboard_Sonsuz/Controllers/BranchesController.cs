@@ -30,33 +30,11 @@ namespace Dashboard.Controllers
             this.admin = await _context.admin.FirstOrDefaultAsync(x => x.username == HttpContext.Session.GetString("admin"));
             ViewBag.admin = this.admin;
 
-            List<Branch> activeBranches = (from b in _context.branch
-                                           join c in _context.contactInfo on b.contactId equals c.contactId
-                                           join d in _context.districts on c.districtId equals d.districtId
-                                           join ct in _context.city on d.cityId equals ct.cityId
-                                           where b.isActive
-                                           select new Branch
-                                           {
-                                               branchId = b.branchId,
-                                               admin = b.admin,
-                                               name = b.name,
-                                               isActive = b.isActive,
-                                               taxNumber = b.taxNumber,
-                                               registerDate = b.registerDate,
-                                               contact = new ContactInfo
-                                               {
-                                                   mail = c.mail,
-                                                   telephone = c.telephone,
-                                                   district = new Districts
-                                                   {
-                                                       districtName = d.districtName,
-                                                       city = new City
-                                                       {
-                                                           cityName = ct.cityName,
-                                                       }
-                                                   }
-                                               }
-                                           }).ToList();
+            List<Branch> activeBranches = _context.branch.Where(x => x.isActive)
+                .Include(x=>x.contact)
+                .Include(x=>x.contact.district)
+                .Include(x=>x.contact.district.city)
+                .ToList();
 
             int waitingBranches = _context.branch.Where(x => !x.isActive).Count();
 
@@ -104,16 +82,13 @@ namespace Dashboard.Controllers
 
             var contactInfo = _context.contactInfo.FirstOrDefault(x => x.contactId == updatedData.contactId);
 
-
-
-
             var email = new SMTPMail();
             email.mailType = MailTypes.WARNING;
             email.header = "BiMaçVar! İşletme Hesabınız Devredışı Bırakıldı";
             email.content = "Değerli BiMaçVar! kullanıcısı, hesabınız gayrinizami ölçütleri kullanmanız hasebiyle devredışı bırakılmıştır!" +
                 " Eğer bir sorun olduğunu düşünüyorsanız lütfen iletişim adreslerimiz ile bizlerle bağlantı kurunuz!";
             email.mail = contactInfo.mail;
-            email.sendAsync(_config);
+            await email.sendAsync(_config);
 
 
 

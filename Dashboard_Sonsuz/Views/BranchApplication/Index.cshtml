@@ -1,16 +1,10 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_BranchApplicationLayout.cshtml";
-}
-
-@using Dashboard.Models
+﻿@using Dashboard.Models
 @using System.Collections.Generic
 @using Dashboard.Resources
 @inject LocServices SharedLocalizer
 @{
     @model List<Branch>
-    Layout = "~/Views/Shared/_BranchesLayout.cshtml";
+    Layout = "~/Views/Shared/_BranchApplicationLayout.cshtml";
 }
 
 
@@ -34,7 +28,7 @@
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Date")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Mail")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Telephone")</th>
-                                        <th>@SharedLocalizer.GetLocalizedHtmlString("City") / @SharedLocalizer.GetLocalizedHtmlString("Districts")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("City") / @SharedLocalizer.GetLocalizedHtmlString("District")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Status")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Operations")</th>
                                     </tr>
@@ -59,8 +53,8 @@
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                             @{ if (!b.isActive)
-                                                                {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("ApproveBranch", "BranchApplication", new { branchId = b.branchId })">Onayla</a>}}
-                                                            <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = b.branchId})">Detay Gör</a>
+                                                                {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("ApproveBranch", "BranchApplication", new { branchId = b.branchId })">@SharedLocalizer.GetLocalizedHtmlString("Approve")</a>}}
+                                                        <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = b.branchId})">@SharedLocalizer.GetLocalizedHtmlString("GoToBranch")</a>
                                                         </div>
                                                     </div>
                                                 </td>

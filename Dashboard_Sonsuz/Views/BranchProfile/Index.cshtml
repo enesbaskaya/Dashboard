@@ -22,8 +22,7 @@
 
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-12 col-lg-10 col-xl-8">
-            <h2 class="h3 mb-4 page-title">@SharedLocalizer.GetLocalizedHtmlString("BranchData")</h2>
+        <div class="col-12">
             <div class="my-4">
                 @using (Html.BeginForm("UpdateBranch", "BranchProfile", FormMethod.Post))
                 {
@@ -159,6 +158,7 @@
                     </div>
 
                 }
+            
                 <hr class="my-4">
                 <h2 class="mb-2 page-title">@SharedLocalizer.GetLocalizedHtmlString("BranchCards")</h2>
                 <div class="row my-4">
@@ -192,8 +192,8 @@
                                                             </button>
                                                             <div class="dropdown-menu dropdown-menu-right">
 
-                                                                <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeleteCard", "BranchProfile", new { branchId = b.branchId, cardId = b.cardId })">Sil</a>
-                                                                <a class="dropdown-item" href="@Url.Action("EditCardPage", "BranchProfile", new { cardId = b.cardId })">Düzenle</a>
+                                                                <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeleteCard", "BranchProfile", new { branchId = b.branchId, cardId = b.cardId })">@SharedLocalizer.GetLocalizedHtmlString("Delete")</a>
+                                                                <a data-target="@Url.Action("EditCardPage", "BranchProfile", new { cardId = b.cardId })" class="dropdown-item view" href="#">@SharedLocalizer.GetLocalizedHtmlString("Edit")</a>
 
                                                             </div>
                                                         </div>
@@ -331,10 +331,77 @@
                     </div> <!-- simple table -->
                 </div>  <!-- end section -->
                 <hr class="my-4">
+
+                <h2 class="mb-2 page-title">@SharedLocalizer.GetLocalizedHtmlString("BranchAreas")</h2>
+                <div class="row my-4">
+                    <!-- Small table -->
+                    <div class="col-md-12">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <!-- table -->
+                                <table class="table datatables" id="dataTable-5">
+                                    <thead>
+                                        <tr>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("IdText")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("AreaName")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("Ground")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("Height") x @SharedLocalizer.GetLocalizedHtmlString("Width")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("MaxPlayer")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("OpenCloseTime")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("RentTime")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("Price")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("RegisterDate")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("RecordingMatch")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("Roof")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("Status")</th>
+                                            <th>@SharedLocalizer.GetLocalizedHtmlString("Operations")</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{foreach (AreaInfo a in ViewBag.areas)
+                                            {
+                                                <tr>
+                                                    <td>@a.areaId</td>
+                                                    <td>@a.areaName</td>
+                                                    <td>@a.ground</td>
+                                                    <td>@a.heightWidth</td>
+                                                    <td>@a.maxPlayer</td>
+                                                    <td>@a.openCloseTime</td>
+                                                    <td>@a.time</td>
+                                                    <td>@a.price</td>
+                                                    <td>@a.registerDate</td>
+                                                    <td><span class="dot dot-lg bg-@(a.recordingMatch ? "success" : "danger") mr-2"></span></td>
+                                                    <td><span class="dot dot-lg bg-@(a.roof ? "success" : "danger") mr-2"></span></td>
+                                                    <td><span class="dot dot-lg bg-@(a.isActive ? "success" : "warning") mr-2"></span></td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <span class="text-muted sr-only">Action</span>
+                                                            </button>
+                                                            <div class="dropdown-menu dropdown-menu-right">
+
+                                                                <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeleteArea", "BranchProfile", new { branchId = a.branchId, areaId =a.areaId })">@SharedLocalizer.GetLocalizedHtmlString("Delete")</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }; }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div> <!-- simple table -->
+                </div> <!-- end section -->
+
+                <hr class="my-4">
+
+
             </div> <!-- /.card-body -->
         </div> <!-- /.col-12 -->
     </div> <!-- .row -->
 </div> <!-- .container-fluid -->
+
+<div class="modal fade" id="modelView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
 
 <script>
     function confirmDialog() {

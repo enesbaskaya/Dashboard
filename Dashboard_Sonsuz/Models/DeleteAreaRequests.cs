@@ -18,6 +18,10 @@ namespace Dashboard.Models
 
         public string content { get; set; }
 
+        public string date { get; set; }
+
+        public bool isActive { get; set; }
+
 
 
 

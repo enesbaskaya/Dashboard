@@ -1,0 +1,85 @@
+﻿@using Dashboard.Models
+@using System.Collections.Generic
+@using Dashboard.Resources
+@inject LocServices SharedLocalizer
+@{
+    @model List<AreaInfo>
+    Layout = "~/Views/Shared/_AreaApplicationLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <h2 class="mb-2 page-title">@SharedLocalizer.GetLocalizedHtmlString("AreaApplications")</h2>
+            <div class="row my-4">
+                <!-- Small table -->
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <!-- table -->
+                            <table class="table datatables" id="dataTable-1">
+                                <thead>
+                                    <tr>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("IdText")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("AreaName")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("BranchName")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Ground")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Height") x @SharedLocalizer.GetLocalizedHtmlString("Width")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("MaxPlayer")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Telephone")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("OpenCloseTime")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("RentTime")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Price")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("RegisterDate")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("RecordingMatch")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Roof")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("İşlemler")</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{foreach (AreaInfo a in Model)
+                                        {
+                                            <tr>
+                                                <td>@a.areaId</td>
+                                                <td>@a.areaName</td>
+                                                <td>@a.branch.name</td>
+                                                <td>@a.ground</td>
+                                                <td>@a.heightWidth</td>
+                                                <td>@a.maxPlayer</td>
+                                                <td>@a.branch.contact.telephone</td>
+                                                <td>@a.openCloseTime</td>
+                                                <td>@a.time</td>
+                                                <td>@a.price</td>
+                                                <td>@a.registerDate</td>
+                                                <td><span class="dot dot-lg bg-@(a.recordingMatch ? "success" : "danger") mr-2"></span></td>
+                                                <td><span class="dot dot-lg bg-@(a.roof ? "success" : "danger") mr-2"></span></td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="text-muted sr-only">Action</span>
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("ApproveArea", "AreaApplications", new { areaId = a.areaId })">@SharedLocalizer.GetLocalizedHtmlString("Approve")</a>
+                                                            <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = a.branch.branchId})">@SharedLocalizer.GetLocalizedHtmlString("GoToBranch")</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }; }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> <!-- simple table -->
+            </div> <!-- end section -->
+        </div> <!-- .col-12 -->
+    </div> <!-- .row -->
+</div> <!-- .container-fluid -->
+
+
+<script>
+    function confirmDialog() {
+        var c = confirm("@SharedLocalizer.GetLocalizedHtmlString("AreYouSure")");
+        return c;
+    }
+</script>

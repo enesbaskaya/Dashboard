@@ -146,6 +146,8 @@ namespace Dashboard.Controllers
                 .Include(x => x.card)
                 .ToList();
 
+            List<AreaInfo> areas = _context.areaInfo.Where(x => x.branchId == branchId).ToList();
+
             ViewBag.walletData = wallet;
             ViewBag.branch = branch;
             ViewBag.branchStars = stars;
@@ -156,6 +158,7 @@ namespace Dashboard.Controllers
             ViewBag.branchTransActions = branchTransActions;
             ViewBag.paymentMethods = paymentMethods;
             ViewBag.branchPaymentMethods = branchPaymentMethods;
+            ViewBag.areas = areas;
 
             return View();
         }
@@ -223,35 +226,47 @@ namespace Dashboard.Controllers
 
             Branch b = _context.branch.Where(x => x.branchId == branchId).Include(x => x.contact).ToList()[0];
 
-            // create email message
-            var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse(_config.GetValue<String>("SMTP:Username")));
-            email.To.Add(MailboxAddress.Parse(b.contact.mail));
-            email.Subject = "Kart Silinmesi - BiMaçVar!";
-            email.Body = new TextPart(TextFormat.Plain)
-            {
-                Text = "Sevgili " + b.admin + ",\n'" + deletedData.iban + "' numaralı banka hesabınız hesabınızdan kaldırılmıştır. Eğer bir yanlışlık olduğunu" +
-                " düşünüyorsanız support@bimacvar.com adresinden ya da diğer iletişim araçlarını kullanarak bize ulaşabilirsiniz."
-            };
 
-            // send email
-            using var smtp = new SmtpClient();
-            smtp.Connect(_config.GetValue<String>("SMTP:Host"), _config.GetValue<int>("SMTP:Port"), false);
-            smtp.Authenticate(_config.GetValue<String>("SMTP:Username"), _config.GetValue<String>("SMTP:Password"));
-            smtp.Send(email);
-            smtp.Disconnect(true);
+            var email = new SMTPMail();
+            email.mailType = MailTypes.WARNING;
+            email.header = "Kart Silinmesi - BiMaçVar!";
+            email.content = "Sevgili " + b.admin + ",\n'" + deletedData.iban + "' numaralı banka hesabınız hesabınızdan kaldırılmıştır. Eğer bir yanlışlık olduğunu" +
+                " düşünüyorsanız support@bimacvar.com adresinden ya da diğer iletişim araçlarını kullanarak bize ulaşabilirsiniz.";
+            email.mail = b.contact.mail;
+            await email.sendAsync(_config);
 
+            return RedirectToAction("Index", new { branchId = branchId });
+        }
+
+        public async Task<IActionResult> DeleteArea(long branchId, long areaId)
+        {
+
+            AreaInfo deletedData = await _context.areaInfo.FindAsync(areaId);
+            _context.areaInfo.Remove(deletedData);
+            await _context.SaveChangesAsync();
+
+            Branch b = _context.branch.Where(x => x.branchId == branchId).Include(x => x.contact).ToList()[0];
+
+
+            var email = new SMTPMail();
+            email.mailType = MailTypes.WARNING;
+            email.header = "BiMaçVar! Sahanız Silindi";
+            email.content = "Değerli BiMaçVar! kullanıcısı, işletmenize ait " + deletedData.areaName + " isimli sahanız silinmiştir. Bir yanlışlık olduğunu" +
+                " düşünüyorsanız ya da itirazda bulunmak istiyorsanız bize destek talebinde bulunabilirsiniz.";
+            email.mail = b.contact.mail;
+            await email.sendAsync(_config);
 
             return RedirectToAction("Index", new { branchId = branchId });
         }
 
 
-        public async Task<IActionResult> EditCardPageAsync(long cardId)
+
+
+        [HttpPost]
+        public async Task<ActionResult> EditCardPageAsync(long cardId)
         {
-            this.admin = await _context.admin.FirstOrDefaultAsync(x => x.username == HttpContext.Session.GetString("admin"));
-            ViewBag.admin = this.admin;
             BranchCards card = await _context.branchCards.FindAsync(cardId);
-            return View(card);
+            return PartialView("EditCardPage", card);
         }
 
         public async Task<IActionResult> EditCardAsync(long cardId, string bankName, string cardOwner, string IBAN)

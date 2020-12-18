@@ -7,10 +7,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Yetkili BiMaçVar! ekbinin tüm kontrol mekanizmalarının bulunduğu site.">
+    <meta name="author" content="BiMaçVar!">
     <link rel="icon" href="favicon.ico">
-    <title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
+    <title>BiMaçVar! - @SharedLocalizer.GetLocalizedHtmlString("Dashboard")</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link href="~/css/apexcharts.css" rel="stylesheet" />
@@ -70,9 +70,8 @@
                 <i class="fe fe-x"><span class="sr-only"></span></i>
             </a>
             <nav class="vertnav navbar navbar-light">
-                <!-- nav bar -->
                 <div class="w-100 mb-4 d-flex">
-                    <a href="@Url.Action("Index", "Home")"><img class="padding-image" src="~/images/bmv_in.png" width="100%" /></a>
+                    <a href="@Url.Action("Index", "Home")"><img class="padding-image" src="~/images/bmv_in.png" style="width: 100%" /></a>
                 </div>
                 <ul class="navbar-nav flex-fill w-100 mb-2">
                     <li class="nav-item">
@@ -117,14 +116,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#ui-elements" aria-expanded="false" class="nav-link">
+                        <a href="@Url.Action("Index", "AreaApplications")" aria-expanded="false" class="nav-link">
                             <i class="fa fa-plus"></i>
                             <span class="ml-3 item-text">@SharedLocalizer.GetLocalizedHtmlString("AreaApplications")</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#ui-elements" aria-expanded="false" class="nav-link">
+                        <a href="@Url.Action("Index", "DeleteAreaRequests")" aria-expanded="false" class="nav-link">
                             <i class="fa fa-trash"></i>
                             <span class="ml-3 item-text">@SharedLocalizer.GetLocalizedHtmlString("DeleteAreaRequests")</span>
                         </a>

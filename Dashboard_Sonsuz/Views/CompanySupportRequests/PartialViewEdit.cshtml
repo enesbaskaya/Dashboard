@@ -1,17 +1,38 @@
 ﻿@using Dashboard.Models
+@using Dashboard.Resources
 @model CompanySupportRequests
+@inject LocServices SharedLocalizer
 
 
-<h6 class="modal-title">Kullanıcı Mesajı:</h6>
-<span>@Model.content</span>
 
-<form>
-    <div class="form-group">
-        <label for="recipient-name" class="col-form-label">Mesaj:</label>
-        <input type="text" class="form-control" id="message" name="message">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">@Model.header</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @using (Html.BeginForm("SendSupportMessage", "CompanySupportRequests", FormMethod.Post))
+        {
+            <div class="modal-body">
+                <h6 class="modal-title">@SharedLocalizer.GetLocalizedHtmlString("UserMessage"):</h6>
+                <span>@Model.content</span>
+
+
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">@SharedLocalizer.GetLocalizedHtmlString("Message"):</label>
+                    <input type="text" class="form-control" id="message" name="message">
+                    <input type="hidden" class="form-control" id="requestId" name="requestId" value="@Model.requestId">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">@SharedLocalizer.GetLocalizedHtmlString("Send")</button>
+            </div>
+        }
     </div>
+</div>
 
 
-    <button type="button" class="btn mb-2 btn-success">Gönder</button>
 
-</form>

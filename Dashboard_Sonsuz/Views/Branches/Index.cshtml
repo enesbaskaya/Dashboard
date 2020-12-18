@@ -54,9 +54,9 @@
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                             @{ if (b.isActive)
-                                                                {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeactiveBranch", "Branches", new { branchId = b.branchId })">Deaktive Et</a>}}
-                                                            <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeleteBranch", "Branches", new { branchId = b.branchId })">Sil</a>
-                                                            <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = b.branchId})">İşletmeye Git</a>
+                                                                {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeactiveBranch", "Branches", new { branchId = b.branchId })">@SharedLocalizer.GetLocalizedHtmlString("Deactivate")</a>}}
+                                                        <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeleteBranch", "Branches", new { branchId = b.branchId })">@SharedLocalizer.GetLocalizedHtmlString("Delete")</a>
+                                                        <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = b.branchId})">@SharedLocalizer.GetLocalizedHtmlString("GoToBranch")</a>
                                                         </div>
                                                     </div>
                                                 </td>

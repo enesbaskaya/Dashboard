@@ -1,58 +1,42 @@
 ﻿@using Dashboard.Models
-@using Dashboard
 @using Dashboard.Resources
 @inject LocServices SharedLocalizer
 @model BranchCards
-@{
-
-    Layout = "~/Views/Shared/_LeftLayout.cshtml";
-
-}
 
 
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-12 col-lg-10 col-xl-8">
-            <h2 class="h3 mb-4 page-title">Şube Bilgisi</h2>
-            <div class="my-4">
-                @using (Html.BeginForm("EditCard", "BranchProfile", FormMethod.Post))
-                {
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">@SharedLocalizer.GetLocalizedHtmlString("CardEdit")</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @using (Html.BeginForm("EditCard", "BranchProfile", FormMethod.Post))
+        {
+            <div class="modal-body">
 
-                    <input type="hidden" id="cardId" name="cardId" value="@Model.cardId">
+                <div class="form-group">
+                    <label for="firstname">@SharedLocalizer.GetLocalizedHtmlString("CardOwner")</label>
+                    <input type="text" name="cardOwner" id="cardOwner" class="form-control" value="@Model.cardOwner">
+                </div>
 
-                    <hr class="my-4">
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <label for="firstname">@SharedLocalizer.GetLocalizedHtmlString("CardOwner")</label>
-                            <input type="text" name="cardOwner" id="cardOwner" class="form-control" value="@Model.cardOwner">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <label for="firstname">@SharedLocalizer.GetLocalizedHtmlString("IBAN")</label>
-                            <input type="text" name="IBAN" id="IBAN" class="form-control" value="@Model.iban">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <label for="firstname">@SharedLocalizer.GetLocalizedHtmlString("BankName")</label>
-                            <input type="text" name="bankName" id="bankName" class="form-control" value="@Model.bankName">
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="firstname">@SharedLocalizer.GetLocalizedHtmlString("IBAN")</label>
+                    <input type="text" name="IBAN" id="IBAN" class="form-control" value="@Model.iban">
+                </div>
 
-                    <div class="form-group col-md-12">
-                        <button onclick="return confirmDialog()" type="submit" class="btn btn-primary">@SharedLocalizer.GetLocalizedHtmlString("Save")</button>
-                    </div>
+                <div class="form-group">
+                    <label for="firstname">@SharedLocalizer.GetLocalizedHtmlString("BankName")</label>
+                    <input type="text" name="bankName" id="bankName" class="form-control" value="@Model.bankName">
+                </div>
 
-                }
-                <hr class="my-4">
-            </div> <!-- /.card-body -->
-        </div> <!-- /.col-12 -->
-    </div> <!-- .row -->
-</div> <!-- .container-fluid -->
-<script>
-    function confirmDialog() {
-        var c = confirm("@SharedLocalizer.GetLocalizedHtmlString("AreYouSure")");
-        return c;
-    }
-</script>
+
+                <input type="hidden" id="cardId" name="cardId" value="@Model.cardId">
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">@SharedLocalizer.GetLocalizedHtmlString("Save")</button>
+            </div>
+        }
+    </div>
+</div>

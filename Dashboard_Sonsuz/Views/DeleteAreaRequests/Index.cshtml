@@ -2,10 +2,9 @@
 @using System.Collections.Generic
 @using Dashboard.Resources
 @inject LocServices SharedLocalizer
-@model List<CompanySupportRequests>
+@model List<DeleteAreaRequests>
 @{
-    Layout = "~/Views/Shared/_CompanySupportRequestsLayout.cshtml";
-}
+    Layout = "~/Views/Shared/_DeleteAreaRequestsLayout.cshtml";}
 
 
 <div class="container-fluid">
@@ -22,8 +21,8 @@
                                 <thead>
                                     <tr>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("IdText")</th>
-                                        <th>@SharedLocalizer.GetLocalizedHtmlString("BranchName")</th>
-                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Header")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("AreaName")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Title")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Content")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Date")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Status")</th>
@@ -31,27 +30,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @{foreach (CompanySupportRequests c in Model)
+                                    @{foreach (DeleteAreaRequests d in Model)
                                         {
                                             <tr>
-                                                <td>@c.requestId</td>
-                                                <td>@c.branch.name</td>
-                                                <td>@c.header</td>
-                                                <td>@c.content</td>
-                                                <td>@c.date</td>
-                                                <td><span class="dot dot-lg bg-@(c.isActive ? "success" : "warning") mr-2"></span></td>
+                                                <td>@d.deleteRequestId</td>
+                                                <td>@d.area.areaName</td>
+                                                <td>@d.title</td>
+                                                <td>@d.content</td>
+                                                <td>@d.date</td>
+                                                <td><span class="dot dot-lg bg-@(d.isActive ? "success" : "warning") mr-2"></span></td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <span class="text-muted sr-only">Action</span>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            @{ if (!c.isActive)
-                                                                {
-                                                                    <a class="dropdown-item view" href="#" data-target="@Url.Action("PartialViewEdit", "CompanySupportRequests", new {requestId = c.requestId})">@SharedLocalizer.GetLocalizedHtmlString("Approve")</a>
-                                                                }
-                                                            }
-                                                            <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = c.branchId})">@SharedLocalizer.GetLocalizedHtmlString("GoToBranch")</a>
+                                                            <a class="dropdown-item" href="@Url.Action("ApproveDeleteArea", "DeleteAreaRequests", new {requestId = d.deleteRequestId})">@SharedLocalizer.GetLocalizedHtmlString("Approve")</a>
+                                                            <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = d.area.branchId})">@SharedLocalizer.GetLocalizedHtmlString("GoToBranch")</a>
                                                         </div>
                                                     </div>
                                                 </td>
