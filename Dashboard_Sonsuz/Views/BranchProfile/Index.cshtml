@@ -193,7 +193,7 @@
                                                             <div class="dropdown-menu dropdown-menu-right">
 
                                                                 <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeleteCard", "BranchProfile", new { branchId = b.branchId, cardId = b.cardId })">@SharedLocalizer.GetLocalizedHtmlString("Delete")</a>
-                                                                <a data-target="@Url.Action("EditCardPage", "BranchProfile", new { cardId = b.cardId })" class="dropdown-item view" href="#">@SharedLocalizer.GetLocalizedHtmlString("Edit")</a>
+                                                                <a data-target="@Url.Action("EditCardModal", "BranchProfile", new { cardId = b.cardId })" class="dropdown-item view" href="#">@SharedLocalizer.GetLocalizedHtmlString("Edit")</a>
 
                                                             </div>
                                                         </div>
@@ -372,7 +372,7 @@
                                                     <td>@a.registerDate</td>
                                                     <td><span class="dot dot-lg bg-@(a.recordingMatch ? "success" : "danger") mr-2"></span></td>
                                                     <td><span class="dot dot-lg bg-@(a.roof ? "success" : "danger") mr-2"></span></td>
-                                                    <td><span class="dot dot-lg bg-@(a.isActive ? "success" : "warning") mr-2"></span></td>
+                                                    <td><span class="dot dot-lg bg-@Program.getDotColor(a.statusId) mr-2" data-toggle="tooltip" data-placement="right" title="@a.status.name"></span></td>
                                                     <td>
                                                         <div class="dropdown">
                                                             <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

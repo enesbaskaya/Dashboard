@@ -14,7 +14,6 @@ namespace Dashboard.Controllers
 
 
         private readonly Context _context;
-        private Admin admin;
         private readonly IConfiguration _config;
 
         public MatchHistoryController(Context context, IConfiguration config)
@@ -23,11 +22,8 @@ namespace Dashboard.Controllers
             this._config = config;
         }
 
-        public async Task<IActionResult> IndexAsync()
+        public IActionResult Index()
         {
-            this.admin = await _context.admin.FirstOrDefaultAsync(x => x.username == HttpContext.Session.GetString("admin"));
-            ViewBag.admin = this.admin;
-
             List<MatchHistory> historyMatches = _context.matchHistory
                 .Include(x => x.area)
                 .Include(x => x.area.branch)

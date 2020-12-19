@@ -21,8 +21,9 @@ namespace Dashboard.Models
         public bool market { get; set; }
         public bool catering { get; set; }
         public bool shower { get; set; }
-        public bool isActive { get; set; }
         public string registerDate { get; set; }
+        public long statusId { get; set; }
+        public Status status { get; set; }
         public long contactId { get; set; }
         public ContactInfo contact { get; set; }
 

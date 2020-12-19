@@ -6,27 +6,27 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace Dashboard.Controllers
 {
     public class BranchApplicationController : Controller
     {
-        private Admin admin;
 
+        private readonly IConfiguration _config;
         private readonly Context _context;
 
-        public BranchApplicationController(Context context)
+        public BranchApplicationController(Context context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
 
-        public async Task<IActionResult> IndexAsync()
+        public IActionResult Index()
         {
-            this.admin = await _context.admin.FirstOrDefaultAsync(x => x.username == HttpContext.Session.GetString("admin"));
-            ViewBag.admin = this.admin;
-
             List<Branch> deActiveBranches = _context.branch
-                .Where(x => !x.isActive)
+                .Where(x => x.statusId == 1)
+                .Include(x => x.status)
                 .Include(x => x.contact)
                 .Include(x => x.contact.district)
                 .Include(x => x.contact.district.city)
@@ -40,7 +40,7 @@ namespace Dashboard.Controllers
 
             Branch updatedData = await _context.branch.FindAsync(branchId);
 
-            updatedData.isActive = true;
+            updatedData.statusId = 2;
             _context.branch.Update(updatedData);
 
 
@@ -65,6 +65,32 @@ namespace Dashboard.Controllers
 
             return RedirectToAction("Index");
         }
+
+
+        [HttpPost]
+        public async Task<ActionResult> RejectBranchModalAsync(long branchId)
+        {
+            Branch branch = await _context.branch.Include(x => x.contact).FirstOrDefaultAsync(x => x.branchId == branchId);
+            return PartialView("RejectBranchModal", branch);
+        }
+
+        public async Task<IActionResult> RejectBranchAsync(long branchId, string message)
+        {
+            Branch branch = await _context.branch.Include(x => x.contact).FirstOrDefaultAsync(x => x.branchId == branchId);
+            _context.branch.Remove(branch);
+            await _context.SaveChangesAsync();
+
+            var email = new SMTPMail();
+            email.mailType = MailTypes.INFORMATION;
+            email.header = "SAHA BAŞVURUNUZ REDDEDİLDİ";
+            email.content = message;
+            email.mail = branch.contact.mail;
+            await email.sendAsync(_config);
+
+
+            return RedirectToAction("Index");
+        }
+
 
     }
 }

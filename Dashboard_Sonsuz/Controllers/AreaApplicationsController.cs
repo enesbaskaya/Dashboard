@@ -13,7 +13,6 @@ namespace Dashboard.Controllers
     {
 
         private readonly Context _context;
-        private Admin admin;
         private readonly IConfiguration _config;
         public AreaApplicationsController(Context context, IConfiguration config)
         {
@@ -25,19 +24,22 @@ namespace Dashboard.Controllers
         public async Task<IActionResult> ApproveAreaAsync(long areaId)
         {
             AreaInfo area = await _context.areaInfo.FindAsync(areaId);
-            area.isActive = true;
+            area.statusId = 2;
             _context.areaInfo.Update(area);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
 
-        public async Task<IActionResult> IndexAsync()
+        public IActionResult Index()
         {
-            this.admin = await _context.admin.FirstOrDefaultAsync(x => x.username == HttpContext.Session.GetString("admin"));
-            ViewBag.admin = this.admin;
 
-            List<AreaInfo> areas = _context.areaInfo.Where(x => !x.isActive).Include(x => x.branch).Include(x => x.branch.contact).ToList();
+            List<AreaInfo> areas = _context.areaInfo
+                 .Where(x => x.statusId == 1)
+                 .Include(x => x.status)
+                 .Include(x => x.branch)
+                 .Include(x => x.branch.contact)
+                 .ToList();
 
             return View(areas);
         }

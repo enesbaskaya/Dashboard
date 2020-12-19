@@ -30,9 +30,9 @@ namespace Dashboard.Models
 
         public bool roof { get; set; }
 
-        public bool isActive { get; set; }
-
         public string registerDate { get; set; }
+        public long statusId { get; set; }
+        public Status status { get; set; }
         public long branchId { get; set; }
         public Branch branch { get; set; }
 

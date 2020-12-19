@@ -1,6 +1,7 @@
 ﻿@using Dashboard.Models
 @using System.Collections.Generic
 @using Dashboard.Resources
+@using Dashboard
 @inject LocServices SharedLocalizer
 @{
     @model List<AreaInfo>
@@ -33,6 +34,7 @@
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("RegisterDate")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("RecordingMatch")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Roof")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Status")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("İşlemler")</th>
                                     </tr>
                                 </thead>
@@ -53,6 +55,7 @@
                                                 <td>@a.registerDate</td>
                                                 <td><span class="dot dot-lg bg-@(a.recordingMatch ? "success" : "danger") mr-2"></span></td>
                                                 <td><span class="dot dot-lg bg-@(a.roof ? "success" : "danger") mr-2"></span></td>
+                                                <td><span class="dot dot-lg bg-@Program.getDotColor(a.statusId) mr-2" data-toggle="tooltip" data-placement="right" title="@a.status.name"></span></td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

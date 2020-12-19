@@ -20,7 +20,6 @@ namespace Dashboard.Controllers
 
         LocServices locServices;
         private readonly Context _context;
-        private Admin admin;
         private readonly IConfiguration _config;
 
         private Branch branch;
@@ -61,7 +60,7 @@ namespace Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateBranch(
+        public async Task<IActionResult> UpdateBranchAsync(
             string branchOwner,
             string branchName,
             string taxNumber,
@@ -78,12 +77,13 @@ namespace Dashboard.Controllers
             )
         {
 
-            Branch b = _context.branch.Where(x => x.branchId == branchId)
+            Branch b = await _context.branch
                 .Include(x => x.contact)
+                .Include(x => x.status)
                 .Include(x => x.contact.district)
                 .Include(x => x.contact.district.city)
-                .Include(x => x.contact.district.city.region).ToList()[0];
-            BranchWallet wallet = _context.branchWallet.Where(x => x.branchId == branchId).ToList()[0];
+                .Include(x => x.contact.district.city.region).FirstOrDefaultAsync(x => x.branchId == branchId);
+            BranchWallet wallet = await _context.branchWallet.FirstOrDefaultAsync(x => x.branchId == branchId);
 
             b.admin = branchOwner;
             b.name = branchName;
@@ -114,18 +114,15 @@ namespace Dashboard.Controllers
 
         public async Task<IActionResult> IndexAsync(long branchId)
         {
-
-            this.admin = await _context.admin.FirstOrDefaultAsync(x => x.username == HttpContext.Session.GetString("admin"));
-            ViewBag.admin = this.admin;
-
-            this.branch = _context.branch.Where(x => x.branchId == branchId)
+            this.branch = await _context.branch
                 .Include(x => x.contact)
+                .Include(x => x.status)
                 .Include(x => x.contact.district)
                 .Include(x => x.contact.district.city)
-                .Include(x => x.contact.district.city.region).ToList()[0];
+                .Include(x => x.contact.district.city.region).FirstOrDefaultAsync(x => x.branchId == branchId);
 
-            BranchWallet wallet = _context.branchWallet.Where(x => x.branchId == branchId).ToList()[0];
-            BranchStars stars = _context.branchStars.Where(x => x.branchId == branchId).ToList()[0];
+            BranchWallet wallet = await _context.branchWallet.FirstOrDefaultAsync(x => x.branchId == branchId);
+            BranchStars stars = await _context.branchStars.FirstOrDefaultAsync(x => x.branchId == branchId);
 
             List<BranchPaymentMethods> branchPaymentMethods = _context.branchPaymentMethods.Where(x => x.branchId == branchId).Include(x => x.paymentMethod).ToList();
             List<PaymentMethods> paymentMethods = _context.paymentMethods.ToList();
@@ -146,7 +143,7 @@ namespace Dashboard.Controllers
                 .Include(x => x.card)
                 .ToList();
 
-            List<AreaInfo> areas = _context.areaInfo.Where(x => x.branchId == branchId).ToList();
+            List<AreaInfo> areas = _context.areaInfo.Where(x => x.branchId == branchId).Include(x => x.status).ToList();
 
             ViewBag.walletData = wallet;
             ViewBag.branch = branch;
@@ -224,7 +221,7 @@ namespace Dashboard.Controllers
             _context.branchCards.Remove(deletedData);
             await _context.SaveChangesAsync();
 
-            Branch b = _context.branch.Where(x => x.branchId == branchId).Include(x => x.contact).ToList()[0];
+            Branch b = await _context.branch.Include(x => x.contact).FirstOrDefaultAsync(x => x.branchId == branchId);
 
 
             var email = new SMTPMail();
@@ -245,7 +242,7 @@ namespace Dashboard.Controllers
             _context.areaInfo.Remove(deletedData);
             await _context.SaveChangesAsync();
 
-            Branch b = _context.branch.Where(x => x.branchId == branchId).Include(x => x.contact).ToList()[0];
+            Branch b = await _context.branch.Include(x => x.contact).FirstOrDefaultAsync(x => x.branchId == branchId);
 
 
             var email = new SMTPMail();
@@ -263,10 +260,10 @@ namespace Dashboard.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> EditCardPageAsync(long cardId)
+        public async Task<ActionResult> EditCardModalAsync(long cardId)
         {
             BranchCards card = await _context.branchCards.FindAsync(cardId);
-            return PartialView("EditCardPage", card);
+            return PartialView("EditCardModal", card);
         }
 
         public async Task<IActionResult> EditCardAsync(long cardId, string bankName, string cardOwner, string IBAN)

@@ -1,3 +1,4 @@
+using Dashboard.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -8,6 +9,26 @@ namespace Dashboard
 {
     public class Program
     {
+
+
+        public static Admin administrator;
+
+        public static string getDotColor(long statusId)
+        {
+            switch (statusId)
+            {
+                case 1:
+                    return "warning";
+                case 2:
+                    return "success";
+                case 3:
+                    return "primary";
+                case 4:
+                    return "danger";
+                default:
+                    return "info";
+            }
+        }
 
         public static string MD5Hash(string input)
         {

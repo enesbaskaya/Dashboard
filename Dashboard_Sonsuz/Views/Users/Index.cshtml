@@ -4,12 +4,13 @@
 @using Dashboard
 @inject LocServices SharedLocalizer
 @{
-    @model List<Branch>
-    Layout = "~/Views/Shared/_BranchesLayout.cshtml";
-    int waitingBranches = ViewBag.waitingBranches;
-    int deletedBrancehs = ViewBag.deletedBranches;
-    int activeBranches = ViewBag.activeBranches;
-    int rejectedBranches = ViewBag.rejectedBranches;
+    @model List<User>
+    Layout = "~/Views/Shared/_UsersLayout.cshtml";
+    int waitingUsers = ViewBag.waitingUsers;
+    int rejectedUsers = ViewBag.rejectedUsers;
+    int deletedUsers = ViewBag.deletedUsers;
+    int activeUsers = ViewBag.activeUsers;
+
 }
 
 <div class="container-fluid">
@@ -25,8 +26,8 @@
                                     </span>
                                 </div>
                                 <div class="col pr-0">
-                                    <p class="small text-muted mb-0">@SharedLocalizer.GetLocalizedHtmlString("WaitingBranches")</p>
-                                    <span class="h3 mb-0">@waitingBranches</span>
+                                    <p class="small text-muted mb-0">@SharedLocalizer.GetLocalizedHtmlString("WaitingUsers")</p>
+                                    <span class="h3 mb-0">@waitingUsers</span>
                                 </div>
                             </div>
                         </div>
@@ -42,8 +43,8 @@
                                     </span>
                                 </div>
                                 <div class="col pr-0">
-                                    <p class="small text-muted mb-0">@SharedLocalizer.GetLocalizedHtmlString("DeletedBranches")</p>
-                                    <span class="h3 mb-0">@deletedBrancehs</span>
+                                    <p class="small text-muted mb-0">@SharedLocalizer.GetLocalizedHtmlString("DeletedUsers")</p>
+                                    <span class="h3 mb-0">@deletedUsers</span>
                                 </div>
                             </div>
                         </div>
@@ -59,8 +60,8 @@
                                     </span>
                                 </div>
                                 <div class="col pr-0">
-                                    <p class="small text-muted mb-0">@SharedLocalizer.GetLocalizedHtmlString("RejectedBranches")</p>
-                                    <span class="h3 mb-0">@rejectedBranches</span>
+                                    <p class="small text-muted mb-0">@SharedLocalizer.GetLocalizedHtmlString("RejectedUsers")</p>
+                                    <span class="h3 mb-0">@rejectedUsers</span>
                                 </div>
                             </div>
                         </div>
@@ -76,15 +77,18 @@
                                     </span>
                                 </div>
                                 <div class="col pr-0">
-                                    <p class="small text-muted mb-0">@SharedLocalizer.GetLocalizedHtmlString("ActiveBranches")</p>
-                                    <span class="h3 mb-0">@activeBranches</span>
+                                    <p class="small text-muted mb-0">@SharedLocalizer.GetLocalizedHtmlString("ActiveUsers")</p>
+                                    <span class="h3 mb-0">@activeUsers</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div> <!-- end section -->
-            <h2 class="mb-2 page-title">@SharedLocalizer.GetLocalizedHtmlString("Branches")</h2>
+
+
+
+            <h2 class="mb-2 page-title">@SharedLocalizer.GetLocalizedHtmlString("Users")</h2>
             <div class="row my-4">
                 <!-- Small table -->
                 <div class="col-md-12">
@@ -95,40 +99,46 @@
                                 <thead>
                                     <tr>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("IdText")</th>
-                                        <th>@SharedLocalizer.GetLocalizedHtmlString("BranchOwner")</th>
-                                        <th>@SharedLocalizer.GetLocalizedHtmlString("BranchName")</th>
-                                        <th>@SharedLocalizer.GetLocalizedHtmlString("TaxNumber")</th>
-                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Date")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Name")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Username")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("DateOfBirth")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Mail")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Telephone")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("City") / @SharedLocalizer.GetLocalizedHtmlString("District")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Position")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("RegisterDate")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Status")</th>
                                         <th>@SharedLocalizer.GetLocalizedHtmlString("Operations")</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @{foreach (Branch b in Model)
+                                    @{foreach (User u in Model)
                                         {
                                             <tr>
-                                                <td>@b.branchId</td>
-                                                <td>@b.admin</td>
-                                                <td>@b.name</td>
-                                                <td>@b.taxNumber</td>
-                                                <td>@b.registerDate</td>
-                                                <td>@b.contact.mail</td>
-                                                <td>@b.contact.telephone</td>
-                                                <td>@b.contact.district.districtName / @b.contact.district.city.cityName</td>
-                                                <td><span class="dot dot-lg bg-@Program.getDotColor(b.statusId) mr-2" data-toggle="tooltip" data-placement="right" title="@b.status.name"></span></td>
+                                                <td>@u.userId</td>
+                                                <td>@u.firstName @u.lastName</td>
+                                                <td>@u.username</td>
+                                                <td>@u.dateOfBirth</td>
+                                                <td>@u.contact.mail</td>
+                                                <td>@u.contact.telephone</td>
+                                                <td>@u.contact.district.districtName / @u.contact.district.city.cityName</td>
+                                                <td>@u.position</td>
+                                                <td>@u.registerDate</td>
+                                                <td><span class="dot dot-lg bg-@Program.getDotColor(u.statusId) mr-2" data-toggle="tooltip" data-placement="right" title="@u.status.name"></span></td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <span class="text-muted sr-only">Action</span>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            @{ if (b.statusId == 2)
-                                                                {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeactiveBranch", "Branches", new { branchId = b.branchId })">@SharedLocalizer.GetLocalizedHtmlString("Deactivate")</a>}}
-                                                            <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeleteBranch", "Branches", new { branchId = b.branchId })">@SharedLocalizer.GetLocalizedHtmlString("Delete")</a>
-                                                            <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = b.branchId})">@SharedLocalizer.GetLocalizedHtmlString("GoToBranch")</a>
+                                                            @if (u.statusId == 2)
+                                                            {
+                                                                <a data-target="@Url.Action("BanUserModal", "Users", new { userId = u.userId })" class="dropdown-item view" href="#">@SharedLocalizer.GetLocalizedHtmlString("Delete")</a>
+                                                            }
+                                                            @if (u.statusId == 4)
+                                                            {
+                                                                <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("ActivateUser", "Users", new { userId = u.userId })">@SharedLocalizer.GetLocalizedHtmlString("Activate")</a>
+                                                            }
                                                         </div>
                                                     </div>
                                                 </td>
@@ -143,7 +153,7 @@
         </div> <!-- .col-12 -->
     </div> <!-- .row -->
 </div> <!-- .container-fluid -->
-
+<div class="modal fade" id="modelView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
 
 <script>
     function confirmDialog() {

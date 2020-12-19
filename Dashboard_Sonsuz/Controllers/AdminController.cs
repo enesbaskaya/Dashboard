@@ -27,19 +27,20 @@ namespace Dashboard.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(string inputMail, string inputPassword)
+        public IActionResult Index(string inputMail, string inputPassword)
         {
-            var bilgiler = _context.admin.FirstOrDefault(x => x.username == inputMail && x.password == inputPassword);
-            if (bilgiler != null)
+            Admin admin = _context.admin.FirstOrDefault(x => x.username == inputMail && x.password == inputPassword);
+            if (admin != null)
             {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, bilgiler.username)
-                };
-                var useridentity = new ClaimsIdentity(claims, "Home");
-                ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
-                await HttpContext.SignInAsync(principal);
-                HttpContext.Session.SetString("admin", bilgiler.username);
+                Program.administrator = admin;
+                //var claims = new List<Claim>
+                //{
+                //    new Claim(ClaimTypes.Name, bilgiler.username)
+                //};
+                //var useridentity = new ClaimsIdentity(claims, "Home");
+                //ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
+                //await HttpContext.SignInAsync(principal);
+                //HttpContext.Session.SetString("admin", bilgiler.username);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -49,6 +50,13 @@ namespace Dashboard.Controllers
 
 
             return View();
+        }
+
+
+        public IActionResult Logout()
+        {
+            Program.administrator = null;
+            return RedirectToAction("Index", "Admin");
         }
     }
 }

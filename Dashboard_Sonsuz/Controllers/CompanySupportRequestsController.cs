@@ -14,7 +14,6 @@ namespace Dashboard.Controllers
     {
 
         private readonly Context _context;
-        private Admin admin;
         private readonly IConfiguration _config;
         public CompanySupportRequestsController(Context context, IConfiguration config)
         {
@@ -33,10 +32,9 @@ namespace Dashboard.Controllers
         [HttpPost]
         public async Task<IActionResult> SendSupportMessageAsync(string message, long requestId)
         {
-            CompanySupportRequests request = _context.companySupportRequests
-                .Where(x => x.requestId == requestId)
+            CompanySupportRequests request = await _context.companySupportRequests
                 .Include(x => x.branch)
-                .Include(x => x.branch.contact).ToList()[0];
+                .Include(x => x.branch.contact).FirstOrDefaultAsync(x => x.requestId == requestId);
             DateTime time = DateTime.Now;
             string format = "dd/M/yyyy";
             _context.branchNotifications.Add(
@@ -66,11 +64,8 @@ namespace Dashboard.Controllers
 
 
 
-        public async Task<IActionResult> IndexAsync()
+        public IActionResult Index()
         {
-            this.admin = await _context.admin.FirstOrDefaultAsync(x => x.username == HttpContext.Session.GetString("admin"));
-            ViewBag.admin = this.admin;
-
             List<CompanySupportRequests> requests = _context.companySupportRequests.Include(x => x.branch).ToList();
 
             return View(requests);

@@ -14,7 +14,6 @@ namespace Dashboard.Controllers
     {
 
         private readonly Context _context;
-        private Admin admin;
         private readonly IConfiguration _config;
         public DeleteAreaRequestsController(Context context, IConfiguration config)
         {
@@ -26,12 +25,11 @@ namespace Dashboard.Controllers
 
         public async Task<IActionResult> ApproveDeleteArea(long requestId)
         {
-            DeleteAreaRequests deleteArea = _context.deleteAreaRequests
-                .Where(x => x.deleteRequestId == requestId)
+            DeleteAreaRequests deleteArea = await _context.deleteAreaRequests
                 .Include(x => x.area)
                 .Include(x => x.area.branch)
                 .Include(x => x.area.branch.contact)
-                .ToList()[0];
+                .FirstOrDefaultAsync(x => x.deleteRequestId == requestId);
 
 
             String message = "Değerli BiMaçVar! üyemiz, talepte bulunduğunuz saha silme talebi gerçekeştirildi ve " + deleteArea.area.areaName + " adlı sahanız kaldırıldı!";
@@ -62,11 +60,8 @@ namespace Dashboard.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> IndexAsync()
+        public IActionResult Index()
         {
-            this.admin = await _context.admin.FirstOrDefaultAsync(x => x.username == HttpContext.Session.GetString("admin"));
-            ViewBag.admin = this.admin;
-
             List<DeleteAreaRequests> requests = _context.deleteAreaRequests.Include(x => x.area).ToList();
             return View(requests);
         }

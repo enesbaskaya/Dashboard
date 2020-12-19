@@ -40,9 +40,6 @@
             <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
                 <i class="fe fe-menu navbar-toggler-icon"></i>
             </button>
-            <form class="form-inline mr-auto searchform text-muted">
-                <input class="form-control mr-sm-2 bg-transparent border-0 pl-4 text-muted" type="search" placeholder="@ViewBag.data" aria-label="Search">
-            </form>
             <ul class="nav">
                 <li class="nav-item">
                     <a class="nav-link text-muted my-2" href="#" id="modeSwitcher" data-mode="dark">
@@ -55,13 +52,16 @@
                         <span class="dot dot-md bg-success"></span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item dropdown">
                     <a class="nav-link text-muted pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="avatar avatar-sm mt-2">
-                            @ViewBag.admin.name &nbsp;
-                            <img src="https://www.gravatar.com/avatar/@Program.MD5Hash(ViewBag.admin.mail)" alt="..." class="avatar-img rounded-circle">
+                            @Program.administrator.name &nbsp;
+                            <img src="https://www.gravatar.com/avatar/@Program.MD5Hash(Program.administrator.mail)" alt="..." class="avatar-img rounded-circle">
                         </span>
                     </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="@Url.Action("Logout", "Admin")">@SharedLocalizer.GetLocalizedHtmlString("Logout")</a>
+                    </div>
                 </li>
             </ul>
         </nav>
@@ -135,7 +135,7 @@
                 </p>
                 <ul class="navbar-nav flex-fill w-100 mb-2">
                     <li class="nav-item">
-                        <a href="#ui-elements" aria-expanded="false" class="nav-link">
+                        <a href="@Url.Action("Index", "Users")" aria-expanded="false" class="nav-link">
                             <i class="fa fa-user"></i>
                             <span class="ml-3 item-text">@SharedLocalizer.GetLocalizedHtmlString("Users")</span>
                         </a>

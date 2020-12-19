@@ -1,0 +1,42 @@
+﻿@using Dashboard.Models
+@using Dashboard.Resources
+@inject LocServices SharedLocalizer
+@model BranchCards
+
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">@SharedLocalizer.GetLocalizedHtmlString("CardEdit")</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @using (Html.BeginForm("EditCard", "BranchProfile", FormMethod.Post))
+        {
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="firstname">@SharedLocalizer.GetLocalizedHtmlString("CardOwner")</label>
+                    <input type="text" name="cardOwner" id="cardOwner" class="form-control" value="@Model.cardOwner">
+                </div>
+
+                <div class="form-group">
+                    <label for="firstname">@SharedLocalizer.GetLocalizedHtmlString("IBAN")</label>
+                    <input type="text" name="IBAN" id="IBAN" class="form-control" value="@Model.iban">
+                </div>
+
+                <div class="form-group">
+                    <label for="firstname">@SharedLocalizer.GetLocalizedHtmlString("BankName")</label>
+                    <input type="text" name="bankName" id="bankName" class="form-control" value="@Model.bankName">
+                </div>
+
+
+                <input type="hidden" id="cardId" name="cardId" value="@Model.cardId">
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">@SharedLocalizer.GetLocalizedHtmlString("Save")</button>
+            </div>
+        }
+    </div>
+</div>

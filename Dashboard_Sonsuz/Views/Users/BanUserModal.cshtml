@@ -1,0 +1,29 @@
+﻿@using Dashboard.Models
+@using Dashboard.Resources
+@inject LocServices SharedLocalizer
+@model User
+
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">@SharedLocalizer.GetLocalizedHtmlString("BanUser")</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @using (Html.BeginForm("BanUser", "Users", FormMethod.Post))
+        {
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>@SharedLocalizer.GetLocalizedHtmlString("Message")</label>
+                    <input type="text" name="message" id="message" class="form-control">
+                    <input type="hidden" name="userId" id="userId" class="form-control" value="@Model.userId">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">@SharedLocalizer.GetLocalizedHtmlString("Ban")</button>
+            </div>
+        }
+    </div>
+</div>

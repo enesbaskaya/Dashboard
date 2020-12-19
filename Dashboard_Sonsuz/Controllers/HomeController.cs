@@ -16,18 +16,14 @@ namespace Dashboard.Controllers
         private List<long> dateList = new List<long>();
 
         private readonly Context _context;
-        private Admin admin;
         public HomeController(Context context)
         {
 
             _context = context;
         }
 
-        public async System.Threading.Tasks.Task<IActionResult> IndexAsync()
+        public IActionResult Index()
         {
-            this.admin = await _context.admin.FirstOrDefaultAsync(x => x.username == HttpContext.Session.GetString("admin"));
-            ViewBag.admin = this.admin;
-
             DateTime time = DateTime.Now;
             for (int i = 1; i <= 14; i++)
             {
@@ -42,7 +38,6 @@ namespace Dashboard.Controllers
                 d.Add("A", areaCount);
                 TimeSpan t = time - new DateTime(1970, 1, 1);
                 long secondsSinceEpoch = (long)t.TotalMilliseconds;
-                ViewBag.data = secondsSinceEpoch;
                 dateList.Add(secondsSinceEpoch);
                 list.Add(d);
                 time = time.AddDays(-1);

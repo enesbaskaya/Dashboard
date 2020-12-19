@@ -15,7 +15,6 @@ namespace Dashboard.Controllers
 {
     public class BranchesController : Controller
     {
-        private Admin admin;
         private readonly IConfiguration _config;
         private readonly Context _context;
 
@@ -25,22 +24,28 @@ namespace Dashboard.Controllers
             _config = config;
         }
 
-        public async Task<IActionResult> IndexAsync()
+        public IActionResult Index()
         {
-            this.admin = await _context.admin.FirstOrDefaultAsync(x => x.username == HttpContext.Session.GetString("admin"));
-            ViewBag.admin = this.admin;
-
-            List<Branch> activeBranches = _context.branch.Where(x => x.isActive)
-                .Include(x=>x.contact)
-                .Include(x=>x.contact.district)
-                .Include(x=>x.contact.district.city)
+            List<Branch> branches = _context.branch
+                //.Where(x => x.statusId != 1)
+                .Include(x => x.contact)
+                .Include(x => x.status)
+                .Include(x => x.contact.district)
+                .Include(x => x.contact.district.city)
                 .ToList();
 
-            int waitingBranches = _context.branch.Where(x => !x.isActive).Count();
+            int waitingBranches = _context.branch.Where(x => x.statusId == 1).Count();
+            int activeBranches = _context.branch.Where(x => x.statusId == 2).Count();
+            int rejectedBranches = _context.branch.Where(x => x.statusId == 3).Count();
+            int deletedBranches = _context.branch.Where(x => x.statusId == 4).Count();
+
 
             ViewBag.waitingBranches = waitingBranches;
+            ViewBag.deletedBranches = deletedBranches;
+             ViewBag.activeBranches = activeBranches;
+            ViewBag.rejectedBranches = rejectedBranches;
 
-            return View(activeBranches);
+            return View(branches);
         }
 
         public async Task<IActionResult> DeleteBranch(long branchId)
@@ -77,7 +82,7 @@ namespace Dashboard.Controllers
         {
 
             Branch updatedData = await _context.branch.FindAsync(branchId);
-            updatedData.isActive = false;
+            updatedData.statusId = 1;
             _context.branch.Update(updatedData);
 
             var contactInfo = _context.contactInfo.FirstOrDefault(x => x.contactId == updatedData.contactId);
