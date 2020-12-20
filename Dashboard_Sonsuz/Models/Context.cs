@@ -9,6 +9,9 @@ namespace Dashboard.Models
         { }
 
         public DbSet<Admin> admin { get; set; }
+        public DbSet<TeamPlayers> teamPlayers { get; set; }
+        public DbSet<NotificationTypes> notificationTypes { get; set; }
+        public DbSet<AdminNotification> adminNotification { get; set; }
         public DbSet<AreaInfo> areaInfo { get; set; }
         public DbSet<Branch> branch { get; set; }
         public DbSet<BranchPaymentMethods> branchPaymentMethods { get; set; }

@@ -8,17 +8,10 @@ using System.Threading.Tasks;
 
 namespace Dashboard.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
 
-        private readonly Context _context;
-        private readonly IConfiguration _config;
-        public UsersController(Context context, IConfiguration config)
-        {
-
-            _context = context;
-            _config = config;
-        }
+        public UsersController(Context context, IConfiguration config) : base(context, config) { }
 
         public IActionResult Index()
         {

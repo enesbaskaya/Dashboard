@@ -15,21 +15,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace Dashboard.Controllers
 {
-    public class BranchProfileController : Controller
+    public class BranchProfileController : BaseController
     {
 
-        LocServices locServices;
-        private readonly Context _context;
-        private readonly IConfiguration _config;
-
+        private LocServices locServices;
         private Branch branch;
 
-        public BranchProfileController(LocServices services, Context context, IConfiguration config)
-        {
-            this.locServices = services;
-            this._context = context;
-            this._config = config;
-        }
+        public BranchProfileController(LocServices locServices, Context context, IConfiguration config) : base(context, config) { this.locServices = locServices; }
 
 
 

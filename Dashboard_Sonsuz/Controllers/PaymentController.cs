@@ -1,20 +1,16 @@
 ﻿using Dashboard.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Dashboard.Controllers
 {
-    public class PaymentController : Controller
+    public class PaymentController : BaseController
     {
-        private readonly Context _context;
-        public PaymentController(Context context)
-        {
-
-            _context = context;
-        }
+        public PaymentController(Context context, IConfiguration config) : base(context, config) { }
         public async Task<IActionResult> IndexAsync()
         {
             var branchTransActionResult = await _context.branchTransActions.Include(x => x.card).Include(x => x.card.branch).Include(x => x.status).ToListAsync();
@@ -67,34 +63,34 @@ namespace Dashboard.Controllers
         public async Task<IActionResult> ApproveDepositTransaction(long transId, double amount)
         {
             DepositTransActions updatedData = await _context.depositTransActions.Include(x => x.branch).FirstOrDefaultAsync(x => x.transId == transId);
-           
-                updatedData.statusId = 2;
-                _context.depositTransActions.Update(updatedData);
 
-                Branch branch = updatedData.branch;
+            updatedData.statusId = 2;
+            _context.depositTransActions.Update(updatedData);
 
-                string paymentSuccesReceiveContent = "Sayın, " + branch.admin + "\n'" + updatedData.transId + "' numaralı ödeme talimatınız başarıyla gerçekleştirildi." +
-                    " Cüzdan sayfanızdan gerekli takibatı yapabilirsiniz.\n\nSaygılarımızla, BiMaçVar!";
-                string paymentSuccessHeader = "Ödeme Bildirimi";
-                DateTime time = DateTime.Now;
-                string format = "dd/M/yyyy";
-                var insertNotification = await _context.branchNotifications.AddAsync(
-                    new BranchNotifications
-                    {
-                        branchId = branch.branchId,
-                        content = paymentSuccesReceiveContent,
-                        date = time.ToString(format),
-                        header = paymentSuccessHeader,
-                        isRead = false,
-                        sender = "BiMaçVar!"
-                    });
+            Branch branch = updatedData.branch;
 
-                BranchWallet wallet = await _context.branchWallet.FirstOrDefaultAsync(x => x.branchId == branch.branchId);
-                wallet.debt -= amount;
-                _context.branchWallet.Update(wallet);
+            string paymentSuccesReceiveContent = "Sayın, " + branch.admin + "\n'" + updatedData.transId + "' numaralı ödeme talimatınız başarıyla gerçekleştirildi." +
+                " Cüzdan sayfanızdan gerekli takibatı yapabilirsiniz.\n\nSaygılarımızla, BiMaçVar!";
+            string paymentSuccessHeader = "Ödeme Bildirimi";
+            DateTime time = DateTime.Now;
+            string format = "dd/M/yyyy";
+            var insertNotification = await _context.branchNotifications.AddAsync(
+                new BranchNotifications
+                {
+                    branchId = branch.branchId,
+                    content = paymentSuccesReceiveContent,
+                    date = time.ToString(format),
+                    header = paymentSuccessHeader,
+                    isRead = false,
+                    sender = "BiMaçVar!"
+                });
 
-                await _context.SaveChangesAsync();
-            
+            BranchWallet wallet = await _context.branchWallet.FirstOrDefaultAsync(x => x.branchId == branch.branchId);
+            wallet.debt -= amount;
+            _context.branchWallet.Update(wallet);
+
+            await _context.SaveChangesAsync();
+
             return RedirectToAction("Index");
         }
 

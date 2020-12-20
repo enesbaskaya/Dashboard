@@ -10,7 +10,6 @@ namespace Dashboard.Models
         public int wins { get; set; }
         public int loses { get; set; }
         public int draws { get; set; }
-        public string year { get; set; }
         public long teamId { get; set; }
         public Team team { get; set; }
 

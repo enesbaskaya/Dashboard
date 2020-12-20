@@ -1,0 +1,92 @@
+﻿@using System.Collections.Generic
+@using Dashboard.Models
+@using Dashboard.Resources
+@inject LocServices SharedLocalizer
+@{
+    @model List<TeamData>
+    Layout = "~/Views/Shared/_TeamsLayout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <div class="row my-4">
+        <div class="col-md-12">
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h4 style="color: orange" class="mb-1 text-center">@SharedLocalizer.GetLocalizedHtmlString("TotalTeams")</h4>
+                            <h3 class="card-title mb-0 text-center">@Model.Count</h3>
+                        </div>
+                    </div> <!-- /. row -->
+                </div> <!-- /. card-body -->
+            </div> <!-- /. card -->
+        </div> <!-- /. col -->
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <h2 class="mb-2 page-title">@SharedLocalizer.GetLocalizedHtmlString("Teams")</h2>
+            <div class="row my-4">
+                <!-- Small table -->
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <!-- table -->
+                            <table class="table datatables" id="dataTable-1">
+                                <thead>
+                                    <tr>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("IdText")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("TeamName")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("ShortName")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Players")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Owner")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Wins")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Loses")</th>
+                                        <th>@SharedLocalizer.GetLocalizedHtmlString("Draws")</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{string v = ", "; }
+                                    @{foreach (TeamData b in Model)
+                                        {
+
+                                            <tr>
+                                                <td>@b.team.teamId</td>
+                                                <td>@b.team.name</td>
+                                                <td>@b.team.shortName</td>
+                                                <td>
+                                                    @{
+                                                        int i = 0;
+                                                        foreach (TeamPlayers tp in b.team.teamPlayers)
+                                                        {
+                                                            @tp.user.username
+
+                                                            @if (i != b.team.teamPlayers.Count - 1)
+                                                            {@v}
+                                                            i++;
+                                                        }
+                                                        i++;}
+                                            </td>
+                                            <td>@b.team.user.username</td>
+                                            <td>@b.wins</td>
+                                            <td>@b.loses</td>
+                                            <td>@b.draws</td>
+
+                                        </tr>
+                                    }; }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> <!-- simple table -->
+            </div> <!-- end section -->
+        </div> <!-- .col-12 -->
+    </div> <!-- .row -->
+</div> <!-- .container-fluid -->
+
+
+
+
+

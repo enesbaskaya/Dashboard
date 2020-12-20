@@ -1,5 +1,6 @@
 ﻿@using Dashboard
 @using Dashboard.Resources
+@using Dashboard.Models
 @inject LocServices SharedLocalizer
 
 <!doctype html>
@@ -14,6 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link href="~/css/apexcharts.css" rel="stylesheet" />
+    <link href="~/css/font-awesome.min.css" rel="stylesheet">
     <link href="~/css/app-rtl.css" rel="stylesheet" />
     <link href="~/css/bootstrap-datepicker.css" rel="stylesheet" />
     <link href="~/css/dataTables.bootstrap4.css" rel="stylesheet" />
@@ -61,6 +63,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="@Url.Action("Logout", "Admin")">@SharedLocalizer.GetLocalizedHtmlString("Logout")</a>
+                        <a class="dropdown-item" href="#">@ViewBag.data</a>
                     </div>
                 </li>
             </ul>
@@ -141,7 +144,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#ui-elements" aria-expanded="false" class="nav-link">
+                        <a href="@Url.Action("Index", "Teams")" aria-expanded="false" class="nav-link">
                             <i class="fa fa-users"></i>
                             <span class="ml-3 item-text">@SharedLocalizer.GetLocalizedHtmlString("Teams")</span>
                         </a>
@@ -158,18 +161,6 @@
                             <span class="ml-3 item-text">@SharedLocalizer.GetLocalizedHtmlString("Tournament")</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#ui-elements" aria-expanded="false" class="nav-link">
-                            <i class="fa fa-database"></i>
-                            <span class="ml-3 item-text">@SharedLocalizer.GetLocalizedHtmlString("UserData")</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#ui-elements" aria-expanded="false" class="nav-link">
-                            <i class="fa fa-table"></i>
-                            <span class="ml-3 item-text">@SharedLocalizer.GetLocalizedHtmlString("TeamData")</span>
-                        </a>
-                    </li>
                 </ul>
             </nav>
         </aside>
@@ -177,36 +168,6 @@
             @RenderBody()
         </main> <!-- main -->
     </div> <!-- .wrapper -->
-    <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="defaultModalLabel">@SharedLocalizer.GetLocalizedHtmlString("Notifications")</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="list-group list-group-flush my-n3">
-                        <div class="list-group-item bg-transparent">
-                            <div class="row align-items-center">
-                                <div class="col-auto">
-                                    <span class="fe fe-box fe-24"></span>
-                                </div>
-                                <div class="col">
-                                    <small><strong>Package has uploaded successfull</strong></small>
-                                    <div class="my-0 text-muted small">Package is zipped and uploaded</div>
-                                    <small class="badge badge-pill badge-light text-muted">1m ago</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">@SharedLocalizer.GetLocalizedHtmlString("ClearAll")</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    @await Component.InvokeAsync("AdminNotifications");
 </body>
 </html>

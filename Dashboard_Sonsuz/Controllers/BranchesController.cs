@@ -13,21 +13,13 @@ using System;
 
 namespace Dashboard.Controllers
 {
-    public class BranchesController : Controller
+    public class BranchesController : BaseController
     {
-        private readonly IConfiguration _config;
-        private readonly Context _context;
-
-        public BranchesController(Context context, IConfiguration config)
-        {
-            _context = context;
-            _config = config;
-        }
+        public BranchesController(Context context, IConfiguration config) : base(context, config) { }
 
         public IActionResult Index()
         {
             List<Branch> branches = _context.branch
-                //.Where(x => x.statusId != 1)
                 .Include(x => x.contact)
                 .Include(x => x.status)
                 .Include(x => x.contact.district)
@@ -62,7 +54,7 @@ namespace Dashboard.Controllers
             Branch branch = await _context.branch.Include(x => x.contact).FirstOrDefaultAsync(x => x.branchId == branchId);
             branch.statusId = 4;
             _context.branch.Update(branch);
-            
+
 
             var email = new SMTPMail();
             email.mailType = MailTypes.WARNING;

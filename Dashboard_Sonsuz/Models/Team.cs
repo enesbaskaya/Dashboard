@@ -14,12 +14,12 @@ namespace Dashboard.Models
 
         public string shortName { get; set; }
 
-        public string players { get; set; }
-
         public string avatarPath { get; set; }
 
         public long userId { get; set; }
         public User user { get; set; }
+
+        public List<TeamPlayers> teamPlayers { get; set; }
 
     }
 }

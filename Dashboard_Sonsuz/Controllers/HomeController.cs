@@ -6,21 +6,17 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Microsoft.Extensions.Configuration;
 
 namespace Dashboard.Controllers
 {
-    public class HomeController : Controller
+
+    public class HomeController : BaseController
     {
-       
+
         private List<Dictionary<string, long>> list = new List<Dictionary<string, long>>();
         private List<long> dateList = new List<long>();
-
-        private readonly Context _context;
-        public HomeController(Context context)
-        {
-
-            _context = context;
-        }
+        public HomeController(Context context, IConfiguration config) : base(context, config) { }
 
         public IActionResult Index()
         {
@@ -61,7 +57,7 @@ namespace Dashboard.Controllers
             ViewBag.areaCount = _context.areaInfo.Count();
 
 
-            List<BranchTransActions> transActionsData = _context.branchTransActions.Where(x => x.statusId==1).Include(x => x.card).Include(x=>x.status).OrderByDescending(x => x.transId).Take(5).ToList();
+            List<BranchTransActions> transActionsData = _context.branchTransActions.Where(x => x.statusId == 1).Include(x => x.card).Include(x => x.status).OrderByDescending(x => x.transId).Take(5).ToList();
             ViewBag.transActionsData = transActionsData;
             List<DepositTransActions> depositTransActions = _context.depositTransActions.Where(x => x.statusId == 1).Include(x => x.branch).Include(x => x.status).OrderByDescending(x => x.transId).Take(5).ToList();
             ViewBag.depositTransActions = depositTransActions;
@@ -69,6 +65,14 @@ namespace Dashboard.Controllers
             return View();
         }
 
+        public IActionResult ApproveNotification(long notificationId)
+        {
+            AdminNotification notification = _context.adminNotification.Find(notificationId);
+            notification.active = true;
+            _context.adminNotification.Update(notification);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         private string getNewEpoch(string getValue)
         {

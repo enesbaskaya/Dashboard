@@ -10,17 +10,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace Dashboard.Controllers
 {
-    public class BranchApplicationController : Controller
+    public class BranchApplicationController : BaseController
     {
 
-        private readonly IConfiguration _config;
-        private readonly Context _context;
-
-        public BranchApplicationController(Context context, IConfiguration config)
-        {
-            _context = context;
-            _config = config;
-        }
+        public BranchApplicationController(Context context, IConfiguration config) : base(context, config) { }
 
         public IActionResult Index()
         {

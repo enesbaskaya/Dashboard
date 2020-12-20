@@ -28,7 +28,7 @@ namespace Dashboard.Models
         public string registerDate { get; set; }
         public ContactInfo contact { get; set; }
 
-
+        public List<TeamPlayers> teamPlayers { get; set; }
 
     }
 }

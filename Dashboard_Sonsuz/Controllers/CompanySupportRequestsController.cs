@@ -10,17 +10,10 @@ using System.Threading.Tasks;
 
 namespace Dashboard.Controllers
 {
-    public class CompanySupportRequestsController : Controller
+    public class CompanySupportRequestsController : BaseController
     {
 
-        private readonly Context _context;
-        private readonly IConfiguration _config;
-        public CompanySupportRequestsController(Context context, IConfiguration config)
-        {
-
-            _context = context;
-            _config = config;
-        }
+        public CompanySupportRequestsController(Context context, IConfiguration config) : base(context, config) { }
 
         [HttpPost]
         public ActionResult PartialViewEdit(long requestId)

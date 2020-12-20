@@ -228,14 +228,23 @@
   <data name="Deactivate" xml:space="preserve">
     <value>Deaktif Et</value>
   </data>
+  <data name="DeactivateBranch" xml:space="preserve">
+    <value>Pasif İşletme</value>
+  </data>
   <data name="Debt" xml:space="preserve">
     <value>Borç</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Sil</value>
   </data>
+  <data name="DeleteArea" xml:space="preserve">
+    <value>Saha Sil</value>
+  </data>
   <data name="DeleteAreaRequests" xml:space="preserve">
     <value>Saha Silme Talepleri</value>
+  </data>
+  <data name="DeleteBranch" xml:space="preserve">
+    <value>İşletme Sil</value>
   </data>
   <data name="DeletedBranches" xml:space="preserve">
     <value>Silinen İşletmeler</value>
@@ -245,6 +254,9 @@
   </data>
   <data name="District" xml:space="preserve">
     <value>İlçe</value>
+  </data>
+  <data name="Draws" xml:space="preserve">
+    <value>Beraberlik</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Düzenle</value>
@@ -266,6 +278,9 @@
   </data>
   <data name="GoToBranch" xml:space="preserve">
     <value>İşletmeye Git</value>
+  </data>
+  <data name="GoToTeamProfile" xml:space="preserve">
+    <value>Takım Profiline Git</value>
   </data>
   <data name="Ground" xml:space="preserve">
     <value>Zemin</value>
@@ -309,6 +324,9 @@
   <data name="LoserTeam" xml:space="preserve">
     <value>Kaybeden Takım</value>
   </data>
+  <data name="Loses" xml:space="preserve">
+    <value>Kaybetme</value>
+  </data>
   <data name="Mail" xml:space="preserve">
     <value>Mail</value>
   </data>
@@ -345,6 +363,9 @@
   <data name="Operations" xml:space="preserve">
     <value>İşlemler</value>
   </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Kaptan</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Şifre</value>
   </data>
@@ -353,6 +374,9 @@
   </data>
   <data name="PaymentType" xml:space="preserve">
     <value>Ödeme Tipi</value>
+  </data>
+  <data name="Players" xml:space="preserve">
+    <value>Oyuncular</value>
   </data>
   <data name="Position" xml:space="preserve">
     <value>Pozisyon</value>
@@ -383,6 +407,9 @@
   </data>
   <data name="Reject" xml:space="preserve">
     <value>Reddet</value>
+  </data>
+  <data name="RejectApplication" xml:space="preserve">
+    <value>Başvuru Reddet</value>
   </data>
   <data name="RejectedBranches" xml:space="preserve">
     <value>Reddedilen İşletmeler</value>
@@ -417,6 +444,9 @@
   <data name="ShoesRent" xml:space="preserve">
     <value>Ayakkabı Kiralama</value>
   </data>
+  <data name="ShortName" xml:space="preserve">
+    <value>Takım Kısaltması</value>
+  </data>
   <data name="Shower" xml:space="preserve">
     <value>Duş</value>
   </data>
@@ -435,6 +465,9 @@
   <data name="TeamData" xml:space="preserve">
     <value>Takım Verileri</value>
   </data>
+  <data name="TeamName" xml:space="preserve">
+    <value>Takım Adı</value>
+  </data>
   <data name="Teams" xml:space="preserve">
     <value>Takımlar</value>
   </data>
@@ -452,6 +485,9 @@
   </data>
   <data name="TotalMatch" xml:space="preserve">
     <value>Toplam Yapılan Maç</value>
+  </data>
+  <data name="TotalTeams" xml:space="preserve">
+    <value>Toplam Takım</value>
   </data>
   <data name="Tournament" xml:space="preserve">
     <value>Turnuva</value>
@@ -494,6 +530,9 @@
   </data>
   <data name="WinnerTeam" xml:space="preserve">
     <value>Kazanan Takım</value>
+  </data>
+  <data name="Wins" xml:space="preserve">
+    <value>Kazanma</value>
   </data>
   <data name="Year" xml:space="preserve">
     <value>Yıl</value>

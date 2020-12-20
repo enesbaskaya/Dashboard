@@ -1,0 +1,43 @@
+﻿@using Dashboard.Resources
+@using Dashboard.Models
+@inject LocServices SharedLocalizer
+@model List<AdminNotification>
+<div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="defaultModalLabel">@SharedLocalizer.GetLocalizedHtmlString("Notifications")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @{ foreach (AdminNotification notification in Model)
+                    {
+                        <div class="list-group list-group-flush my-n3">
+                            <div class="list-group-item bg-transparent">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <span class="fa fa-@(notification.notificationTypeId == 2  ? "building" : "user") fe-24"></span>
+                                    </div>
+                                    <div class="col">
+                                        <small><strong>@notification.header</strong></small>
+                                        <div class="my-0 text-muted small">@notification.content</div>
+                                        <small class="badge badge-pill badge-light text-muted">@notification.notificationType.typeName</small>
+                                    </div>
+                                </div>
+                                <div class="float-right">
+                                    <div class="col-md-3 float-right" width="100%">
+                                        <button onclick="window.location.reload();" type="button" class="btn mb-2 btn-success float-right"><a href="@Url.Action("ApproveNotification", "Home" , new { notificationId = notification.adminNotificationId })"><span class="fa fa-check"></span></a></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

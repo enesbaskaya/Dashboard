@@ -231,14 +231,23 @@
   <data name="Deactivate" xml:space="preserve">
     <value>Deactivate</value>
   </data>
+  <data name="DeactivateBranch" xml:space="preserve">
+    <value>Deactivate Branch</value>
+  </data>
   <data name="Debt" xml:space="preserve">
     <value>Debt</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="DeleteArea" xml:space="preserve">
+    <value>Delete Area</value>
+  </data>
   <data name="DeleteAreaRequests" xml:space="preserve">
     <value>Delete Area Requests</value>
+  </data>
+  <data name="DeleteBranch" xml:space="preserve">
+    <value>Delete Branch</value>
   </data>
   <data name="DeletedBranches" xml:space="preserve">
     <value>Deleted Branches</value>
@@ -248,6 +257,9 @@
   </data>
   <data name="District" xml:space="preserve">
     <value>District</value>
+  </data>
+  <data name="Draws" xml:space="preserve">
+    <value>Draws</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
@@ -269,6 +281,9 @@
   </data>
   <data name="GoToBranch" xml:space="preserve">
     <value>Go To Branch</value>
+  </data>
+  <data name="GoToTeamProfile" xml:space="preserve">
+    <value>Go To Team Profile</value>
   </data>
   <data name="Ground" xml:space="preserve">
     <value>Ground</value>
@@ -312,6 +327,9 @@
   <data name="LoserTeam" xml:space="preserve">
     <value>Loser Team</value>
   </data>
+  <data name="Loses" xml:space="preserve">
+    <value>Loses</value>
+  </data>
   <data name="Mail" xml:space="preserve">
     <value>Mail</value>
   </data>
@@ -348,6 +366,9 @@
   <data name="Operations" xml:space="preserve">
     <value>Operations</value>
   </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Captian</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
@@ -356,6 +377,9 @@
   </data>
   <data name="PaymentType" xml:space="preserve">
     <value>Payment Type</value>
+  </data>
+  <data name="Players" xml:space="preserve">
+    <value>Players</value>
   </data>
   <data name="Position" xml:space="preserve">
     <value>Position</value>
@@ -387,6 +411,9 @@
   <data name="Reject" xml:space="preserve">
     <value>Reject</value>
   </data>
+  <data name="RejectApplication" xml:space="preserve">
+    <value>Reject Application</value>
+  </data>
   <data name="RejectedBranches" xml:space="preserve">
     <value>Rejected Branches</value>
   </data>
@@ -417,6 +444,9 @@
   <data name="ShoesRent" xml:space="preserve">
     <value>ShoesRent</value>
   </data>
+  <data name="ShortName" xml:space="preserve">
+    <value>Short Name</value>
+  </data>
   <data name="Shower" xml:space="preserve">
     <value>Shower</value>
   </data>
@@ -435,6 +465,9 @@
   <data name="TeamData" xml:space="preserve">
     <value>Team Data</value>
   </data>
+  <data name="TeamName" xml:space="preserve">
+    <value>Team Name</value>
+  </data>
   <data name="Teams" xml:space="preserve">
     <value>Teams</value>
   </data>
@@ -452,6 +485,9 @@
   </data>
   <data name="TotalMatch" xml:space="preserve">
     <value>Total Match</value>
+  </data>
+  <data name="TotalTeams" xml:space="preserve">
+    <value>TotalTeams</value>
   </data>
   <data name="Tournament" xml:space="preserve">
     <value>Tournament</value>
@@ -494,6 +530,9 @@
   </data>
   <data name="Winner Team" xml:space="preserve">
     <value>Winner Team</value>
+  </data>
+  <data name="Wins" xml:space="preserve">
+    <value>Wins</value>
   </data>
   <data name="Year" xml:space="preserve">
     <value>Year</value>

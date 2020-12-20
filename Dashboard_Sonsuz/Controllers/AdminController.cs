@@ -1,24 +1,15 @@
 ﻿using Dashboard.Models;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Dashboard.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
-        private readonly Context _context;
 
-        public AdminController(Context context)
-        {
-            _context = context;
-        }
+        public AdminController(Context context, IConfiguration config) : base(context, config) { }
 
         [HttpGet]
         public IActionResult Index()
@@ -33,14 +24,6 @@ namespace Dashboard.Controllers
             if (admin != null)
             {
                 Program.administrator = admin;
-                //var claims = new List<Claim>
-                //{
-                //    new Claim(ClaimTypes.Name, bilgiler.username)
-                //};
-                //var useridentity = new ClaimsIdentity(claims, "Home");
-                //ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
-                //await HttpContext.SignInAsync(principal);
-                //HttpContext.Session.SetString("admin", bilgiler.username);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -51,7 +34,6 @@ namespace Dashboard.Controllers
 
             return View();
         }
-
 
         public IActionResult Logout()
         {

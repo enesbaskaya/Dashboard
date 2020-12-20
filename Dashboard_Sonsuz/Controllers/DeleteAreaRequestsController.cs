@@ -10,17 +10,9 @@ using System.Threading.Tasks;
 
 namespace Dashboard.Controllers
 {
-    public class DeleteAreaRequestsController : Controller
+    public class DeleteAreaRequestsController : BaseController
     {
-
-        private readonly Context _context;
-        private readonly IConfiguration _config;
-        public DeleteAreaRequestsController(Context context, IConfiguration config)
-        {
-
-            _context = context;
-            _config = config;
-        }
+        public DeleteAreaRequestsController(Context context, IConfiguration config) : base(context, config) { }
 
 
         public async Task<IActionResult> ApproveDeleteArea(long requestId)

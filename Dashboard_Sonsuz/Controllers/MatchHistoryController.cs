@@ -9,18 +9,11 @@ using System.Threading.Tasks;
 
 namespace Dashboard.Controllers
 {
-    public class MatchHistoryController : Controller
+    public class MatchHistoryController : BaseController
     {
 
 
-        private readonly Context _context;
-        private readonly IConfiguration _config;
-
-        public MatchHistoryController(Context context, IConfiguration config)
-        {
-            this._context = context;
-            this._config = config;
-        }
+        public MatchHistoryController(Context context, IConfiguration config) : base(context, config) { }
 
         public IActionResult Index()
         {

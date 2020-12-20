@@ -9,16 +9,12 @@ using System.Threading.Tasks;
 
 namespace Dashboard.Controllers
 {
-    public class AreaApplicationsController : Controller
+    public class AreaApplicationsController : BaseController
     {
 
-        private readonly Context _context;
-        private readonly IConfiguration _config;
-        public AreaApplicationsController(Context context, IConfiguration config)
-        {
 
-            _context = context;
-            _config = config;
+        public AreaApplicationsController(Context context, IConfiguration config) : base(context, config)
+        {
         }
 
         public async Task<IActionResult> ApproveAreaAsync(long areaId)
