@@ -60,7 +60,7 @@ namespace Dashboard.Controllers
                 .Include(x => x.contact)
                 .FirstOrDefaultAsync(x => x.userId == userId);
 
-            user.statusId = 4;
+            user.statusId = 3;
             _context.user.Update(user);
             await _context.SaveChangesAsync();
 

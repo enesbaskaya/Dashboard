@@ -120,11 +120,23 @@
   <data name="AccountOwner" xml:space="preserve">
     <value>Hesap Sahibi</value>
   </data>
+  <data name="ActiveBranches" xml:space="preserve">
+    <value>Aktif İşletmeler</value>
+  </data>
+  <data name="ActiveUsers" xml:space="preserve">
+    <value>Aktif Kullanıcılar</value>
+  </data>
   <data name="Address" xml:space="preserve">
     <value>Adres</value>
   </data>
   <data name="Amount" xml:space="preserve">
     <value>Miktar (₺)</value>
+  </data>
+  <data name="AppointmentType" xml:space="preserve">
+    <value>Randevu Tipi</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Onayla</value>
   </data>
   <data name="AreaApplications" xml:space="preserve">
     <value>Saha Başvuruları</value>
@@ -132,8 +144,20 @@
   <data name="AreaCount" xml:space="preserve">
     <value>Saha Sayısı</value>
   </data>
+  <data name="AreaName" xml:space="preserve">
+    <value>Saha Adı</value>
+  </data>
+  <data name="Areas" xml:space="preserve">
+    <value>Sahalar</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Emin misiniz?</value>
+  </data>
   <data name="ARS" xml:space="preserve">
     <value>Tüm Hakları Saklıdır</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Bakiye</value>
   </data>
   <data name="BankName" xml:space="preserve">
     <value>Banka Adı</value>
@@ -141,17 +165,38 @@
   <data name="BranchApplications" xml:space="preserve">
     <value>Şube Başvuruları</value>
   </data>
+  <data name="BranchAreas" xml:space="preserve">
+    <value>İşletme Sahaları</value>
+  </data>
+  <data name="BranchCards" xml:space="preserve">
+    <value>Şube Kartları</value>
+  </data>
+  <data name="BranchEconomyData" xml:space="preserve">
+    <value>Şube Ekonomi Verileri</value>
+  </data>
   <data name="Branches" xml:space="preserve">
     <value>İşletmeler</value>
   </data>
   <data name="BranchesCount" xml:space="preserve">
     <value>Şube Sayısı</value>
   </data>
+  <data name="BranchMatchData" xml:space="preserve">
+    <value>Şube Maç Verileri</value>
+  </data>
   <data name="BranchName" xml:space="preserve">
     <value>Şube İsmi</value>
   </data>
   <data name="BranchOwner" xml:space="preserve">
     <value>İşletme Sahibi</value>
+  </data>
+  <data name="BranchTransactionsData" xml:space="preserve">
+    <value>Şube Transfer Verileri</value>
+  </data>
+  <data name="CardEdit" xml:space="preserve">
+    <value>Kart Düzenler</value>
+  </data>
+  <data name="CardOwner" xml:space="preserve">
+    <value>Kart Sahibi</value>
   </data>
   <data name="Catering" xml:space="preserve">
     <value>İkram</value>
@@ -162,17 +207,47 @@
   <data name="ClearAll" xml:space="preserve">
     <value>Hepsini Temizle</value>
   </data>
+  <data name="Clock" xml:space="preserve">
+    <value>Saat</value>
+  </data>
+  <data name="CompanySupportRequests" xml:space="preserve">
+    <value>Şube Destek Talepleri</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>İçerik</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Yönetim Paneli</value>
+  </data>
   <data name="Date" xml:space="preserve">
     <value>Tarih</value>
   </data>
+  <data name="DateOfBirth" xml:space="preserve">
+    <value>Doğum Tarihi</value>
+  </data>
+  <data name="Deactivate" xml:space="preserve">
+    <value>Deaktif Et</value>
+  </data>
+  <data name="Debt" xml:space="preserve">
+    <value>Borç</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
   <data name="DeleteAreaRequests" xml:space="preserve">
     <value>Saha Silme Talepleri</value>
+  </data>
+  <data name="DeletedBranches" xml:space="preserve">
+    <value>Silinen İşletmeler</value>
   </data>
   <data name="Details" xml:space="preserve">
     <value>Seçenekler</value>
   </data>
   <data name="District" xml:space="preserve">
     <value>İlçe</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Düzenle</value>
   </data>
   <data name="Expense" xml:space="preserve">
     <value>Gider</value>
@@ -185,6 +260,21 @@
   </data>
   <data name="Friday" xml:space="preserve">
     <value>Cuma</value>
+  </data>
+  <data name="Giro" xml:space="preserve">
+    <value>Ciro</value>
+  </data>
+  <data name="GoToBranch" xml:space="preserve">
+    <value>İşletmeye Git</value>
+  </data>
+  <data name="Ground" xml:space="preserve">
+    <value>Zemin</value>
+  </data>
+  <data name="Header" xml:space="preserve">
+    <value>Başlık</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Boy</value>
   </data>
   <data name="HistoryMatches" xml:space="preserve">
     <value>Maç Geçmişi</value>
@@ -216,14 +306,29 @@
   <data name="Login" xml:space="preserve">
     <value>Giriş Yap</value>
   </data>
+  <data name="LoserTeam" xml:space="preserve">
+    <value>Kaybeden Takım</value>
+  </data>
   <data name="Mail" xml:space="preserve">
     <value>Mail</value>
   </data>
   <data name="Market" xml:space="preserve">
     <value>Market</value>
   </data>
+  <data name="MaxPlayer" xml:space="preserve">
+    <value>Oyuncu Kapasitesi</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Mesaj</value>
+  </data>
   <data name="Monday" xml:space="preserve">
     <value>Pazartesi</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Ay</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Ad</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>Sonraki</value>
@@ -234,14 +339,29 @@
   <data name="Notifications" xml:space="preserve">
     <value>Bildirimler</value>
   </data>
+  <data name="OpenCloseTime" xml:space="preserve">
+    <value>Açılış Kapanış Saati</value>
+  </data>
+  <data name="Operations" xml:space="preserve">
+    <value>İşlemler</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Şifre</value>
   </data>
   <data name="Payments" xml:space="preserve">
     <value>Ödemeler</value>
   </data>
+  <data name="PaymentType" xml:space="preserve">
+    <value>Ödeme Tipi</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Pozisyon</value>
+  </data>
   <data name="Previous" xml:space="preserve">
     <value>Önceki</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Fiyat</value>
   </data>
   <data name="Processing" xml:space="preserve">
     <value>İşleniyor</value>
@@ -252,14 +372,44 @@
   <data name="Receiver" xml:space="preserve">
     <value>Alıcı</value>
   </data>
+  <data name="RecordingMatch" xml:space="preserve">
+    <value>Maç Kayıt</value>
+  </data>
   <data name="Region" xml:space="preserve">
     <value>Bölge</value>
+  </data>
+  <data name="RegisterDate" xml:space="preserve">
+    <value>Kayıt Tarihi</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Reddet</value>
+  </data>
+  <data name="RejectedBranches" xml:space="preserve">
+    <value>Reddedilen İşletmeler</value>
+  </data>
+  <data name="RejectedUsers" xml:space="preserve">
+    <value>Yasaklanan Kullanıcılar</value>
+  </data>
+  <data name="RentTime" xml:space="preserve">
+    <value>Kiralama Süresi</value>
+  </data>
+  <data name="Roof" xml:space="preserve">
+    <value>Çatı</value>
   </data>
   <data name="Saturday" xml:space="preserve">
     <value>Cumartesi</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>Skor</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Arama</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Gönder</value>
   </data>
   <data name="Sender" xml:space="preserve">
     <value>Gönderen</value>
@@ -279,6 +429,9 @@
   <data name="Sunday" xml:space="preserve">
     <value>Pazar</value>
   </data>
+  <data name="TaxNumber" xml:space="preserve">
+    <value>Vergi Numarası</value>
+  </data>
   <data name="TeamData" xml:space="preserve">
     <value>Takım Verileri</value>
   </data>
@@ -294,6 +447,12 @@
   <data name="Tickets" xml:space="preserve">
     <value>Destek Talepleri</value>
   </data>
+  <data name="Title" xml:space="preserve">
+    <value>İstek Başlığı</value>
+  </data>
+  <data name="TotalMatch" xml:space="preserve">
+    <value>Toplam Yapılan Maç</value>
+  </data>
   <data name="Tournament" xml:space="preserve">
     <value>Turnuva</value>
   </data>
@@ -306,6 +465,9 @@
   <data name="UserData" xml:space="preserve">
     <value>Kullanıcı Verileri</value>
   </data>
+  <data name="UserMessage" xml:space="preserve">
+    <value>Kullanıcı Mesajı</value>
+  </data>
   <data name="Username" xml:space="preserve">
     <value>Kullanıcı Adı</value>
   </data>
@@ -315,6 +477,9 @@
   <data name="ViewAll" xml:space="preserve">
     <value>Hepsini Gör</value>
   </data>
+  <data name="WaitingBranches" xml:space="preserve">
+    <value>Pasif İşletmeler</value>
+  </data>
   <data name="Wednesday" xml:space="preserve">
     <value>Çarşamba</value>
   </data>
@@ -323,6 +488,15 @@
   </data>
   <data name="WelcomeText" xml:space="preserve">
     <value>Tekrardan Hoşgeldiniz</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>En</value>
+  </data>
+  <data name="WinnerTeam" xml:space="preserve">
+    <value>Kazanan Takım</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Yıl</value>
   </data>
   <data name="ZeroSearch" xml:space="preserve">
     <value>Arama sonucu bulunamadı.</value>

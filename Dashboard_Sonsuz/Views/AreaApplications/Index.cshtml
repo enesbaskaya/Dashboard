@@ -63,6 +63,8 @@
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                             <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("ApproveArea", "AreaApplications", new { areaId = a.areaId })">@SharedLocalizer.GetLocalizedHtmlString("Approve")</a>
+                                                            <a data-target="@Url.Action("RejectAreaModal", "AreaApplications", new { areaId = a.areaId })" class="dropdown-item view" href="#">@SharedLocalizer.GetLocalizedHtmlString("Reject")</a>
+                                                            <a data-target="@Url.Action("DeleteAreaModal", "AreaApplications", new { areaId =a.areaId })" class="dropdown-item view" href="#">@SharedLocalizer.GetLocalizedHtmlString("Delete")</a>
                                                             <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = a.branch.branchId})">@SharedLocalizer.GetLocalizedHtmlString("GoToBranch")</a>
                                                         </div>
                                                     </div>
@@ -78,7 +80,7 @@
         </div> <!-- .col-12 -->
     </div> <!-- .row -->
 </div> <!-- .container-fluid -->
-
+<div class="modal fade" id="modelView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
 
 <script>
     function confirmDialog() {

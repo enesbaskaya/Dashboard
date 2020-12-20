@@ -17,41 +17,7 @@
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="row">
-                <div class="col-md-6 col-xl-3 mb-4">
-                    <div class="card shadow border-0">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-3 text-center">
-                                    <span class="circle circle-sm bg-warning">
-                                    </span>
-                                </div>
-                                <div class="col pr-0">
-                                    <p class="small text-muted mb-0">@SharedLocalizer.GetLocalizedHtmlString("WaitingUsers")</p>
-                                    <span class="h3 mb-0">@waitingUsers</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-xl-3 mb-4">
-                    <div class="card shadow border-0">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-3 text-center">
-                                    <span class="circle circle-sm bg-danger">
-                                    </span>
-                                </div>
-                                <div class="col pr-0">
-                                    <p class="small text-muted mb-0">@SharedLocalizer.GetLocalizedHtmlString("DeletedUsers")</p>
-                                    <span class="h3 mb-0">@deletedUsers</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-xl-3 mb-4">
+                <div class="col-md-6 col-xl-6 mb-4">
                     <div class="card shadow border-0">
                         <div class="card-body">
                             <div class="row align-items-center">
@@ -68,7 +34,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-3 mb-4">
+                <div class="col-md-6 col-xl-6 mb-4">
                     <div class="card shadow border-0">
                         <div class="card-body">
                             <div class="row align-items-center">
@@ -128,16 +94,16 @@
                                                 <td>
                                                     <div class="dropdown">
                                                         <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <span class="text-muted sr-only">Action</span>
+                                                            <span class="text-muted sr-only"></span>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                             @if (u.statusId == 2)
                                                             {
-                                                                <a data-target="@Url.Action("BanUserModal", "Users", new { userId = u.userId })" class="dropdown-item view" href="#">@SharedLocalizer.GetLocalizedHtmlString("Delete")</a>
+                                                                <a data-target="@Url.Action("BanUserModal", "Users", new { userId = u.userId })" class="dropdown-item view" href="#">@SharedLocalizer.GetLocalizedHtmlString("Reject")</a>
                                                             }
-                                                            @if (u.statusId == 4)
+                                                            @if (u.statusId == 3)
                                                             {
-                                                                <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("ActivateUser", "Users", new { userId = u.userId })">@SharedLocalizer.GetLocalizedHtmlString("Activate")</a>
+                                                                <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("ActivateUser", "Users", new { userId = u.userId })">@SharedLocalizer.GetLocalizedHtmlString("Approve")</a>
                                                             }
                                                         </div>
                                                     </div>

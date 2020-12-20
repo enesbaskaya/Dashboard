@@ -1,4 +1,5 @@
 ﻿@using Dashboard.Models
+@using Dashboard
 @using Dashboard.Resources
 @inject LocServices SharedLocalizer
 @{
@@ -72,7 +73,7 @@
                                                 <td style="color: orange">@transAction.amount ₺</td>
                                                 <td>@transAction.card.cardOwner</td>
                                                 <td>@transAction.date</td>
-                                                <td><i style="color: @(transAction.checkActive ? "lawngreen" :  "orangered")" class="@(transAction.checkActive ? "fa fa-check" : "fa fa-times")"></i></td>
+                                                <td><span class="dot dot-lg bg-@Program.getDotColor(transAction.statusId) mr-2" data-toggle="tooltip" data-placement="right" title="@transAction.status.name"></span></td>
                                             </tr>
 
                                         }
@@ -111,7 +112,7 @@
                                                 <td>@depositTransActions.branch.name</td>
                                                 <td style="color: orange">@depositTransActions.amount ₺</td>
                                                 <td>@depositTransActions.date</td>
-                                                <td><i style="color: @(depositTransActions.checkActive ? "lawngreen" :  "orangered")" class="@(depositTransActions.checkActive ? "fa fa-check" : "fa fa-times")"></i></td>
+                                                <td><span class="dot dot-lg bg-@Program.getDotColor(depositTransActions.statusId) mr-2" data-toggle="tooltip" data-placement="right" title="@depositTransActions.status.name"></span></td>
                                             </tr>
 
                                         }

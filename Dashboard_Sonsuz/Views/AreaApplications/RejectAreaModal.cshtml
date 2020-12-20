@@ -1,7 +1,7 @@
 ﻿@using Dashboard.Models
 @using Dashboard.Resources
 @inject LocServices SharedLocalizer
-@model Branch
+@model AreaInfo
 
 
 <div class="modal-dialog" role="document">
@@ -12,15 +12,15 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        @using (Html.BeginForm("RejectBranch", "BranchApplication", FormMethod.Post))
+        @using (Html.BeginForm("RejectArea", "AreaApplications", FormMethod.Post))
         {
             <div class="modal-body">
 
                 <div class="form-group">
-                    <label for="firstname">@SharedLocalizer.GetLocalizedHtmlString("Message")</label>
+                    <label>@SharedLocalizer.GetLocalizedHtmlString("Message")</label>
                     <input type="text" name="message" id="message" class="form-control">
                 </div>
-                <input type="hidden" id="branchId" name="branchId" value="@Model.branchId">
+                <input type="hidden" id="areaId" name="areaId" value="@Model.areaId">
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">@SharedLocalizer.GetLocalizedHtmlString("Reject")</button>

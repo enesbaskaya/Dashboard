@@ -61,9 +61,9 @@ namespace Dashboard.Controllers
             ViewBag.areaCount = _context.areaInfo.Count();
 
 
-            List<BranchTransActions> transActionsData = _context.branchTransActions.Where(x => !x.checkActive).Include(x => x.card).OrderByDescending(x => x.transId).Take(5).ToList();
+            List<BranchTransActions> transActionsData = _context.branchTransActions.Where(x => x.statusId==1).Include(x => x.card).Include(x=>x.status).OrderByDescending(x => x.transId).Take(5).ToList();
             ViewBag.transActionsData = transActionsData;
-            List<DepositTransActions> depositTransActions = _context.depositTransActions.Where(x => !x.checkActive).Include(x => x.branch).OrderByDescending(x => x.transId).Take(5).ToList();
+            List<DepositTransActions> depositTransActions = _context.depositTransActions.Where(x => x.statusId == 1).Include(x => x.branch).Include(x => x.status).OrderByDescending(x => x.transId).Take(5).ToList();
             ViewBag.depositTransActions = depositTransActions;
 
             return View();

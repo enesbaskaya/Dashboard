@@ -10,7 +10,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-            <h2 class="mb-2 page-title">@SharedLocalizer.GetLocalizedHtmlString("CompanySupportRequests")</h2>
+            <h2 class="mb-2 page-title">@SharedLocalizer.GetLocalizedHtmlString("DeleteAreaRequests")</h2>
             <div class="row my-4">
                 <!-- Small table -->
                 <div class="col-md-12">
@@ -45,7 +45,8 @@
                                                             <span class="text-muted sr-only">Action</span>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            <a class="dropdown-item" href="@Url.Action("ApproveDeleteArea", "DeleteAreaRequests", new {requestId = d.deleteRequestId})">@SharedLocalizer.GetLocalizedHtmlString("Approve")</a>
+                                                            @if (!d.isActive)
+                                                            {<a class="dropdown-item" href="@Url.Action("ApproveDeleteArea", "DeleteAreaRequests", new { requestId = d.deleteRequestId })">@SharedLocalizer.GetLocalizedHtmlString("Approve")</a>}
                                                             <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = d.area.branchId})">@SharedLocalizer.GetLocalizedHtmlString("GoToBranch")</a>
                                                         </div>
                                                     </div>

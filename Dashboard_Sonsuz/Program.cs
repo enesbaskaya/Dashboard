@@ -10,7 +10,6 @@ namespace Dashboard
     public class Program
     {
 
-
         public static Admin administrator;
 
         public static string getDotColor(long statusId)
@@ -18,15 +17,15 @@ namespace Dashboard
             switch (statusId)
             {
                 case 1:
-                    return "warning";
+                    return "warning"; // TURUNCU
                 case 2:
-                    return "success";
+                    return "success"; // YEÞÝL
                 case 3:
-                    return "primary";
+                    return "primary"; // KOYU MAVÝ
                 case 4:
-                    return "danger";
+                    return "danger"; // KIRMIZI
                 default:
-                    return "info";
+                    return "info"; // TURKUVAZ
             }
         }
 

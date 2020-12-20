@@ -42,57 +42,60 @@ namespace Dashboard.Controllers
 
             ViewBag.waitingBranches = waitingBranches;
             ViewBag.deletedBranches = deletedBranches;
-             ViewBag.activeBranches = activeBranches;
+            ViewBag.activeBranches = activeBranches;
             ViewBag.rejectedBranches = rejectedBranches;
 
             return View(branches);
         }
 
-        public async Task<IActionResult> DeleteBranch(long branchId)
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteBranchModalAsync(long branchId)
         {
-
-            Branch updatedData = await _context.branch.FindAsync(branchId);
-            var contactInfo = _context.contactInfo.FirstOrDefault(x => x.contactId == updatedData.contactId);
-            _context.branch.Remove(updatedData);
-            await _context.SaveChangesAsync();
-
-            // create email message
-            var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse(_config.GetValue<String>("SMTP:Username")));
-            email.To.Add(MailboxAddress.Parse(contactInfo.mail));
-            email.Subject = "Hesap Silinmesi - BiMaçVar!";
-            email.Body = new TextPart(TextFormat.Plain)
-            {
-                Text = "Sevgili " + updatedData.admin + ",\nHesabınız silinmiştir. Eğer bir yanlışlık olduğunu" +
-                " düşünüyorsanız support@bimacvar.com adresinden ya da diğer iletişim araçlarını kullanarak bize ulaşabilirsiniz."
-            };
-
-            // send email
-            using var smtp = new SmtpClient();
-            smtp.Connect(_config.GetValue<String>("SMTP:Host"), _config.GetValue<int>("SMTP:Port"), false);
-            smtp.Authenticate(_config.GetValue<String>("SMTP:Username"), _config.GetValue<String>("SMTP:Password"));
-            smtp.Send(email);
-            smtp.Disconnect(true);
-
-
-            return RedirectToAction("Index");
+            Branch card = await _context.branch.FindAsync(branchId);
+            return PartialView("DeleteBranchModal", card);
         }
 
-        public async Task<IActionResult> DeactiveBranch(long branchId)
+        public async Task<IActionResult> DeleteBranchAsync(long branchId, string message)
         {
 
-            Branch updatedData = await _context.branch.FindAsync(branchId);
-            updatedData.statusId = 1;
-            _context.branch.Update(updatedData);
-
-            var contactInfo = _context.contactInfo.FirstOrDefault(x => x.contactId == updatedData.contactId);
+            Branch branch = await _context.branch.Include(x => x.contact).FirstOrDefaultAsync(x => x.branchId == branchId);
+            branch.statusId = 4;
+            _context.branch.Update(branch);
+            
 
             var email = new SMTPMail();
             email.mailType = MailTypes.WARNING;
             email.header = "BiMaçVar! İşletme Hesabınız Devredışı Bırakıldı";
-            email.content = "Değerli BiMaçVar! kullanıcısı, hesabınız gayrinizami ölçütleri kullanmanız hasebiyle devredışı bırakılmıştır!" +
-                " Eğer bir sorun olduğunu düşünüyorsanız lütfen iletişim adreslerimiz ile bizlerle bağlantı kurunuz!";
-            email.mail = contactInfo.mail;
+            email.content = "Değerli BiMaçVar! kullanıcısı, işletme hesabınız yasaklanmıştır. Sebep;\n" + message + "\n\nEğer bir" +
+                " yanlışlık olduğunu düşünüyorsanız lütfen bizlerle iletişime geçiniz.";
+            email.mail = branch.contact.mail;
+            await email.sendAsync(_config);
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeactiveBranchModalAsync(long branchId)
+        {
+            Branch card = await _context.branch.FindAsync(branchId);
+            return PartialView("DeactiveBranchModal", card);
+        }
+
+        public async Task<IActionResult> DeactiveBranchAsync(long branchId, string message)
+        {
+
+            Branch branch = await _context.branch.Include(x => x.contact).FirstOrDefaultAsync(x => x.branchId == branchId);
+            branch.statusId = 1;
+            _context.branch.Update(branch);
+
+            var email = new SMTPMail();
+            email.mailType = MailTypes.WARNING;
+            email.header = "BiMaçVar! İşletme Hesabınız Devredışı Bırakıldı";
+            email.content = "Değerli BiMaçVar! kullanıcısı, işletme hesabınız deaktif duruma getirilmiştir. Sebep;\n" + message + "\n\nEğer bir" +
+                " yanlışlık olduğunu düşünüyorsanız lütfen bizlerle iletişime geçiniz.";
+            email.mail = branch.contact.mail;
             await email.sendAsync(_config);
 
 

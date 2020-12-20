@@ -125,9 +125,11 @@
                                                             <span class="text-muted sr-only">Action</span>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            @{ if (b.statusId == 2)
-                                                                {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeactiveBranch", "Branches", new { branchId = b.branchId })">@SharedLocalizer.GetLocalizedHtmlString("Deactivate")</a>}}
-                                                            <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeleteBranch", "Branches", new { branchId = b.branchId })">@SharedLocalizer.GetLocalizedHtmlString("Delete")</a>
+                                                            @{ if (b.statusId != 1)
+                                                                {<a data-target="@Url.Action("DeactiveBranchModal", "Branches", new { branchId = b.branchId })" class="dropdown-item view" href="#">@SharedLocalizer.GetLocalizedHtmlString("Deactivate")</a>}}
+                                                            @{ if (b.statusId != 4)
+                                                                {<a data-target="@Url.Action("DeleteBranchModal", "Branches", new { branchId = b.branchId })" class="dropdown-item view" href="#">@SharedLocalizer.GetLocalizedHtmlString("Delete")</a>}
+                                                            }
                                                             <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = b.branchId})">@SharedLocalizer.GetLocalizedHtmlString("GoToBranch")</a>
                                                         </div>
                                                     </div>
@@ -143,7 +145,7 @@
         </div> <!-- .col-12 -->
     </div> <!-- .row -->
 </div> <!-- .container-fluid -->
-
+<div class="modal fade" id="modelView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
 
 <script>
     function confirmDialog() {

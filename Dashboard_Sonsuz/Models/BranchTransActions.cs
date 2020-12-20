@@ -14,10 +14,11 @@ namespace Dashboard.Models
         public BranchCards card { get; set; }
 
         public string date { get; set; }
-
+        
         public double amount { get; set; }
 
-        public bool checkActive { get; set; }
+        public long statusId { get; set; }
+        public Status status { get; set; }
 
 
     }

@@ -75,25 +75,37 @@ namespace Dashboard.Models
             text = text.Replace("[BMVLOGO]", logoPath);
             text = text.Replace("[YEAR]", DateTime.Now.Year.ToString());
 
-            var email = new MimeMessage();
-            email.To.Add(MailboxAddress.Parse(mail));
-            email.From.Add(new MailboxAddress("BiMaçVar!", _config.GetValue<String>("SMTP:Username")));
-            email.Cc.Add(new MailboxAddress("BiMaçVar!", _config.GetValue<String>("SMTP:Username")));
-            email.Bcc.Add(new MailboxAddress("BiMaçVar!", _config.GetValue<String>("SMTP:Username")));
 
-            email.Subject = header;
-            email.Body = new TextPart(TextFormat.Html)
+            string usernameMail = _config.GetValue<String>("SMTP:Username");
+            string host = _config.GetValue<String>("SMTP:Host");
+            int port = _config.GetValue<int>("SMTP:Port");
+            string password = _config.GetValue<String>("SMTP:Password");
+
+            if (usernameMail != null && host != null && password != null)
             {
+                if (usernameMail.Length > 0 && port > 0 && host.Length > 0 && password.Length > 0)
+                {
+                    var email = new MimeMessage();
+                    email.To.Add(MailboxAddress.Parse(mail));
+                    email.From.Add(new MailboxAddress("BiMaçVar!", usernameMail));
+                    email.Cc.Add(new MailboxAddress("BiMaçVar!", usernameMail));
+                    email.Bcc.Add(new MailboxAddress("BiMaçVar!", usernameMail));
 
-                Text = text
-            };
+                    email.Subject = header;
+                    email.Body = new TextPart(TextFormat.Html)
+                    {
 
-            using var smtp = new SmtpClient();
+                        Text = text
+                    };
 
-            smtp.Connect(_config.GetValue<String>("SMTP:Host"), _config.GetValue<int>("SMTP:Port"), false);
-            smtp.Authenticate(_config.GetValue<String>("SMTP:Username"), _config.GetValue<String>("SMTP:Password"));
-            smtp.Send(email);
-            smtp.Disconnect(true);
+                    using var smtp = new SmtpClient();
+
+                    smtp.Connect(host, port, false);
+                    smtp.Authenticate(usernameMail, password);
+                    smtp.Send(email);
+                    smtp.Disconnect(true);
+                }
+            }
         }
 
 

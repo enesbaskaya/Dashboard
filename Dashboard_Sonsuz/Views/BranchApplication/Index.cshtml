@@ -58,7 +58,7 @@
                                                                     <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("ApproveBranch", "BranchApplication", new { branchId = b.branchId })">@SharedLocalizer.GetLocalizedHtmlString("Approve")</a>
                                                                 }}
                                                             <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = b.branchId})">@SharedLocalizer.GetLocalizedHtmlString("GoToBranch")</a>
-                                                            <a data-target="@Url.Action("RejectBranchModal", "BranchApplication", new { branchId = b.branchId })" class="dropdown-item view" href="#">@SharedLocalizer.GetLocalizedHtmlString("Edit")</a>
+                                                            <a data-target="@Url.Action("RejectBranchModal", "BranchApplication", new { branchId = b.branchId })" class="dropdown-item view" href="#">@SharedLocalizer.GetLocalizedHtmlString("Reject")</a>
                                                         </div>
                                                     </div>
                                                 </td>

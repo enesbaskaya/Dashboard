@@ -77,7 +77,8 @@ namespace Dashboard.Controllers
         public async Task<IActionResult> RejectBranchAsync(long branchId, string message)
         {
             Branch branch = await _context.branch.Include(x => x.contact).FirstOrDefaultAsync(x => x.branchId == branchId);
-            _context.branch.Remove(branch);
+            branch.statusId = 3;
+            _context.branch.Update(branch);
             await _context.SaveChangesAsync();
 
             var email = new SMTPMail();

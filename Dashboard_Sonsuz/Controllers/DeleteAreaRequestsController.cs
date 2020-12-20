@@ -55,8 +55,13 @@ namespace Dashboard.Controllers
             email.mail = deleteArea.area.branch.contact.mail;
             await email.sendAsync(_config);
 
-            _context.areaInfo.Remove(deleteArea.area);
+
+            deleteArea.isActive = true;
+            deleteArea.area.statusId = 4;
+            _context.deleteAreaRequests.Update(deleteArea);
+            _context.areaInfo.Update(deleteArea.area);
             await _context.SaveChangesAsync();
+
             return RedirectToAction("Index");
         }
 

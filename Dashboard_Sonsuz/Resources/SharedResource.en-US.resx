@@ -120,11 +120,26 @@
   <data name="AccountOwner" xml:space="preserve">
     <value>Account Owner</value>
   </data>
+  <data name="ActiveBranches" xml:space="preserve">
+    <value>Active Branches</value>
+  </data>
+  <data name="ActiveUsers" xml:space="preserve">
+    <value>Active Users</value>
+  </data>
   <data name="Address" xml:space="preserve">
     <value>Address</value>
   </data>
   <data name="Amount" xml:space="preserve">
     <value>Amount (₺)</value>
+  </data>
+  <data name="Appointment" xml:space="preserve">
+    <value>Appointment</value>
+  </data>
+  <data name="AppointmentType" xml:space="preserve">
+    <value>Appointment Type</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Approve</value>
   </data>
   <data name="AreaApplications" xml:space="preserve">
     <value>Area Applications</value>
@@ -132,8 +147,20 @@
   <data name="AreaCount" xml:space="preserve">
     <value>Area Count</value>
   </data>
+  <data name="AreaName" xml:space="preserve">
+    <value>Area Name</value>
+  </data>
+  <data name="Areas" xml:space="preserve">
+    <value>Areas</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
   <data name="ARS" xml:space="preserve">
     <value>All Rights Reserved</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Balance</value>
   </data>
   <data name="BankName" xml:space="preserve">
     <value>Bank Name</value>
@@ -141,17 +168,38 @@
   <data name="BranchApplications" xml:space="preserve">
     <value>Branch Applications</value>
   </data>
+  <data name="BranchAreas" xml:space="preserve">
+    <value>Branch Areas</value>
+  </data>
+  <data name="BranchCards" xml:space="preserve">
+    <value>Branch Cards</value>
+  </data>
+  <data name="BranchEconomyData" xml:space="preserve">
+    <value>Branch Economy Data</value>
+  </data>
   <data name="Branches" xml:space="preserve">
     <value>Branches</value>
   </data>
   <data name="BranchesCount" xml:space="preserve">
     <value>Branches Count</value>
   </data>
+  <data name="BranchMatchData" xml:space="preserve">
+    <value>Branch Match Data</value>
+  </data>
   <data name="BranchName" xml:space="preserve">
     <value>Branch Name</value>
   </data>
   <data name="BranchOwner" xml:space="preserve">
     <value>BranchOwner</value>
+  </data>
+  <data name="BranchTransactionsData" xml:space="preserve">
+    <value>Branch Transactions Data</value>
+  </data>
+  <data name="CardEdit" xml:space="preserve">
+    <value>Card Edit</value>
+  </data>
+  <data name="CardOwner" xml:space="preserve">
+    <value>Card Owner</value>
   </data>
   <data name="Catering" xml:space="preserve">
     <value>Catering</value>
@@ -162,17 +210,47 @@
   <data name="ClearAll" xml:space="preserve">
     <value>Clear All</value>
   </data>
+  <data name="Clock" xml:space="preserve">
+    <value>Clock</value>
+  </data>
+  <data name="CompanySupportRequests" xml:space="preserve">
+    <value>Company Support Requests</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
   </data>
+  <data name="DateOfBirth" xml:space="preserve">
+    <value>Date Of Birth</value>
+  </data>
+  <data name="Deactivate" xml:space="preserve">
+    <value>Deactivate</value>
+  </data>
+  <data name="Debt" xml:space="preserve">
+    <value>Debt</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="DeleteAreaRequests" xml:space="preserve">
     <value>Delete Area Requests</value>
+  </data>
+  <data name="DeletedBranches" xml:space="preserve">
+    <value>Deleted Branches</value>
   </data>
   <data name="Details" xml:space="preserve">
     <value>Details</value>
   </data>
   <data name="District" xml:space="preserve">
     <value>District</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="Expense" xml:space="preserve">
     <value>Expense</value>
@@ -185,6 +263,21 @@
   </data>
   <data name="Friday" xml:space="preserve">
     <value>Friday</value>
+  </data>
+  <data name="Giro" xml:space="preserve">
+    <value>Giro</value>
+  </data>
+  <data name="GoToBranch" xml:space="preserve">
+    <value>Go To Branch</value>
+  </data>
+  <data name="Ground" xml:space="preserve">
+    <value>Ground</value>
+  </data>
+  <data name="Header" xml:space="preserve">
+    <value>Header</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Height</value>
   </data>
   <data name="HistoryMatches" xml:space="preserve">
     <value>History Matches</value>
@@ -216,14 +309,29 @@
   <data name="Login" xml:space="preserve">
     <value>Log In</value>
   </data>
+  <data name="LoserTeam" xml:space="preserve">
+    <value>Loser Team</value>
+  </data>
   <data name="Mail" xml:space="preserve">
     <value>Mail</value>
   </data>
   <data name="Market" xml:space="preserve">
     <value>Market</value>
   </data>
+  <data name="MaxPlayer" xml:space="preserve">
+    <value>Max Player</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
   <data name="Monday" xml:space="preserve">
     <value>Monday</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>Next</value>
@@ -234,14 +342,29 @@
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
   </data>
+  <data name="OpenCloseTime" xml:space="preserve">
+    <value>Open Close Time</value>
+  </data>
+  <data name="Operations" xml:space="preserve">
+    <value>Operations</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
   <data name="Payments" xml:space="preserve">
     <value>Payments</value>
   </data>
+  <data name="PaymentType" xml:space="preserve">
+    <value>Payment Type</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
   <data name="Previous" xml:space="preserve">
     <value>Previous</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
   </data>
   <data name="Processing" xml:space="preserve">
     <value>Processing</value>
@@ -252,14 +375,41 @@
   <data name="Receiver" xml:space="preserve">
     <value>Receiver</value>
   </data>
+  <data name="RecordingMatch" xml:space="preserve">
+    <value>Recording Match</value>
+  </data>
   <data name="Region" xml:space="preserve">
     <value>Region</value>
+  </data>
+  <data name="RegisterDate" xml:space="preserve">
+    <value>Register Date</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="RejectedBranches" xml:space="preserve">
+    <value>Rejected Branches</value>
+  </data>
+  <data name="RejectedUsers" xml:space="preserve">
+    <value>Rejected Users</value>
+  </data>
+  <data name="RentTime" xml:space="preserve">
+    <value>Rent Time</value>
   </data>
   <data name="Saturday" xml:space="preserve">
     <value>Saturday</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>Score</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
   </data>
   <data name="Sender" xml:space="preserve">
     <value>Sender</value>
@@ -279,6 +429,9 @@
   <data name="Sunday" xml:space="preserve">
     <value>Sunday</value>
   </data>
+  <data name="TaxNumber" xml:space="preserve">
+    <value>Tax Number</value>
+  </data>
   <data name="TeamData" xml:space="preserve">
     <value>Team Data</value>
   </data>
@@ -294,6 +447,12 @@
   <data name="Tickets" xml:space="preserve">
     <value>Tickets</value>
   </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="TotalMatch" xml:space="preserve">
+    <value>Total Match</value>
+  </data>
   <data name="Tournament" xml:space="preserve">
     <value>Tournament</value>
   </data>
@@ -306,6 +465,9 @@
   <data name="UserData" xml:space="preserve">
     <value>User Data</value>
   </data>
+  <data name="UserMessage" xml:space="preserve">
+    <value>User Message</value>
+  </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>
   </data>
@@ -315,6 +477,9 @@
   <data name="ViewAll" xml:space="preserve">
     <value>View All</value>
   </data>
+  <data name="WaitingBranches" xml:space="preserve">
+    <value>Waiting Branches</value>
+  </data>
   <data name="Wednesday" xml:space="preserve">
     <value>Wednesday</value>
   </data>
@@ -323,6 +488,15 @@
   </data>
   <data name="WelcomeText" xml:space="preserve">
     <value>Welcome back!</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Width</value>
+  </data>
+  <data name="Winner Team" xml:space="preserve">
+    <value>Winner Team</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
   </data>
   <data name="ZeroSearch" xml:space="preserve">
     <value>Search result not found.</value>

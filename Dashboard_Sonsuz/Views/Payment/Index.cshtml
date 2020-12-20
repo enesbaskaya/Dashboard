@@ -1,5 +1,6 @@
 ﻿@using Dashboard.Models
 @using Dashboard.Resources
+@using Dashboard
 @using System.Globalization;
 @inject LocServices SharedLocalizer
 @{
@@ -80,16 +81,16 @@
                                                 <td style="color: orange">@transAction.amount ₺</td>
                                                 <td>@transAction.card.cardOwner</td>
                                                 <td>@transAction.date</td>
-                                                <td><i style="color: @(transAction.checkActive ? "lawngreen" :  "orangered")" class="@(transAction.checkActive ? "fa fa-check" : "fa fa-times")"></i></td>
+                                                <td><span class="dot dot-lg bg-@Program.getDotColor(transAction.statusId) mr-2" data-toggle="tooltip" data-placement="right" title="@transAction.status.name"></span></td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button class="btn btn-sm dropdown-toggle more-vertical" type="button" id="dr1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <span class="text-muted sr-only">Action</span>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
-                                                            @{ if (!transAction.checkActive)
-                                                                {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("UpdateTransAction", "Payment", new { transId = transAction.transId})">@SharedLocalizer.GetLocalizedHtmlString("Approve")</a>}}
-                                                        <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = transAction.card.branchId})">@SharedLocalizer.GetLocalizedHtmlString("GoToBranch")</a>
+                                                            @{ if (transAction.statusId!=2)
+                                                                {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("ApproveTransaction", "Payment", new { transId = transAction.transId})">@SharedLocalizer.GetLocalizedHtmlString("Approve")</a>}}
+                                                            <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = transAction.card.branchId})">@SharedLocalizer.GetLocalizedHtmlString("GoToBranch")</a>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -127,28 +128,28 @@
                                     @{
                                         foreach (DepositTransActions transAction in ViewBag.depositTransActions)
                                         {
-                                            <tr>
-                                                <td>@transAction.transId</td>
-                                                <td scope="col">@transAction.branch.admin</td>
-                                                <td>@transAction.branch.name</td>
-                                                <td style="color: orange">@transAction.amount ₺</td>
-                                                <td>@transAction.date</td>
-                                                <td><i style="color: @(transAction.checkActive ? "lawngreen" : "orangered")" class="@(transAction.checkActive ? "fa fa-check" : "fa fa-times")"></i></td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" id="dr1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <span class="text-muted sr-only">Action</span>
-                                                        </button>
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
-                                                            @{ if (!transAction.checkActive)
-                                                                {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("UpdateDepositTransAction", "Payment", new { transId = transAction.transId, amount = transAction.amount })">@SharedLocalizer.GetLocalizedHtmlString("Approve")</a>}}
-                                                            @{ if (!transAction.checkActive)
-                                                                { <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("DeleteDepositTransAction", "Payment", new { transId = transAction.transId })">@SharedLocalizer.GetLocalizedHtmlString("Reject")</a>}}
-                                                        <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = transAction.branchId})">@SharedLocalizer.GetLocalizedHtmlString("GoToBranch")</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                                        <tr>
+                                                                            <td>@transAction.transId</td>
+                                                                            <td scope="col">@transAction.branch.admin</td>
+                                                                            <td>@transAction.branch.name</td>
+                                                                            <td style="color: orange">@transAction.amount ₺</td>
+                                                                            <td>@transAction.date</td>
+                                                                            <td><span class="dot dot-lg bg-@Program.getDotColor(transAction.statusId) mr-2" data-toggle="tooltip" data-placement="right" title="@transAction.status.name"></span></td>
+                                                                            <td>
+                                                                                <div class="dropdown">
+                                                                                    <button class="btn btn-sm dropdown-toggle more-vertical" type="button" id="dr1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                        <span class="text-muted sr-only">Action</span>
+                                                                                    </button>
+                                                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
+                                                                                        @{ if (transAction.statusId!=2)
+                                                                                            {<a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("ApproveDepositTransaction", "Payment", new { transId = transAction.transId, amount = transAction.amount })">@SharedLocalizer.GetLocalizedHtmlString("Approve")</a>}}
+                                                                                        @{ if (transAction.statusId!=3)
+                                                                                            { <a onclick="return confirmDialog()" class="dropdown-item" href="@Url.Action("RejectDepositTransaction", "Payment", new { transId = transAction.transId })">@SharedLocalizer.GetLocalizedHtmlString("Reject")</a>}}
+                                                                                        <a class="dropdown-item" href="@Url.Action("Index", "BranchProfile", new {branchId = transAction.branchId})">@SharedLocalizer.GetLocalizedHtmlString("GoToBranch")</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
 
                                         }
                                     }
