@@ -126,6 +126,9 @@
   <data name="ActiveUsers" xml:space="preserve">
     <value>Active Users</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="Address" xml:space="preserve">
     <value>Address</value>
   </data>

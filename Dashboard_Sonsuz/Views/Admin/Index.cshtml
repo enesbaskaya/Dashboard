@@ -1,5 +1,16 @@
 ﻿@using Dashboard.Resources
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Localization
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @inject LocServices SharedLocalizer
+@inject IOptions<RequestLocalizationOptions> LocOps
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOps.Value.SupportedUICultures.Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName }).ToList();
+}
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,13 +27,33 @@
     <link rel="stylesheet" href="~/css/daterangepicker.css">
     <link rel="stylesheet" href="~/css/app-light.css" id="lightTheme" disabled>
     <link rel="stylesheet" href="~/css/app-dark.css" id="darkTheme">
+    <style>
+        .vertical-center {
+            min-height: 95%;
+            min-height: 95vh;
+            display: flex;
+            align-items: center;
+        }
+    </style>
 </head>
 <body class="dark">
     <div class="wrapper vh-100">
-        <div class="row align-items-center h-100">
+
+        <div class="row">
+            <div class="col-md-12 mt-2 mr-2">
+                <div class=" float-right">
+                    <form id="selectLanguage" asp-controller="Home"
+                          asp-action="SetLanguage" asp-route-returnUrl="@Context.Request.Path"
+                          method="post" class="form-horizontal" role="form">
+                        <select onchange="this.form.submit()" name="culture" asp-for="@(requestCulture.RequestCulture.UICulture.Name)" asp-items="cultureItems" class="form-control"></select>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row vertical-center">
             <div class="col-lg-3 col-md-4 col-10 mx-auto text-center">
 
-                <img src="~/images/bmv.png" style="width: 100%"/>
+                <img src="~/images/bmv.png" style="width: 100%" />
 
                 <h1 class="h6 mb-4 mt-3 mt-lg-5">@SharedLocalizer.GetLocalizedHtmlString("Login")</h1>
 
@@ -44,6 +75,8 @@
             </div>
         </div>
     </div>
+
+
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/popper.min.js"></script>
     <script src="~/js/moment.min.js"></script>

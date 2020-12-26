@@ -12,6 +12,7 @@ using MimeKit;
 using MimeKit.Text;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
+using System.Diagnostics;
 
 namespace Dashboard.Controllers
 {
@@ -99,7 +100,6 @@ namespace Dashboard.Controllers
             _context.branchWallet.Update(wallet);
 
             _context.SaveChanges();
-
 
             return RedirectToAction("Index", new { branchId = branchId });
         }
@@ -277,6 +277,29 @@ namespace Dashboard.Controllers
         {
             AreaInfo areaInfo = await _context.areaInfo.Include(x => x.branch).Include(x => x.branch.contact).FirstOrDefaultAsync(x => x.areaId == areaId);
             return PartialView("DeleteAreaModal", areaInfo);
+        }
+
+
+        [HttpGet]
+        public async Task<ActionResult> DeletePaymentMethodAsync(long branchPaymentMethodId)
+        {
+            BranchPaymentMethods bpm = await _context.branchPaymentMethods.FindAsync(branchPaymentMethodId);
+            _context.branchPaymentMethods.Remove(bpm);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", new { branchId = bpm.branchId });
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddPaymentMethodAsync(long branchId, long? paymentMethodId)
+        {
+            if (paymentMethodId != null)
+            {
+                BranchPaymentMethods bpm = new BranchPaymentMethods { branchId = branchId, paymentMethodId = paymentMethodId.Value };
+                await _context.branchPaymentMethods.AddAsync(bpm);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index", new { branchId = branchId });
         }
 
         public async Task<IActionResult> DeleteAreaAsync(long areaId, string message)

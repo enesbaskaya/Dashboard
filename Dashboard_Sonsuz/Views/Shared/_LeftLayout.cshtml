@@ -1,7 +1,19 @@
 ﻿@using Dashboard
 @using Dashboard.Resources
-@using Dashboard.Models
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Localization
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @inject LocServices SharedLocalizer
+@inject LocServices SharedLocalizer
+@inject IOptions<RequestLocalizationOptions> LocOps
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOps.Value.SupportedUICultures.Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName }).ToList();
+}
+
 
 <!doctype html>
 <html lang="en">
@@ -44,6 +56,13 @@
             </button>
             <ul class="nav">
                 <li class="nav-item">
+                    <form id="selectLanguage" asp-controller="Home"
+                          asp-action="SetLanguage" asp-route-returnUrl="@Context.Request.Path"
+                          method="post" class="form-horizontal" role="form">
+                        <select onchange="this.form.submit()" name="culture" asp-for="@(requestCulture.RequestCulture.UICulture.Name)" asp-items="cultureItems" class="form-control"></select>
+                    </form>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-muted my-2" href="#" id="modeSwitcher" data-mode="dark">
                         <i class="fe fe-sun fe-16"></i>
                     </a>
@@ -51,7 +70,7 @@
                 <li class="nav-item nav-notif">
                     <a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-notif">
                         <span class="fe fe-bell fe-16"></span>
-                        <span class="dot dot-md bg-success"></span>
+                        <!--<span class="dot dot-md bg-success"></span>-->
                     </a>
                 </li>
                 <li class="nav-item dropdown">
@@ -63,7 +82,6 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="@Url.Action("Logout", "Admin")">@SharedLocalizer.GetLocalizedHtmlString("Logout")</a>
-                        <a class="dropdown-item" href="#">@ViewBag.data</a>
                     </div>
                 </li>
             </ul>

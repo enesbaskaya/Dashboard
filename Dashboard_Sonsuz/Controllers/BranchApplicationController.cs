@@ -25,6 +25,7 @@ namespace Dashboard.Controllers
                 .Include(x => x.contact.district.city)
                 .ToList();
             return View(deActiveBranches);
+
         }
 
 

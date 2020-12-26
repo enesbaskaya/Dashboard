@@ -92,7 +92,7 @@ namespace Dashboard.Controllers
 
             var email = new SMTPMail();
             email.mailType = MailTypes.WARNING;
-            email.header = "BiMaçVar! Sahanız Onaylandı";
+            email.header = "BiMaçVar! Sahanız Onay Almadı";
             email.content = "Değerli BiMaçVar! kullanıcısı, işletmenize ait " + area.areaName + " " +
                 "isimli sahanız onay aşamasını geçememiştir. Gerekçe:\n" + message + "\n\n" +
                 "Lütfen tüm kontrolleri sağladıktan sonra tekrar saha başvurusunda bulununuz.";

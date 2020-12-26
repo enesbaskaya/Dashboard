@@ -19,7 +19,10 @@ namespace Dashboard.ViewComponents
 
         public IViewComponentResult Invoke(long notificationId)
         {
-            List<AdminNotification> adminNotifications = _context.adminNotification.Where(x => !x.active).Include(x => x.notificationType).ToList();
+            List<AdminNotification> adminNotifications = _context.adminNotification.Where(x => !x.active)
+                .Include(x => x.notificationType)
+                .OrderByDescending(x => x.adminNotificationId)
+                .ToList();
             return View(adminNotifications);
         }
 

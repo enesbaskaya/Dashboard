@@ -70,7 +70,7 @@
                                                 <td>@history.date</td>
                                                 <td>@history.score</td>
                                                 <td>@history.clock</td>
-                                                <td><span class="dot dot-lg bg-@(isPassed(history.date) ? "success" : "warning") mr-2"></span></td>
+                                                <td><span class="dot dot-lg bg-@(isPassed(history.date) ? "success" : "warning") mr-2">@DateTime.Parse(history.date)</span></td>
                                             </tr>
 
                                         }

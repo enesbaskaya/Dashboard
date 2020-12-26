@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Localization;
 
 namespace Dashboard.Controllers
 {
@@ -17,6 +17,16 @@ namespace Dashboard.Controllers
         private List<Dictionary<string, long>> list = new List<Dictionary<string, long>>();
         private List<long> dateList = new List<long>();
         public HomeController(Context context, IConfiguration config) : base(context, config) { }
+
+
+        [HttpPost]
+        public IActionResult SetLanguage(string culture, string returnUrl)
+        {
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddDays(1) });
+
+            return LocalRedirect(returnUrl);
+        }
 
         public IActionResult Index()
         {

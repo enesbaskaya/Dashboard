@@ -17,6 +17,15 @@ namespace Dashboard
 {
     public class Startup
     {
+
+        static List<CultureInfo> supportedCultures = new List<CultureInfo>
+                    {
+                        new CultureInfo("tr-TR"),
+                        new CultureInfo("en-US"),
+
+                    };
+        static CultureInfo defaultCulture = supportedCultures[0];
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -40,16 +49,12 @@ namespace Dashboard
             services.Configure<RequestLocalizationOptions>(
             options =>
             {
-                var supportedCultures = new List<CultureInfo>
-                    {
-                        new CultureInfo("tr-TR"),
-                        new CultureInfo("en-US"),
-                        
-                    };
 
-                options.DefaultRequestCulture = new RequestCulture(supportedCultures[0]);
+
+                options.DefaultRequestCulture = new RequestCulture(defaultCulture);
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
+                
 
                 options.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
             });
@@ -77,7 +82,7 @@ namespace Dashboard
 
             app.UseRouting();
 
-           
+
 
             app.UseAuthorization();
             app.UseAuthentication();

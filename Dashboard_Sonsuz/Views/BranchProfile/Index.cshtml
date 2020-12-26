@@ -125,39 +125,71 @@
                             <input value="true" type="checkbox" name="shower" id="shower" @(branch.shower ? "checked" : "")>
                         </div>
                     </div>
-
-                    <div class="form-row">
-                        @foreach (PaymentMethods m in ViewBag.paymentMethods)
-                        {
-
-                            bool func(PaymentMethods method)
-                            {
-                                List<BranchPaymentMethods> methods = ViewBag.branchPaymentMethods;
-                                foreach (BranchPaymentMethods inMethod in methods)
-                                {
-                                    if (inMethod.paymentMethodId == method.paymentMethodId)
-                                    {
-                                        return true;
-                                    }
-                                }
-                                return false;
-                            }
-
-
-                            <div class="form-group col-md-@(12 / (ViewBag.paymentMethods.Count))">
-                                <label for="custom-select">@m.paymentMethodName</label>
-                                <input value="true" type="checkbox" name="pm_@m.paymentMethodId" id="pm_@m.paymentMethodId" @(func(m) ? "checked" : "")>
-                            </div>
-
-                        }
-                    </div>
-
                     <hr class="my-4">
                     <div class="form-group col-md-12">
                         <button onclick="return confirmDialog()" type="submit" class="btn btn-primary">@SharedLocalizer.GetLocalizedHtmlString("Save")</button>
                     </div>
 
                 }
+                <hr class="my-4">
+
+
+                <div class="form-group col-md-12">
+
+                    @using (Html.BeginForm("AddPaymentMethod", "BranchProfile", FormMethod.Post))
+                    {
+
+                        <div class="col-md-3">
+                            <select class="custom-select" name="paymentMethodId">
+                                @foreach (PaymentMethods m in ViewBag.paymentMethods)
+                                {
+
+                                    bool func(PaymentMethods method)
+                                    {
+                                        List<BranchPaymentMethods> methods = ViewBag.branchPaymentMethods;
+                                        foreach (BranchPaymentMethods inMethod in methods)
+                                        {
+                                            if (inMethod.paymentMethodId == method.paymentMethodId)
+                                            {
+                                                return true;
+                                            }
+                                        }
+                                        return false;
+                                    }
+
+
+                                    @if (!func(@m))
+                                    {
+                                        <option value="@m.paymentMethodId">@m.paymentMethodName</option>
+                                    }
+                                }
+                            </select>
+
+                        </div>
+                        <div class="col-md-3 mt-3">
+                            <input type="hidden" name="branchId" value="@branch.branchId" />
+                            <button type="submit" class="btn mb-2 btn-info">@SharedLocalizer.GetLocalizedHtmlString("Add")</button>
+                        </div>
+                    }
+
+                    <div class="form-row mt-2">
+                        @{
+
+                            List<BranchPaymentMethods> methods = ViewBag.branchPaymentMethods;
+                            foreach (BranchPaymentMethods inMethod in methods)
+                            {
+                                <a href="@Url.Action("DeletePaymentMethod", "BranchProfile", new {branchPaymentMethodId = inMethod.branchPaymentMethodId })" class="btn mb-2 btn-danger ml-3 mr-3">
+                                    <i class="fa fa-trash"></i>
+                                    @inMethod.paymentMethod.paymentMethodName
+                                </a>
+                            }
+
+                        }
+                    </div>
+                </div>
+
+
+
 
                 <hr class="my-4">
                 <h2 class="mb-2 page-title">@SharedLocalizer.GetLocalizedHtmlString("BranchCards")</h2>
